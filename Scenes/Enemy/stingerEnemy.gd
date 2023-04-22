@@ -85,13 +85,16 @@ func shake_smooth(delta, range):
 		$ShakeFreq.start()
 	accelerate_in_dir(shakeDir, delta)
 
+func shake_violent(max_offset):
+	$Icon.position = Vector2(rng.randi_range(-max_offset, max_offset), rng.randi_range(-max_offset, max_offset))
+
 func charge_sting(delta):
-#	shake(delta, 100)
+	shake_violent(($StingCharge.wait_time - $StingCharge.time_left) * 8 / $StingCharge.wait_time)
 	if ($StingCharge.is_stopped()):
 		$StingCharge.start()
 	slow_down(charging_friction, delta)
 	
-	rotate_toward(delta, rotation_speed * pow($StingCharge.time_left / $StingCharge.wait_time, 0.5), get_predicted_player_location($StingCharge.time_left))
+	rotate_toward(delta, rotation_speed * max($StingCharge.time_left / $StingCharge.wait_time - 0.25, 0), get_predicted_player_location($StingCharge.time_left))
 
 func attack(delta):
 	if $StingDuration.is_stopped() :
@@ -156,6 +159,7 @@ func _on_sting_cooldown_timeout():
 
 func _on_sting_charge_timeout():
 	if curr_state == StingerEnemyStates.CHARGE_STING :
+		$Icon.position = Vector2.ZERO
 		curr_state = StingerEnemyStates.ATTACK
 		unscaledVelocity = -Vector2.from_angle($Icon.rotation) * attack_move_speed
 	$StingCharge.stop()
