@@ -61,3 +61,8 @@ texture = ExtResource("2_clwl7")
 lifetime = 4.0
 local_coords = true
 draw_order = 2
+
+[node name="ContactDamageTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="ContactDamageTimer" to="." method="_on_contact_damage_timer_timeout"]

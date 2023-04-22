@@ -21,3 +21,9 @@ func _physics_process(delta):
 		position += velocity * delta
 	
 	
+
+
+func _on_contact_damage_timer_timeout():
+	for body in get_overlapping_bodies():
+		if body.has_method("hurt"):
+			body.hurt(1)
