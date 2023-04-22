@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var projectile: PackedScene
-@export var cooldown = 0.1
+@export var cooldown = 0.15
 @onready var cooldown_timer = $Cooldown
 var bullet = load("res://Scenes/Objects/bullet.tscn")
 
@@ -19,6 +19,7 @@ func fire():
 		var direction = Vector2(get_parent().direction, 0)
 		var b = bullet.instantiate()
 		b.direction = direction
+		b.position = get_parent().position
 		var b2 = Area2D.new()
-		add_child(b)
+		get_parent().get_parent().add_child(b)
 		cooldown_timer.start()

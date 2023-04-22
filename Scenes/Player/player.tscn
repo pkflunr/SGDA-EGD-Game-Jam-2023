@@ -63,6 +63,7 @@ autostart = true
 
 [node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
 position = Vector2(44, 16)
+scale = Vector2(1, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 rotation_smoothing_enabled = true
