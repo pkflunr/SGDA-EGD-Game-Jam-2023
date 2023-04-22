@@ -24,3 +24,4 @@ func _on_area_entered(area):
 	if area.is_in_group("enemy"):
 		if area.get("health"):
 			area.health -= damage
+		self.queue_free()
