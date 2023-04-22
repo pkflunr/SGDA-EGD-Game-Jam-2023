@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var health = 100
-@export var orbit_distance = 100
+@export var orbit_distance = 150
 @export var player : Node2D
 @export var speed_limit : int = 25
 @export var speed_multiplier : float = 0.5
@@ -28,6 +28,8 @@ var orbit_dir_clockwise : bool
 var velocity : Vector2
 var rng = RandomNumberGenerator.new()
 
+var shakeDir : Vector2
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity = Vector2.ZERO
@@ -36,16 +38,14 @@ func _ready():
 		player = self
 	curr_state = StingerEnemyStates.ORBIT
 	generate_orbit_direction()
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
-#	if (cos(rotation) < 0) :
-#		$Icon.set_flip_h(true)
-#	else:
-#		$Icon.set_flip_h(false)
-# idk why but this isn't working rn, isn't flipping the image
+	if (cos(rotation) < 0) :
+		$Icon.scale.y = -1
+	else:
+		$Icon.scale.y = 1
 
 	match curr_state:
 		StingerEnemyStates.ORBIT:
@@ -67,18 +67,27 @@ func _process(delta):
 
 # the orbitting is kinda fricked but I'm not going to bother rn
 func orbit_player(delta):
+	shake(delta, 100)
 	var target_pos
 	if (orbit_dir_clockwise):
-		target_pos = player.position + Vector2.from_angle((position - player.position).angle() + PI / 3) * orbit_distance
+		target_pos = player.position + Vector2.from_angle((position - player.position).angle() + PI / 6) * orbit_distance
 	else:
-		target_pos = player.position + Vector2.from_angle((position - player.position).angle() - PI / 3) * orbit_distance
-	accelerate_in_dir(target_pos - position, delta)
+		target_pos = player.position + Vector2.from_angle((position - player.position).angle() - PI / 6) * orbit_distance
+	accelerate_in_dir(target_pos - position, delta / orbit_distance * 100)
 	move(delta)
 	if ($StingTargettedWait.is_stopped() and can_sting()):
 		$StingTargettedWait.start()
 	rotate_toward(delta, rotation_speed)
 
+func shake(delta, range):
+	if(!$ShakeFreq.time_left):
+		print("hi")
+		shakeDir = Vector2( rng.randi_range(-range, range), rng.randi_range(-range, range) )
+		$ShakeFreq.start()
+	accelerate_in_dir(shakeDir, delta)
+
 func charge_sting(delta):
+	shake(delta, 100)
 	if ($StingCharge.is_stopped()):
 		$StingCharge.start()
 	slow_down(charging_friction, delta)
@@ -122,7 +131,7 @@ func generate_orbit_direction() -> void:
 	orbit_dir_clockwise = rng.randi_range(0, 1) == 1
 
 func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
-	velocity += (dir * delta / orbit_distance * 100)
+	velocity += dir * delta
 	velocity = velocity.limit_length(limit)
 
 func move(delta):

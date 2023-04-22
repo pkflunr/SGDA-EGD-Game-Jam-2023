@@ -21,7 +21,8 @@ var rng = RandomNumberGenerator.new()
 
 var hover_y_band_tolerance = 400 
 var picked_point : Vector2
-var point_range = 50
+var x_point_range = 30
+var y_point_range = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,11 +38,10 @@ func _ready():
 func _process(delta):
 	move(delta)
 	
-#	if (cos(rotation) < 0) :
-#		$Icon.set_flip_h(true)
-#	else:
-#		$Icon.set_flip_h(false)
-# idk why but this isn't working rn, isn't flipping the image
+	if (cos(rotation) < 0) :
+		$Icon.scale.x = -1
+	else:
+		$Icon.scale.y = 1
 
 	match curr_state:
 		ShooterEnemyStates.HOVER:
@@ -58,14 +58,14 @@ func _process(delta):
 func hover(delta):
 	accelerate_in_dir((picked_point - position) * 2, delta, 25)
 	slow_down(0.2, delta)
+	velocity.x *= pow(0.5, delta)
 
 func generate_hover_point():
 	
-	var topLim = -point_range if position.y > player.position.y - hover_y_band_tolerance else 0
-	var botLim = point_range if position.y < player.position.y + hover_y_band_tolerance else 0
+	var topLim = -y_point_range if position.y > player.position.y - hover_y_band_tolerance else 0
+	var botLim = y_point_range if position.y < player.position.y + hover_y_band_tolerance else 0
 	var offset = rng.randi_range(topLim, botLim)
-	
-	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-point_range, point_range), position.y + offset)
+	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-x_point_range, x_point_range), position.y + offset)
 
 func attack(delta):
 	pass

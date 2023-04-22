@@ -6,17 +6,23 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
 
-[node name="shooterEnemyArea" type="Area2D"]
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 0
+
+[node name="shooterEnemyArea" type="Area2D" parent="."]
 script = ExtResource("1_qqx58")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shooterEnemyArea"]
+shape = SubResource("CircleShape2D_woftc")
+
+[node name="Icon" type="Sprite2D" parent="shooterEnemyArea"]
+texture = ExtResource("2_dv2yt")
+
+[node name="PickPoint" type="Timer" parent="shooterEnemyArea"]
+wait_time = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_woftc")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("2_dv2yt")
-
-[node name="PickPoint" type="Timer" parent="."]
-wait_time = 0.2
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="PickPoint" to="." method="_on_pick_point_timeout"]
+[connection signal="body_entered" from="shooterEnemyArea" to="shooterEnemyArea" method="_on_body_entered"]
+[connection signal="timeout" from="shooterEnemyArea/PickPoint" to="shooterEnemyArea" method="_on_pick_point_timeout"]
