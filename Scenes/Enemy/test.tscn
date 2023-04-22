@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu1st14vv6k8a"]
+[gd_scene load_steps=3 format=3 uid="uid://dm0gjn3718r3s"]
 
-[ext_resource type="PackedScene" uid="uid://dnlqoorvr3xhb" path="res://Scenes/Enemy/temp_player_reeeeeeeeeeeeeee.tscn" id="1_eqn8t"]
-[ext_resource type="PackedScene" uid="uid://fppdpdadvw0c" path="res://Scenes/Enemy/stingerEnemy.tscn" id="2_1wwby"]
+[ext_resource type="PackedScene" uid="uid://drwrsfhld2kn0" path="res://Scenes/Enemy/temp_player_reeeeeeeeeeeeeee.tscn" id="1_eqn8t"]
+[ext_resource type="PackedScene" uid="uid://dm2s3jwpydmmw" path="res://Scenes/Enemy/stingerEnemy.tscn" id="2_1wwby"]
 
 [node name="test" type="Node2D"]
 
