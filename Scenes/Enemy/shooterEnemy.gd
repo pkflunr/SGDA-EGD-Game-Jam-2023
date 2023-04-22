@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var health = 100
-@export var hover_distance = 300
+@export var hover_distance = 600
 @export var player : Node2D
 @export var speed_limit : int = 50
 @export var speed_multiplier : float = 0.5
@@ -19,10 +19,9 @@ var velocity : Vector2
 var curr_state : ShooterEnemyStates
 var rng = RandomNumberGenerator.new()
 
-var hover_band_tolerance = 50
-var hover_y_band_tolerance = 2
+var hover_y_band_tolerance = 400 
 var picked_point : Vector2
-var point_range = 25
+var point_range = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +30,8 @@ func _ready():
 		print("bruh the shooter enemy doesn't have a player skull emoji")
 		player = self
 	curr_state = ShooterEnemyStates.HOVER
+	$PickPoint.start()
+	generate_hover_point()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -54,20 +55,17 @@ func _process(delta):
 		ShooterEnemyStates.DEATH:
 			self.queue_free()
 
-# does not work rn for some reason
 func hover(delta):
-	if abs(position.x - player.position.x - hover_distance) < hover_band_tolerance || abs(position.x - player.position.x + hover_distance) < hover_band_tolerance :
-		if ($PickPoint.is_stopped()) :
-			$PickPoint.start()
-			var topLim = -point_range if position.y > player.position.y - hover_y_band_tolerance else 0
-			var botLim = point_range if position.y < player.position.y + hover_y_band_tolerance else 0
-			picked_point = Vector2(position.x + rng.randi_range(-point_range, point_range), position.y + rng.randi_range(topLim, botLim))
-		accelerate_in_dir(position - picked_point, delta)
-	elif (position.x > player.position.x and position.x < player.position.x + hover_distance) or position.x < player.position.x - hover_distance:
-		accelerate_in_dir(Vector2.RIGHT * 75, delta)
-	else:
-		accelerate_in_dir(Vector2.LEFT * 75, delta)
-	slow_down(0.05, delta)
+	accelerate_in_dir((picked_point - position) * 2, delta, 25)
+	slow_down(0.2, delta)
+
+func generate_hover_point():
+	
+	var topLim = -point_range if position.y > player.position.y - hover_y_band_tolerance else 0
+	var botLim = point_range if position.y < player.position.y + hover_y_band_tolerance else 0
+	var offset = rng.randi_range(topLim, botLim)
+	
+	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-point_range, point_range), position.y + offset)
 
 func attack(delta):
 	pass
@@ -102,3 +100,7 @@ func _on_body_entered(body):
 		# TODO Damage the player but less
 		# TODO detect getting damaged by player
 		pass
+
+func _on_pick_point_timeout():
+	generate_hover_point()
+	$PickPoint.start()
