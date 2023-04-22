@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cymylfhdyoiuh"]
+[gd_scene load_steps=4 format=3 uid="uid://ckhe1wuau18xg"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="1_qqx58"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_dv2yt"]
@@ -6,23 +6,24 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="shooterEnemy" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_qqx58")
 
 [node name="shooterEnemyArea" type="Area2D" parent="."]
-script = ExtResource("1_qqx58")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="shooterEnemyArea"]
 shape = SubResource("CircleShape2D_woftc")
 
-[node name="Icon" type="Sprite2D" parent="shooterEnemyArea"]
-texture = ExtResource("2_dv2yt")
-
-[node name="PickPoint" type="Timer" parent="shooterEnemyArea"]
-wait_time = 0.2
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_woftc")
 
-[connection signal="body_entered" from="shooterEnemyArea" to="shooterEnemyArea" method="_on_body_entered"]
-[connection signal="timeout" from="shooterEnemyArea/PickPoint" to="shooterEnemyArea" method="_on_pick_point_timeout"]
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2_dv2yt")
+
+[node name="PickPoint" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="body_entered" from="shooterEnemyArea" to="." method="_on_shooter_enemy_area_body_entered"]
+[connection signal="timeout" from="PickPoint" to="." method="_on_pick_point_timeout"]
