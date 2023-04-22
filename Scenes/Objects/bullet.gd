@@ -21,7 +21,8 @@ func _on_body_entered(body):
 
 
 func _on_area_entered(area):
-	if area.is_in_group("enemy"):
-		if area.get("health"):
-			area.health -= damage
+	print(area.health)
+	if "health" in area:
+		print("yeah")
+		area.health -= damage
 		self.queue_free()
