@@ -25,8 +25,8 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 radial_accel_min = -40.0
 radial_accel_max = -30.0
-tangential_accel_min = 30.0
-tangential_accel_max = 30.0
+tangential_accel_min = -30.0
+tangential_accel_max = -30.0
 scale_min = 2.0
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_blk13")
@@ -38,7 +38,16 @@ script = ExtResource("1_vbm42")
 shape = SubResource("CircleShape2D_oynoq")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-amount = 24
+amount = 18
+process_material = SubResource("ParticleProcessMaterial_3v4sh")
+texture = ExtResource("2_clwl7")
+lifetime = 4.0
+local_coords = true
+draw_order = 2
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+scale = Vector2(-1, 1)
+amount = 18
 process_material = SubResource("ParticleProcessMaterial_3v4sh")
 texture = ExtResource("2_clwl7")
 lifetime = 4.0
