@@ -5,6 +5,7 @@ enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export_flags("TOP","BOTTOM","LEFT","RIGHT") var active_walls = 0
 
+@export var marked = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -28,3 +29,8 @@ func _process(delta):
 		$Right.visible = true
 	else:
 		$Right.visible = false
+	if marked:
+		$Marker.visible = true
+	else:
+		$Marker.visible = false
+

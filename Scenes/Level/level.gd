@@ -3,7 +3,7 @@ extends Node2D
 enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export var room_grid_dimensions:Vector2i
-@export var room_size = 1792 # assumes rooms are square
+@export var room_size = 1756 # assumes rooms are square
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -65,8 +65,10 @@ func generate_level():
 	print(str(placed_walls.size()))
 	
 	
-	# initial node is 0,0
-	var initial_node = Vector2i(0,0)
+	# initial node is one of the four corners; 
+	var possible_initial_nodes = [Vector2i(0,0),Vector2i(0,room_grid_dimensions.y - 1),Vector2i(room_grid_dimensions.x - 1,0),Vector2i(room_grid_dimensions.x - 1,room_grid_dimensions.y - 1)]
+	possible_initial_nodes.shuffle()
+	var initial_node = possible_initial_nodes.pop_back()
 	var visited = []
 	visited.append(initial_node)
 	
@@ -77,6 +79,7 @@ func generate_level():
 			wall_list.append(wall)
 	print(str(wall_list))
 	# grab a random wall
+	var last_visited_pos = initial_node
 	while not wall_list.is_empty():
 		var random_wall = wall_list[randi() % wall_list.size()]
 		print("selected random wall " + str(random_wall))
@@ -97,8 +100,14 @@ func generate_level():
 			for wall in placed_walls:
 				if wall.has(neighbor):
 					wall_list.append(wall)
+			# experimental
+			# remember last visited room
+			last_visited_pos = neighbor
 		wall_list.erase(random_wall)
-	
+		
+	placed_room_array[initial_node.x][initial_node.y].marked = true
+	$Player.position = placed_room_array[initial_node.x][initial_node.y].global_position + Vector2(room_size/2,room_size/2)
+	placed_room_array[last_visited_pos.x][last_visited_pos.y].marked = true
 	print(str(placed_walls))
 	print(str(placed_walls.size()))
 	

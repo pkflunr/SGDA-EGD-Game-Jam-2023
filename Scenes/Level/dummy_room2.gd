@@ -5,6 +5,7 @@ enum {TOP,BOTTOM,LEFT,RIGHT}
 @onready var tile_map = $TileMap
 
 @export_flags("TOP","BOTTOM","LEFT","RIGHT") var active_walls = 0
+@export var marked = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

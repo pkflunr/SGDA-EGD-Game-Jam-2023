@@ -18,6 +18,7 @@ sources/1 = SubResource("TileSetAtlasSource_by66u")
 
 [node name="dummy_room2" type="Node2D"]
 script = ExtResource("1_hhpg5")
+marked = null
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ovdxx")
