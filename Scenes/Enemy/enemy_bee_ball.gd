@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var aggro_target:Node2D
-@export var acceleration = 650 # in pixels/sec/sec
+@export var acceleration = 640 # in pixels/sec/sec
 @export var terminal_velocity = 400
 
 var velocity:Vector2 = Vector2.ZERO
