@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://y8qtdlafb0m1"]
+
+[ext_resource type="Texture2D" uid="uid://bps2ck8fmtunb" path="res://Sprites/temp_bee_ball.svg" id="1_estdg"]
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy_bee_ball.gd" id="1_vbm42"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oynoq"]
+radius = 64.0
+
+[sub_resource type="Gradient" id="Gradient_jts4u"]
+offsets = PackedFloat32Array(0, 0.918519, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_blk13"]
+gradient = SubResource("Gradient_jts4u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3v4sh"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 36.0
+initial_velocity_max = 36.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -40.0
+radial_accel_max = -30.0
+tangential_accel_min = 30.0
+tangential_accel_max = 30.0
+color_ramp = SubResource("GradientTexture1D_blk13")
+
+[node name="BeeBall" type="Area2D"]
+script = ExtResource("1_vbm42")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oynoq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 36
+process_material = SubResource("ParticleProcessMaterial_3v4sh")
+texture = ExtResource("1_estdg")
+lifetime = 4.0
+local_coords = true
