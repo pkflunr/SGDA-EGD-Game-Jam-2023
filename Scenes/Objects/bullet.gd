@@ -21,7 +21,6 @@ func _on_body_entered(body):
 
 
 func _on_area_entered(area):
-	print(area.health)
 	if "health" in area:
 		print("yeah")
 		area.health -= damage

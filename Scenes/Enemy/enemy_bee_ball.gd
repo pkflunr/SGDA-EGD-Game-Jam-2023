@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 @export var aggro_target:Node2D
 @export var acceleration = 640 # in pixels/sec/sec
@@ -7,8 +7,8 @@ extends Area2D
 
 @onready var gpu_particles_2d = $GPUParticles2D
 @onready var gpu_particles_2d2 = $GPUParticles2D2
+@onready var contact_damage_area = $ContactDamageArea
 
-var velocity:Vector2 = Vector2.ZERO
 
 func _ready():
 	pass # Replace with function body.
@@ -19,7 +19,7 @@ func _physics_process(delta):
 	if aggro_target != null:
 		velocity += position.direction_to(aggro_target.position) * acceleration * delta
 		velocity = velocity.limit_length(terminal_velocity)
-		position += velocity * delta
+		move_and_slide()
 
 func _process(delta):
 	if(health <= 0):
@@ -34,8 +34,8 @@ func _process(delta):
 
 
 func _on_contact_damage_timer_timeout():
-	for body in get_overlapping_bodies():
-		if body.has_method("hurt"):
+	for body in contact_damage_area.get_overlapping_bodies():
+		if body.has_method("hurt") and not body.is_in_group("enemy"):
 			body.hurt(1)
 
 

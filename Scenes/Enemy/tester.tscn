@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_r350b"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_7akml"]
+[ext_resource type="PackedScene" uid="uid://cymylfhdyoiuh" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_7akml"]
 
 [node name="tester" type="Node2D"]
 
