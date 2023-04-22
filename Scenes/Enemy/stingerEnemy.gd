@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
 @export var health = 100
-@export var orbit_distance = 150
+@export var orbit_distance = 200
 @export var player : CharacterBody2D
 @export var speed_limit : int = 25
 @export var speed_multiplier : float = 30
 @export var charging_friction : float = 0.003
-@export var attack_move_speed : int = 70
+@export var attack_move_speed : int = 80
 @export var attack_power : int = 10 # the amount of damage that this enemy does
 
 enum StingerEnemyStates {
@@ -94,7 +94,7 @@ func charge_sting(delta):
 		$StingCharge.start()
 	slow_down(charging_friction, delta)
 	
-	rotate_toward(delta, rotation_speed * max($StingCharge.time_left / $StingCharge.wait_time - 0.25, 0), get_predicted_player_location($StingCharge.time_left))
+	rotate_toward(delta, rotation_speed * max(3 * pow($StingCharge.time_left / $StingCharge.wait_time, 0.5) / 2 - 0.5, 0), get_predicted_player_location($StingCharge.time_left))
 
 func attack(delta):
 	if $StingDuration.is_stopped() :

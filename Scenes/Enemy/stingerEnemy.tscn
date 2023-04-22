@@ -28,7 +28,7 @@ wait_time = 3.0
 [node name="StingCharge" type="Timer" parent="."]
 
 [node name="StingDuration" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.2
 
 [node name="StingCooldown" type="Timer" parent="."]
 wait_time = 2.0
