@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bgya75270swv3" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_r350b"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
 [ext_resource type="PackedScene" uid="uid://cymylfhdyoiuh" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_fwcdn"]
-[ext_resource type="PackedScene" uid="uid://dm2s3jwpydmmw" path="res://Scenes/Enemy/stingerEnemy.tscn" id="4_43bmg"]
+[ext_resource type="PackedScene" uid="uid://ckv5vvgfdktp3" path="res://Scenes/Enemy/stingerEnemy.tscn" id="4_43bmg"]
 
 [node name="tester" type="Node2D"]
 
@@ -18,4 +18,5 @@ position = Vector2(632, 477)
 [node name="PickPoint" type="Timer" parent="shooterEnemyArea"]
 wait_time = 0.2
 
-[node name="stingerEnemy" parent="." instance=ExtResource("4_43bmg")]
+[node name="stingerEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_43bmg")]
+player = NodePath("../Player")

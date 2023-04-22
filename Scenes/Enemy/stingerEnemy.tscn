@@ -1,44 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm2s3jwpydmmw"]
+[gd_scene load_steps=4 format=3 uid="uid://ckv5vvgfdktp3"]
 
+[ext_resource type="Script" path="res://Scenes/Enemy/stingerEnemy.gd" id="1_0q7ta"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_cs701"]
-[ext_resource type="Script" path="res://Scenes/Enemy/stingerEnemy.gd" id="1_y4qay"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
 
 [node name="stingerEnemy" type="CharacterBody2D"]
+script = ExtResource("1_0q7ta")
 
 [node name="stingerEnemyArea" type="Area2D" parent="."]
-script = ExtResource("1_y4qay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="stingerEnemyArea"]
 shape = SubResource("CircleShape2D_woftc")
 
-[node name="Icon" type="Sprite2D" parent="stingerEnemyArea"]
-texture = ExtResource("1_cs701")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="stingerEnemyArea"]
-
-[node name="StingTargettedWait" type="Timer" parent="stingerEnemyArea"]
-wait_time = 3.0
-
-[node name="StingCharge" type="Timer" parent="stingerEnemyArea"]
-
-[node name="StingDuration" type="Timer" parent="stingerEnemyArea"]
-wait_time = 0.25
-
-[node name="StingCooldown" type="Timer" parent="stingerEnemyArea"]
-wait_time = 2.0
-
-[node name="ShakeFreq" type="Timer" parent="stingerEnemyArea"]
-wait_time = 0.2
-one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_woftc")
 
-[connection signal="body_entered" from="stingerEnemyArea" to="stingerEnemyArea" method="_on_body_entered"]
-[connection signal="timeout" from="stingerEnemyArea/StingTargettedWait" to="stingerEnemyArea" method="_on_sting_targetted_wait_timeout"]
-[connection signal="timeout" from="stingerEnemyArea/StingCharge" to="stingerEnemyArea" method="_on_sting_charge_timeout"]
-[connection signal="timeout" from="stingerEnemyArea/StingDuration" to="stingerEnemyArea" method="_on_sting_duration_timeout"]
-[connection signal="timeout" from="stingerEnemyArea/StingCooldown" to="stingerEnemyArea" method="_on_sting_cooldown_timeout"]
+[node name="StingTargettedWait" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="StingCharge" type="Timer" parent="."]
+
+[node name="StingDuration" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="StingCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="ShakeFreq" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("1_cs701")
+
+[connection signal="body_entered" from="stingerEnemyArea" to="." method="_on_stinger_enemy_area_body_entered"]
+[connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]
+[connection signal="timeout" from="StingCharge" to="." method="_on_sting_charge_timeout"]
+[connection signal="timeout" from="StingDuration" to="." method="_on_sting_duration_timeout"]
+[connection signal="timeout" from="StingCooldown" to="." method="_on_sting_cooldown_timeout"]

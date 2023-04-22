@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 @export var health = 100
 @export var orbit_distance = 150
@@ -20,19 +20,18 @@ enum StingerEnemyStates {
 	DEATH
 }
 
+var unscaledVelocity : Vector2
 var curr_state : StingerEnemyStates
 
 var attack_speed_decay = 0.3
 var rotation_speed = 7
 var orbit_dir_clockwise : bool
-var velocity : Vector2
 var rng = RandomNumberGenerator.new()
 
 var shakeDir : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	velocity = Vector2.ZERO
 	if player == null:
 		print("bruh the stinger enemy doesn't have a player skull emoji")
 		player = self
@@ -41,6 +40,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	velocity = unscaledVelocity * 30
+	move_and_slide()
 	
 	if (cos(rotation) < 0) :
 		$Icon.scale.y = -1
@@ -74,7 +75,7 @@ func orbit_player(delta):
 	else:
 		target_pos = player.position + Vector2.from_angle((position - player.position).angle() - PI / 6) * orbit_distance
 	accelerate_in_dir(target_pos - position, delta / orbit_distance * 100)
-	move(delta)
+#	move(delta)
 	if ($StingTargettedWait.is_stopped() and can_sting()):
 		$StingTargettedWait.start()
 	rotate_toward(delta, rotation_speed)
@@ -93,13 +94,13 @@ func charge_sting(delta):
 	slow_down(charging_friction, delta)
 	
 	rotate_toward(delta, rotation_speed * pow($StingCharge.time_left / $StingCharge.wait_time, 3) )
-	move(delta)
+#	move(delta)
 
 func attack(delta):
 	if $StingDuration.is_stopped() :
 		$StingDuration.start()
 	slow_down(attack_speed_decay, delta)
-	move(delta)
+#	move(delta)
 
 func cooldown(delta):
 	if $StingCooldown.is_stopped() :
@@ -107,7 +108,7 @@ func cooldown(delta):
 	
 	slow_down(0.1, delta)
 	accelerate_in_dir(Vector2.UP * (sin($StingCooldown.time_left * PI)) * 20, delta)
-	move(delta)
+#	move(delta)
 	
 	if abs(Vector2.LEFT.angle_to(Vector2.from_angle(rotation))) < abs(Vector2.RIGHT.angle_to(Vector2.from_angle(rotation))) :
 		rotate_toward(delta, 1, Vector2.LEFT, true)
@@ -131,16 +132,16 @@ func generate_orbit_direction() -> void:
 	orbit_dir_clockwise = rng.randi_range(0, 1) == 1
 
 func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
-	velocity += dir * delta
-	velocity = velocity.limit_length(limit)
+	unscaledVelocity += dir * delta
+	unscaledVelocity = unscaledVelocity.limit_length(limit)
 
-func move(delta):
-	position += velocity * speed_multiplier
+#func move(delta):
+#	position += unscaledVelocity * speed_multiplier
 
 func slow_down(friction : float, delta : float) -> void:
-	velocity *= pow(friction, delta)
+	unscaledVelocity *= pow(friction, delta)
 
-func _on_body_entered(body):
+func _on_stinger_enemy_area_body_entered(body):
 	if body == player :
 		match curr_state:
 			StingerEnemyStates.ATTACK:
@@ -161,7 +162,7 @@ func _on_sting_cooldown_timeout():
 func _on_sting_charge_timeout():
 	if curr_state == StingerEnemyStates.CHARGE_STING :
 		curr_state = StingerEnemyStates.ATTACK
-		velocity = -Vector2.from_angle(rotation) * attack_move_speed
+		unscaledVelocity = -Vector2.from_angle(rotation) * attack_move_speed
 	$StingCharge.stop()
 
 func _on_sting_duration_timeout():
