@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var health = 100
-@export var orbit_distance = 100
+@export var orbit_distance = 300
 @export var player : Node2D
 @export var speed_limit : int = 20
 @export var speed_multiplier : float = 0.5
@@ -20,9 +20,9 @@ enum StingerEnemyStates {
 	DEATH
 }
 
-var currState : StingerEnemyStates
+var curr_state : StingerEnemyStates
 
-var orbitDirClockwise : bool
+var orbit_dir_clockwise : bool
 var velocity : Vector2
 var rng = RandomNumberGenerator.new()
 
@@ -30,8 +30,9 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	velocity = Vector2.ZERO
 	if player == null:
+		print("bruh the stinger enemy doesn't have a player skull emoji")
 		player = self
-	currState = StingerEnemyStates.ORBIT
+	curr_state = StingerEnemyStates.ORBIT
 	generate_orbit_direction()
 	
 
@@ -43,7 +44,7 @@ func _process(delta):
 #		$Icon.set_flip_h(false)
 # idk why but this isn't working rn, isn't flipping the image
 
-	match currState:
+	match curr_state:
 		StingerEnemyStates.ORBIT:
 			orbit_player(delta)
 		StingerEnemyStates.CHARGE_STING:
@@ -64,7 +65,7 @@ func _process(delta):
 # the orbitting is kinda fricked but I'm not going to bother rn
 func orbit_player(delta):
 	var target_pos
-	if (orbitDirClockwise):
+	if (orbit_dir_clockwise):
 		target_pos = player.position + Vector2.from_angle((position - player.position).angle() + PI / 3) * orbit_distance
 	else:
 		target_pos = player.position + Vector2.from_angle((position - player.position).angle() - PI / 3) * orbit_distance
@@ -98,25 +99,25 @@ func cooldown(delta):
 	move(delta)
 	
 	if abs(Vector2.LEFT.angle_to(Vector2.from_angle(rotation))) < abs(Vector2.RIGHT.angle_to(Vector2.from_angle(rotation))) :
-		rotate_toward(delta, 1, Vector2.LEFT)
+		rotate_toward(delta, 1, Vector2.LEFT, true)
 	else:
-		rotate_toward(delta, 1, Vector2.RIGHT)
+		rotate_toward(delta, 1, Vector2.RIGHT, true)
 
-func rotate_toward(delta, speed = 1, pos : Vector2 = player.position) :
-	var angle = -(position - pos).angle_to( Vector2.from_angle(rotation) )
+func rotate_toward(delta, speed = 1, pos : Vector2 = player.position, isDir : bool = false) :
+	# wow I hate how I wrote this, if isDir is true, then pos is taken as a direction vector instead of a position to turn toward
+	var angle
+	if isDir :
+		angle = -pos.angle_to( Vector2.from_angle(rotation) )
+	else :
+		angle = -(position - pos).angle_to( Vector2.from_angle(rotation) ) 
 	
 	rotate((angle if abs(angle) < PI else angle + (2 * PI * -sign(angle))) * delta * speed)
 
 func can_sting() -> bool:
 	return position.distance_squared_to(player.position) < pow(orbit_distance + 50, 2)
 
-func _on_sting_cooldown_timeout():
-	if currState == StingerEnemyStates.COOLDOWN:
-		currState = StingerEnemyStates.ORBIT
-		generate_orbit_direction()
-
 func generate_orbit_direction() -> void:
-	orbitDirClockwise = rng.randi_range(0, 1) == 1
+	orbit_dir_clockwise = rng.randi_range(0, 1) == 1
 
 func accelerate_in_dir(dir : Vector2, delta, limited : bool = true):
 	velocity += (dir * delta / orbit_distance * 100)
@@ -129,30 +130,36 @@ func move(delta):
 func slow_down(friction : float, delta : float) -> void:
 	velocity *= pow(friction, delta)
 
-func _on_sting_charge_timeout():
-	currState = StingerEnemyStates.ATTACK
-	$StingCharge.stop()
-	velocity = Vector2.ZERO
-
-func _on_sting_duration_timeout():
-	if currState == StingerEnemyStates.ATTACK :
-		currState = StingerEnemyStates.COOLDOWN
-	$StingDuration.stop()
-
 func _on_body_entered(body):
 	if body == player :
-		match currState:
+		match curr_state:
 			StingerEnemyStates.ATTACK:
 				# TODO Damage the player
-				currState = StingerEnemyStates.COOLDOWN
-				pass
+				curr_state = StingerEnemyStates.COOLDOWN
 #			_:
 #				# TODO Damage the player but less
-#				currState = StingerEnemyStates.HIT
+#				curr_state = StingerEnemyStates.HIT
 #				pass
 # TODO detect getting damaged by player
 
+func _on_sting_cooldown_timeout():
+	if curr_state == StingerEnemyStates.COOLDOWN:
+		curr_state = StingerEnemyStates.ORBIT
+		generate_orbit_direction()
+	$StingCooldown.stop()
+
+func _on_sting_charge_timeout():
+	if curr_state == StingerEnemyStates.CHARGE_STING :
+		curr_state = StingerEnemyStates.ATTACK
+		velocity = Vector2.ZERO
+	$StingCharge.stop()
+
+func _on_sting_duration_timeout():
+	if curr_state == StingerEnemyStates.ATTACK :
+		curr_state = StingerEnemyStates.COOLDOWN
+	$StingDuration.stop()
+
 func _on_sting_targetted_wait_timeout():
-	if (can_sting()):
-		currState = StingerEnemyStates.CHARGE_STING
+	if (can_sting() and curr_state == StingerEnemyStates.ORBIT):
+		curr_state = StingerEnemyStates.CHARGE_STING
 	$StingTargettedWait.stop()
