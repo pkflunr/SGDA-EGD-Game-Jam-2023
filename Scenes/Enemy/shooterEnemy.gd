@@ -1,10 +1,10 @@
-extends Area2D
+extends CharacterBody2D
 
 @export var health = 100
 @export var hover_distance = 600
 @export var player : Node2D
 @export var speed_limit : int = 50
-@export var speed_multiplier : float = 0.5
+@export var speed_multiplier : float = 30
 @export var attack_power : int = 10
 
 enum ShooterEnemyStates {
@@ -15,17 +15,18 @@ enum ShooterEnemyStates {
 	DEATH
 }
 
-var velocity : Vector2
+var unscaledVelocity : Vector2
 var curr_state : ShooterEnemyStates
 var rng = RandomNumberGenerator.new()
 
 var hover_y_band_tolerance = 400 
 var picked_point : Vector2
-var point_range = 50
+var x_point_range = 30
+var y_point_range = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	velocity = Vector2.ZERO
+	unscaledVelocity = Vector2.ZERO
 	if player == null:
 		print("bruh the shooter enemy doesn't have a player skull emoji")
 		player = self
@@ -35,13 +36,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	move(delta)
+	velocity = speed_multiplier * unscaledVelocity
+	move_and_slide()
 	
 #	if (cos(rotation) < 0) :
-#		$Icon.set_flip_h(true)
+#		$Icon.scale.x = -1
 #	else:
-#		$Icon.set_flip_h(false)
-# idk why but this isn't working rn, isn't flipping the image
+#		$Icon.scale.y = 1
 
 	match curr_state:
 		ShooterEnemyStates.HOVER:
@@ -58,14 +59,14 @@ func _process(delta):
 func hover(delta):
 	accelerate_in_dir((picked_point - position) * 2, delta, 25)
 	slow_down(0.2, delta)
+	unscaledVelocity.x *= pow(0.5, delta)
 
 func generate_hover_point():
 	
-	var topLim = -point_range if position.y > player.position.y - hover_y_band_tolerance else 0
-	var botLim = point_range if position.y < player.position.y + hover_y_band_tolerance else 0
+	var topLim = -y_point_range if position.y > player.position.y - hover_y_band_tolerance else 0
+	var botLim = y_point_range if position.y < player.position.y + hover_y_band_tolerance else 0
 	var offset = rng.randi_range(topLim, botLim)
-	
-	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-point_range, point_range), position.y + offset)
+	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-x_point_range, x_point_range), position.y + offset)
 
 func attack(delta):
 	pass
@@ -84,23 +85,20 @@ func rotate_toward(delta, speed = 1, pos : Vector2 = player.position, isDir : bo
 	rotate((angle if abs(angle) < PI else angle + (2 * PI * -sign(angle))) * delta * speed)
 
 func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
-	velocity += (dir * delta)
-	velocity = velocity.limit_length(limit)
-
-func move(delta):
-	position += velocity * speed_multiplier
+	unscaledVelocity += (dir * delta)
+	unscaledVelocity = unscaledVelocity.limit_length(limit)
 
 func slow_down(friction : float, delta : float) -> void:
-	velocity *= pow(friction, delta)
+	unscaledVelocity *= pow(friction, delta)
 
-func _on_body_entered(body):
+func _on_pick_point_timeout():
+	generate_hover_point()
+	$PickPoint.start()
+
+func _on_shooter_enemy_area_body_entered(body):
 	if body == player :
 		#idk what to do in the situation
 		# TODO Damage the player
 		# TODO Damage the player but less
 		# TODO detect getting damaged by player
 		pass
-
-func _on_pick_point_timeout():
-	generate_hover_point()
-	$PickPoint.start()
