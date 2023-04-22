@@ -60,9 +60,6 @@ func _process(delta):
 			pass
 		StingerEnemyStates.DEATH:
 			set_process(false)
-	
-	if(health <= 0):
-		die()
 
 # the orbitting is kinda fricked but I'm not going to bother rn
 func orbit_player(delta):
@@ -131,9 +128,6 @@ func move(delta):
 
 func slow_down(friction : float, delta : float) -> void:
 	velocity *= pow(friction, delta)
-
-func die():
-	self.queue_free()
 
 func _on_sting_charge_timeout():
 	currState = StingerEnemyStates.ATTACK

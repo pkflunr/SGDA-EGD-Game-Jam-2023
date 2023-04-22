@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfoe2sfxfwkbs"]
+[gd_scene load_steps=4 format=3 uid="uid://dm2s3jwpydmmw"]
 
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_cs701"]
 [ext_resource type="Script" path="res://Scenes/Enemy/stingerEnemy.gd" id="1_y4qay"]
