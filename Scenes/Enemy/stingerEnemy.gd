@@ -75,7 +75,6 @@ func orbit_player(delta):
 	else:
 		target_pos = player.position + Vector2.from_angle((position - player.position).angle() - PI / 6) * orbit_distance
 	accelerate_in_dir(target_pos - position, delta / orbit_distance * 100)
-#	move(delta)
 	if ($StingTargettedWait.is_stopped() and can_sting()):
 		$StingTargettedWait.start()
 	rotate_toward(delta, rotation_speed)
@@ -94,13 +93,11 @@ func charge_sting(delta):
 	slow_down(charging_friction, delta)
 	
 	rotate_toward(delta, rotation_speed * pow($StingCharge.time_left / $StingCharge.wait_time, 3) )
-#	move(delta)
 
 func attack(delta):
 	if $StingDuration.is_stopped() :
 		$StingDuration.start()
 	slow_down(attack_speed_decay, delta)
-#	move(delta)
 
 func cooldown(delta):
 	if $StingCooldown.is_stopped() :
@@ -108,8 +105,7 @@ func cooldown(delta):
 	
 	slow_down(0.1, delta)
 	accelerate_in_dir(Vector2.UP * (sin($StingCooldown.time_left * PI)) * 20, delta)
-#	move(delta)
-	
+
 	if abs(Vector2.LEFT.angle_to(Vector2.from_angle(rotation))) < abs(Vector2.RIGHT.angle_to(Vector2.from_angle(rotation))) :
 		rotate_toward(delta, 1, Vector2.LEFT, true)
 	else:
@@ -134,9 +130,6 @@ func generate_orbit_direction() -> void:
 func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
 	unscaledVelocity += dir * delta
 	unscaledVelocity = unscaledVelocity.limit_length(limit)
-
-#func move(delta):
-#	position += unscaledVelocity * speed_multiplier
 
 func slow_down(friction : float, delta : float) -> void:
 	unscaledVelocity *= pow(friction, delta)
