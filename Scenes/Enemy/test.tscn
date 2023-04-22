@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu1st14vv6k8a"]
+
+[ext_resource type="PackedScene" uid="uid://dnlqoorvr3xhb" path="res://Scenes/Enemy/temp_player_reeeeeeeeeeeeeee.tscn" id="1_eqn8t"]
+[ext_resource type="PackedScene" uid="uid://fppdpdadvw0c" path="res://Scenes/Enemy/stingerEnemy.tscn" id="2_1wwby"]
+
+[node name="test" type="Node2D"]
+
+[node name="temp player reeeeeeeeeeeeeee" parent="." instance=ExtResource("1_eqn8t")]
+position = Vector2(413, 267)
+
+[node name="stingerEnemyArea" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1wwby")]
+position = Vector2(651, 514)
+orbit_distance = 200
+player = NodePath("../temp player reeeeeeeeeeeeeee")
