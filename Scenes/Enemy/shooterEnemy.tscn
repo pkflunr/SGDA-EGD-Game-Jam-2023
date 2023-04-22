@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://cymylfhdyoiuh"]
 
-[ext_resource type="Script" path="res://Scenes/Enemy/stingerEnemy.gd" id="1_mq4go"]
+[ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="1_qqx58"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_dv2yt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
 
-[node name="stingerEnemyArea" type="Area2D"]
-script = ExtResource("1_mq4go")
+[node name="shooterEnemyArea" type="Area2D"]
+script = ExtResource("1_qqx58")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_woftc")
@@ -15,21 +15,4 @@ shape = SubResource("CircleShape2D_woftc")
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("2_dv2yt")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="StingTargettedWait" type="Timer" parent="."]
-wait_time = 3.0
-
-[node name="StingCharge" type="Timer" parent="."]
-
-[node name="StingDuration" type="Timer" parent="."]
-wait_time = 0.5
-
-[node name="StingCooldown" type="Timer" parent="."]
-wait_time = 4.0
-
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]
-[connection signal="timeout" from="StingCharge" to="." method="_on_sting_charge_timeout"]
-[connection signal="timeout" from="StingDuration" to="." method="_on_sting_duration_timeout"]
-[connection signal="timeout" from="StingCooldown" to="." method="_on_sting_cooldown_timeout"]

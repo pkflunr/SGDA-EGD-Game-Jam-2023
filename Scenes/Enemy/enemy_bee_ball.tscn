@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://y8qtdlafb0m1"]
+[gd_scene load_steps=7 format=3 uid="uid://bgya75270swv3"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/enemy_bee_ball.gd" id="1_vbm42"]
-[ext_resource type="Texture2D" uid="uid://c1bvht54eirjc" path="res://Sprites/bee_ball_particle.png" id="2_clwl7"]
+[ext_resource type="Texture2D" path="res://Sprites/bee_ball_particle.png" id="2_clwl7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oynoq"]
 radius = 64.0
