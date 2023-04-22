@@ -23,10 +23,10 @@ wait_time = 3.0
 [node name="StingCharge" type="Timer" parent="."]
 
 [node name="StingDuration" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.25
 
 [node name="StingCooldown" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]
