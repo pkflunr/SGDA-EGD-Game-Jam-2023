@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://coj4n8nbphcla"]
+
+[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_fnaau"]
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
+[ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
+radius = 37.0
+height = 102.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_nx8vt")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(-3.8147e-06, 1.90735e-06)
+scale = Vector2(0.6875, 0.46875)
+texture = ExtResource("1_fnaau")
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+position = Vector2(30.5455, -4.06901e-06)
+scale = Vector2(1.45455, 2.13333)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-64, -21, -95, 0, -64, 23)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nrs8h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 817.0
+offset_top = 10.0
+offset_right = 1128.0
+offset_bottom = 113.0
+horizontal_alignment = 2
+
+[node name="DrainTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
+position = Vector2(44, 16)
+
+[connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]

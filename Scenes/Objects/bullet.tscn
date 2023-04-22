@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm4rf6dfamgsd"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
+[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_u8fjq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
+size = Vector2(32, 32)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_nb6cv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(8.88, 1.18, 0, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_u8fjq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yoe3d")
+
+[node name="Lifetime" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

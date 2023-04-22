@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dri70h5driqod"]
+
+[ext_resource type="Texture2D" uid="uid://d11ak4510okfp" path="res://Sprites/black_square_64x64.png" id="1_5s74q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by66u"]
+texture = ExtResource("1_5s74q")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ovdxx"]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_by66u")
+
+[node name="dummy_room2" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_ovdxx")
+format = 2

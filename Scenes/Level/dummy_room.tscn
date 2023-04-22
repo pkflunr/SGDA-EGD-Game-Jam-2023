@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqul07riicr2c"]
+
+[ext_resource type="Script" path="res://Scenes/Level/dummy_room.gd" id="1_dtdmg"]
+[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_3f8hf"]
+
+[node name="DummyRoom" type="Node2D"]
+script = ExtResource("1_dtdmg")
+
+[node name="Top" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -48)
+scale = Vector2(1, 0.25)
+texture = ExtResource("2_3f8hf")
+
+[node name="Bottom" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 48)
+scale = Vector2(1, 0.25)
+texture = ExtResource("2_3f8hf")
+
+[node name="Left" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-48, 0)
+rotation = 1.5708
+scale = Vector2(1, 0.25)
+texture = ExtResource("2_3f8hf")
+
+[node name="Right" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(48, 0)
+rotation = 1.5708
+scale = Vector2(1, 0.25)
+texture = ExtResource("2_3f8hf")
