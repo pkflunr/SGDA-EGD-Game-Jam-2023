@@ -50,7 +50,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	# Check if health has drained
-	if health <= 0 or Input.is_action_pressed("restart"):
+	if health <= 0 or Input.is_action_just_pressed("restart"):
 		die()
 	
 	debug_label.set_text("Speed: (%f, %f)\nDirection: %d\nHealth: %d\nDrain Rate: %d/sec" % [velocity.x, velocity.y, direction, health, drain_rate])
