@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckhe1wuau18xg"]
+[gd_scene load_steps=5 format=3 uid="uid://ckhe1wuau18xg"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="1_qqx58"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_dv2yt"]
+[ext_resource type="PackedScene" uid="uid://wagdmwf48urb" path="res://Scenes/Enemy/hpBar/enemyHPBar.tscn" id="3_p62b0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
@@ -24,6 +25,9 @@ texture = ExtResource("2_dv2yt")
 
 [node name="PickPoint" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="enemyHPBar" parent="." instance=ExtResource("3_p62b0")]
+position = Vector2(0, 100)
 
 [connection signal="body_entered" from="shooterEnemyArea" to="." method="_on_shooter_enemy_area_body_entered"]
 [connection signal="timeout" from="PickPoint" to="." method="_on_pick_point_timeout"]

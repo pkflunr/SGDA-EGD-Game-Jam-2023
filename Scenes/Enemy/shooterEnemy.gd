@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var health = 100
 @export var hover_distance = 600
-@export var player : Node2D
+@export var player : CharacterBody2D
 @export var speed_limit : int = 50
 @export var speed_multiplier : float = 30
 @export var attack_power : int = 10
