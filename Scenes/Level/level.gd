@@ -3,7 +3,7 @@ extends Node2D
 enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export var room_grid_dimensions:Vector2i
-@export var room_size = 128 # assumes rooms are square
+@export var room_size = 1792 # assumes rooms are square
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,14 +18,14 @@ func generate_level():
 	# temp:
 	# for now we're just making a list of 25 dummy rooms
 	# in the future we should make this a randomized rist of actual rooms
-	var room_scene = preload("res://Scenes/Level/dummy_room.tscn")
+	var room_scene = preload("res://Scenes/Level/dummy_room2.tscn")
 	var room_array = []
 	for x in range(room_grid_dimensions.x * room_grid_dimensions.y):
 		room_array.append(room_scene.instantiate())
 	
 	var placed_room_array:Array[Array] = []
 	# place the rooms as needed
-	var place_position = Vector2(128,128)
+	var place_position = Vector2(0,0)
 	for x in range(room_grid_dimensions.x):
 		placed_room_array.append([])
 		for y in range(room_grid_dimensions.y):

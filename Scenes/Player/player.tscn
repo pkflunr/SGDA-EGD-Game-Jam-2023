@@ -43,4 +43,7 @@ autostart = true
 [node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
 position = Vector2(44, 16)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+rotation_smoothing_enabled = true
+
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]

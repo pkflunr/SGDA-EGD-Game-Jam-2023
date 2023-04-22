@@ -1,18 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dri70h5driqod"]
+[gd_scene load_steps=5 format=3 uid="uid://dri70h5driqod"]
 
 [ext_resource type="Texture2D" uid="uid://d11ak4510okfp" path="res://Sprites/black_square_64x64.png" id="1_5s74q"]
+[ext_resource type="Script" path="res://Scenes/Level/dummy_room2.gd" id="1_hhpg5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_by66u"]
 texture = ExtResource("1_5s74q")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
 [sub_resource type="TileSet" id="TileSet_ovdxx"]
 tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_by66u")
 
 [node name="dummy_room2" type="Node2D"]
+script = ExtResource("1_hhpg5")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ovdxx")
 format = 2
+layer_0/tile_data = PackedInt32Array(65536, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 327680, 1, 0, 393216, 1, 0, 458752, 1, 0, 1048576, 1, 0, 1114112, 1, 0, 1179648, 1, 0, 1245184, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 0, 1, 0, 524288, 1, 0, 589824, 1, 0, 655360, 1, 0, 720896, 1, 0, 1310720, 1, 0, 1376256, 1, 0, 1441792, 1, 0, 1507328, 1, 0, 1572864, 1, 0, 1638400, 1, 0, 1703936, 1, 0, 1769472, 1, 0, 1769473, 1, 0, 1769474, 1, 0, 1769475, 1, 0, 1769476, 1, 0, 1769477, 1, 0, 1769478, 1, 0, 1769479, 1, 0, 1769480, 1, 0, 1769481, 1, 0, 1769482, 1, 0, 1769483, 1, 0, 1769488, 1, 0, 1769489, 1, 0, 1769490, 1, 0, 1769491, 1, 0, 20, 1, 0, 1769492, 1, 0, 21, 1, 0, 1769493, 1, 0, 22, 1, 0, 1769494, 1, 0, 23, 1, 0, 1769495, 1, 0, 24, 1, 0, 1769496, 1, 0, 25, 1, 0, 1769497, 1, 0, 26, 1, 0, 1769498, 1, 0, 27, 1, 0, 65563, 1, 0, 131099, 1, 0, 196635, 1, 0, 262171, 1, 0, 327707, 1, 0, 393243, 1, 0, 458779, 1, 0, 524315, 1, 0, 589851, 1, 0, 655387, 1, 0, 720923, 1, 0, 1048603, 1, 0, 1114139, 1, 0, 1179675, 1, 0, 1245211, 1, 0, 1310747, 1, 0, 1376283, 1, 0, 1441819, 1, 0, 1507355, 1, 0, 1572891, 1, 0, 1638427, 1, 0, 1703963, 1, 0, 1769499, 1, 0)
