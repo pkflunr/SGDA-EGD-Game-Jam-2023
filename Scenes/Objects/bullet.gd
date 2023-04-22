@@ -18,3 +18,9 @@ func _on_lifetime_timeout():
 func _on_body_entered(body):
 	# collision behavior
 	pass # Replace with function body.
+
+
+func _on_area_entered(area):
+	if area.is_in_group("enemy"):
+		if area.get("health"):
+			area.health -= damage

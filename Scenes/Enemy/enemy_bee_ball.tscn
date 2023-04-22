@@ -39,7 +39,7 @@ scale_max = 2.0
 scale_curve = SubResource("CurveTexture_y4esv")
 color_ramp = SubResource("GradientTexture1D_blk13")
 
-[node name="BeeBall" type="Area2D"]
+[node name="BeeBall" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_vbm42")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -65,4 +65,7 @@ draw_order = 2
 [node name="ContactDamageTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="DieTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="ContactDamageTimer" to="." method="_on_contact_damage_timer_timeout"]
+[connection signal="timeout" from="DieTimer" to="." method="_on_die_timer_timeout"]
