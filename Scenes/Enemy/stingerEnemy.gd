@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var orbit_distance = 150
 @export var player : Node2D
 @export var speed_limit : int = 25
-@export var speed_multiplier : float = 0.5
+@export var speed_multiplier : float = 30
 @export var charging_friction : float = 0.003
 @export var attack_move_speed : int = 70
 @export var attack_power : int = 10 # the amount of damage that this enemy does
@@ -40,7 +40,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	velocity = unscaledVelocity * 30
+	velocity = unscaledVelocity * speed_multiplier
 	move_and_slide()
 	
 	if (cos(rotation) < 0) :
