@@ -7,8 +7,7 @@
 
 [node name="tester" type="Node2D"]
 
-[node name="BeeBall" parent="." node_paths=PackedStringArray("aggro_target") instance=ExtResource("2_r350b")]
-aggro_target = NodePath("../Player")
+[node name="BeeBall" parent="." instance=ExtResource("2_r350b")]
 
 [node name="Player" parent="." instance=ExtResource("2_y8iuh")]
 position = Vector2(632, 477)
