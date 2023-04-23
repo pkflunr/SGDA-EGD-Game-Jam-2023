@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://djd2qonljjvh7"]
+
+[ext_resource type="PackedScene" uid="uid://c0g5svy8bykgg" path="res://Scenes/Level/Room/room_layout_1.tscn" id="1_8ag07"]
+[ext_resource type="PackedScene" uid="uid://b5w6ptxwh64b7" path="res://Scenes/Enemy/lobberEnemy.tscn" id="2_lby1g"]
+
+[node name="Room" instance=ExtResource("1_8ag07")]
+
+[node name="lobberEnemy" parent="." index="2" instance=ExtResource("2_lby1g")]
+position = Vector2(896, 896)
