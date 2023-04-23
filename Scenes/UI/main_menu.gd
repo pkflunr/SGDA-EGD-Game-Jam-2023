@@ -1,6 +1,7 @@
 extends Control
 
 func _ready():
+	$CenterContainer/VBoxContainer/SpeedrunButton.set_text("Speedrun Timer: On" if Globals.speedrun_timer else "Speedrun Timer: Off")
 	$CenterContainer/VBoxContainer/StartButton.grab_focus()
 
 func _on_start_button_pressed():
@@ -11,4 +12,5 @@ func _on_exit_button_pressed():
 
 
 func _on_speedrun_button_pressed():
-	Globals.speedrun_timer = true
+	Globals.speedrun_timer = not Globals.speedrun_timer
+	$CenterContainer/VBoxContainer/SpeedrunButton.set_text("Speedrun Timer: On" if Globals.speedrun_timer else "Speedrun Timer: Off")

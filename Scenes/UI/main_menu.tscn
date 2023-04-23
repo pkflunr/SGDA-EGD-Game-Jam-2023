@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbwjiaok34nqm"]
 
 [ext_resource type="Script" path="res://Scenes/UI/main_menu.gd" id="1_hgda0"]
-[ext_resource type="Texture2D" uid="uid://cf2v4vujeax63" path="res://Sprites/title.png" id="2_oeslj"]
-[ext_resource type="Theme" path="res://Scenes/UI/ui.tres" id="3_gefso"]
+[ext_resource type="Texture2D" uid="uid://djw8oc3fr00oy" path="res://Sprites/title.png" id="2_oeslj"]
+[ext_resource type="Theme" uid="uid://dgghhrl4uo34l" path="res://Scenes/UI/ui.tres" id="3_gefso"]
 
 [sub_resource type="Animation" id="Animation_b6gwv"]
 resource_name = "title"
@@ -53,12 +53,12 @@ libraries = {
 [node name="CenterContainer" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.236
-anchor_right = 0.177
+anchor_top = 0.237
+anchor_right = 0.179
 anchor_bottom = 0.597
-offset_left = 19.0
-offset_top = -33.92
-offset_right = 185.44
+offset_left = 46.0
+offset_top = -34.64
+offset_right = 211.88
 offset_bottom = 2.16
 grow_horizontal = 2
 grow_vertical = 2
@@ -66,6 +66,7 @@ alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 20
 alignment = 1
 

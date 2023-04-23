@@ -37,6 +37,9 @@ var pause_cooldown = false # so fucking tired of htis shit
 
 @onready var curr_gun = $Shooter
 
+func _ready():
+	Globals.start_game()
+
 func _physics_process(delta):
 	# Movement stuff
 	input_x = Input.get_axis("player_left", "player_right")

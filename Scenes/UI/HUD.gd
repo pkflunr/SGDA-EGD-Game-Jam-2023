@@ -5,6 +5,8 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Globals.speedrun_timer:
+		$SpeedrunTimer.visible = true
 	pass # Replace with function body.
 
 
@@ -12,6 +14,9 @@ func _ready():
 func _process(delta):
 	$TimeNode/TimeContainer/TimeLabelBox/TimerLabel.set_text("%d" % player.health)
 	$lowHPVignette/CanvasLayer/ColorRect.modulate.a = clamp(-(player.health - 25) / 15, 0, 1)
+	if Globals.speedrun_timer:
+		$SpeedrunTimer.set_text("%s" % Globals.convert_time(Globals.global_timer))
+#		print("update global timer to " + Globals.convert_time(Globals.global_timer))
 
 
 func hurt_effect(damage_value : int):
