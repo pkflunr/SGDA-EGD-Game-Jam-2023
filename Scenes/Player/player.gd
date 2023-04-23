@@ -108,6 +108,18 @@ func set_health(health_value:int):
 	health = health_value
 
 func die(): # the bee is dead
+	player_can_input = false
+	velocity = Vector2.ZERO
+	$AfterImageTimer.stop()
+	$DrainTimer.stop()
+	animation_player.play("dash_die")
+	match direction:
+		-1:
+			$DeathParticle2.emitting = true
+		1:
+			$DeathParticle.emitting = true
+
+func exit():
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func switch_gun(gun : PackedScene):

@@ -20,18 +20,10 @@ const UPPER_LEFT_ID = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not Engine.is_editor_hint():
-		for child in get_children():
-			if child.is_in_group("enemy"):
-				print("reparenting")
-				var new_pos = child.global_position
-				remove_child(child)
-				child.position = new_pos
-				get_parent().add_child(child)
-		if room_area != null:
-			for body in room_area.get_overlapping_bodies():
-				if body.is_in_group("enemy"):
-					enemies_in_room.append(body)
+	if room_area != null:
+		for body in room_area.get_overlapping_bodies():
+			if body.is_in_group("enemies"):
+				enemies_in_room.append(body)
 
 func _process(delta):
 	if (active_walls & (1 << TOP)):
@@ -62,11 +54,10 @@ func _process(delta):
 func _on_room_area_body_entered(body):
 	if body.is_in_group("player"):
 		for enemy in enemies_in_room:
-			if enemy != null:
-				if "aggro_target" in enemy:
-					enemy.aggro_target = body
-				if "player" in enemy:
-					enemy.player = body
+			if "aggro_target" in enemy:
+				enemy.aggro_target = body
+			if "player" in enemy:
+				enemy.player = body
 	elif body.is_in_group("enemy"):
 		if not enemies_in_room.has(body):
 			print("room made a friend")

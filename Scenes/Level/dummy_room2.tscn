@@ -1,8 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://uh3kcbdy1ep1"]
 
-[ext_resource type="Script" path="res://Scenes/Level/Room/room.gd" id="1_dwbu8"]
+[ext_resource type="Script" path="res://Scenes/Level/room.gd" id="1_dwbu8"]
 [ext_resource type="TileSet" uid="uid://dcytx0xqhey8d" path="res://Scenes/Level/black_tileset.tres" id="2_h4upu"]
-
 
 [node name="dummy_room2" type="Node2D"]
 script = ExtResource("1_dwbu8")
