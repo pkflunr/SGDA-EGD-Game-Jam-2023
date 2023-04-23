@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bm4rf6dfamgsd"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
-[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_u8fjq"]
+[ext_resource type="Texture2D" uid="uid://b8vulaj0w8qp" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
 size = Vector2(32, 32)
@@ -20,7 +20,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(8.88, 1.18, 0, 1), Color(8.87843, 1.18039, 0, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_twdyv"]
@@ -29,16 +29,21 @@ _data = {
 }
 
 [node name="Bullet" type="Area2D"]
+z_index = -3
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_nb6cv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(8.88, 1.18, 0, 1)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_u8fjq")
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_6oq22")
+hframes = 4
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(3.5, 0.5)
 shape = SubResource("RectangleShape2D_yoe3d")
 
 [node name="Lifetime" type="Timer" parent="."]
