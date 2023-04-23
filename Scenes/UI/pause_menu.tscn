@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1uw60olp67wi"]
+[gd_scene load_steps=3 format=3 uid="uid://c1uw60olp67wi"]
 
 [ext_resource type="Script" path="res://Scenes/UI/pause_menu.gd" id="1_15uap"]
+[ext_resource type="Theme" uid="uid://bfw3jfeywv4ow" path="res://Scenes/UI/ui.tres" id="2_0lwgd"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 process_mode = 2
@@ -46,14 +47,17 @@ horizontal_alignment = 1
 
 [node name="Resume" type="Button" parent="Control/BoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_0lwgd")
 text = "Continue"
 
 [node name="Restart" type="Button" parent="Control/BoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_0lwgd")
 text = "Restart"
 
 [node name="Exit" type="Button" parent="Control/BoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_0lwgd")
 text = "Exit"
 
 [node name="Timer" type="Timer" parent="."]
