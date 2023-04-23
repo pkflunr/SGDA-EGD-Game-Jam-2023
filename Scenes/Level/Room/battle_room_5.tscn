@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://crj2dxsodx751" path="res://Scenes/Level/Room/battle_room_layout.tscn" id="1_dr1x1"]
 [ext_resource type="PackedScene" uid="uid://clj4a2gycqotp" path="res://Scenes/Enemy/stingerEnemy.tscn" id="2_r3ums"]
 [ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="3_5j6h3"]
-[ext_resource type="PackedScene" uid="uid://b8orki06k0nqr" path="res://Scenes/Enemy/shooterBase.tscn" id="4_id85l"]
+[ext_resource type="PackedScene" uid="uid://c4rexe0nh5yys" path="res://Scenes/Enemy/shooterEnemy.tscn" id="4_8kqjl"]
 
 [node name="dummy_room2" instance=ExtResource("1_dr1x1")]
 
@@ -13,5 +13,5 @@ position = Vector2(1152, 896)
 [node name="BeeBall" parent="." index="3" instance=ExtResource("3_5j6h3")]
 position = Vector2(640, 896)
 
-[node name="shooterBase" parent="." index="4" instance=ExtResource("4_id85l")]
-position = Vector2(896, 1120)
+[node name="shooterEnemy" parent="." index="4" instance=ExtResource("4_8kqjl")]
+position = Vector2(896, 1184)
