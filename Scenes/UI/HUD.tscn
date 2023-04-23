@@ -16,6 +16,7 @@ _data = {
 }
 
 [node name="HUD" type="CanvasLayer"]
+layer = 0
 script = ExtResource("1_sr3ep")
 
 [node name="Emitter" type="Node2D" parent="."]

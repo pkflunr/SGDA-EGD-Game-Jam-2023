@@ -31,6 +31,8 @@ var pause_cooldown = false # so fucking tired of htis shit
 @onready var camera_2d = $Marker2D/Camera2D
 @onready var dash_hurtbox = $DashHurtbox
 @onready var dash_hurtbox_shape = $DashHurtbox/CollisionShape2D
+@onready var sprite = $Sprite
+@onready var after_images = load("res://Scenes/Player/after_images.tscn")
 
 func _physics_process(delta):
 	# Movement stuff
@@ -55,12 +57,10 @@ func _physics_process(delta):
 		# this is VERY temporary
 		if Input.is_action_pressed("player_left"):
 			direction = -1
-			$Sprite.scale.x = -0.688
-			$DeathParticle.scale.x = -1
+			sprite.flip_h = true
 		if Input.is_action_pressed("player_right"):
 			direction = 1
-			$Sprite.scale.x = 0.688
-			$DeathParticle.scale.x = 1
+			sprite.flip_h = false
 		
 		if Input.is_action_just_pressed("charge"):
 			initiate_dash()
@@ -76,13 +76,21 @@ func _physics_process(delta):
 func initiate_dash():
 	player_can_input = false
 	velocity = Vector2.ZERO
-	$AnimationPlayer.play("charge")
+	$AnimationPlayer.play("charge_up")
 
 func dash():
 	print("dashing")
 	$DashTimer.start()
 	velocity.x = 2000 * direction
 	dash_hurtbox_shape.disabled = false
+	
+	var aft = after_images.instantiate()
+	aft.position = self.position
+	aft.get_node("Sprite").frame = sprite.frame
+	aft.get_node("Sprite").flip_h = sprite.flip_h
+	get_parent().add_child(aft)
+	$AfterImageTimer.start()
+	
 
 func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
@@ -130,3 +138,13 @@ func _unhandled_input(event):
 
 func _on_pause_cooldown_timeout():
 	pause_cooldown = false
+
+
+func _on_after_image_timer_timeout():
+	var aft = after_images.instantiate()
+	aft.position = self.position
+	aft.get_node("Sprite").frame = sprite.frame
+	aft.get_node("Sprite").flip_h = sprite.flip_h
+	get_parent().add_child(aft)
+	if !player_can_input:
+		$AfterImageTimer.start()
