@@ -4,6 +4,7 @@ enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export var room_grid_dimensions:Vector2i
 @export var room_size = 1792 # assumes rooms are square
+@onready var parallax_background = $ParallaxBackground
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,11 +14,12 @@ func _ready():
 	
 	$Player.camera_2d.limit_right = room_size * room_grid_dimensions.x
 	$Player.camera_2d.limit_bottom = room_size * room_grid_dimensions.y
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	parallax_background.scroll_offset = -$Player.position
+
 
 func generate_level():
 	# temp:
@@ -152,4 +154,3 @@ func generate_level():
 	for x in range(room_grid_dimensions.x):
 		placed_room_array[x][0].active_walls = placed_room_array[x][0].active_walls | (1 << LEFT)
 		placed_room_array[x][room_grid_dimensions.y-1].active_walls = placed_room_array[x][room_grid_dimensions.y-1].active_walls | (1 << RIGHT)
-
