@@ -64,8 +64,8 @@ func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
 func get_predicted_player_location(time : float) -> Vector2:
 	return player.position + player.velocity * time
 
-func idle_float(delta, time : float):
-	accelerate_in_dir(Vector2.UP * (sin(time * PI)) * 20, delta)
+func idle_float(delta, time : float, multiplier : float = 20):
+	accelerate_in_dir(Vector2.UP * (sin(time * PI)) * multiplier, delta)
 
 func aggro():
 	curr_state = normal_state

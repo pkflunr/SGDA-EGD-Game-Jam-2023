@@ -22,8 +22,8 @@ func _on_lifetime_timeout():
 
 func _on_body_entered(body):
 	if "health" in body:
-		if body.has_method("damage"):
-			body.damage(damage)
+		if body.has_method("hurt"):
+			body.hurt(damage)
 		else :
 			body.health -= damage
 	queue_free()

@@ -44,8 +44,8 @@ func _on_lifetime_timeout():
 
 func _on_body_entered(body):
 	if "health" in body:
-		if body.has_method("damage"):
-			body.damage(damage)
+		if body.has_method("hurt"):
+			body.hurt(damage)
 		else :
 			body.health -= damage
 		explode(3) # not super punishing if you get hit and end up soaking up a lot

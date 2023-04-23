@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dea3ivn4543jw"]
 
+[ext_resource type="PackedScene" uid="uid://clj4a2gycqotp" path="res://Scenes/Enemy/stingerEnemy.tscn" id="2_l54tt"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
-[ext_resource type="PackedScene" uid="uid://b5w6ptxwh64b7" path="res://Scenes/Enemy/lobberEnemy.tscn" id="5_43pmk"]
 
 [node name="tester" type="Node2D"]
 
@@ -13,8 +13,7 @@ enabled = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="lobberEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_43pmk")]
-position = Vector2(894, 91)
+[node name="stingerEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_l54tt")]
 player = NodePath("../Player")
 
 [editable path="Player"]
