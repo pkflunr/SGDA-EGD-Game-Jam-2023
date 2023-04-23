@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvswl57ilnent"]
+[gd_scene load_steps=6 format=3 uid="uid://dcl3hdfkfb8e8"]
 
-[ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="1_qqx58"]
+[ext_resource type="Script" path="res://Scenes/Enemy/burstShooterEnemy.gd" id="1_orte7"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_dv2yt"]
 [ext_resource type="PackedScene" uid="uid://wagdmwf48urb" path="res://Scenes/Enemy/hpBar/enemyHPBar.tscn" id="3_p62b0"]
 [ext_resource type="PackedScene" uid="uid://rlxb11plpnme" path="res://Scenes/Enemy/enemyBasicGun.tscn" id="4_bh3ua"]
@@ -8,14 +8,19 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
 
-[node name="shooterEnemy" type="CharacterBody2D"]
+[node name="burstShooterEnemy" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_qqx58")
+script = ExtResource("1_orte7")
+health = null
+hover_distance = null
+speed_limit = null
+speed_multiplier = null
+attack_power = null
 
-[node name="shooterEnemyArea" type="Area2D" parent="."]
+[node name="burstShooterEnemyArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="shooterEnemyArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="burstShooterEnemyArea"]
 shape = SubResource("CircleShape2D_woftc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,7 +33,7 @@ texture = ExtResource("2_dv2yt")
 wait_time = 0.2
 
 [node name="HoverTime" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 6.0
 one_shot = true
 
 [node name="enemyHPBar" parent="." instance=ExtResource("3_p62b0")]
@@ -36,5 +41,5 @@ position = Vector2(0, 100)
 
 [node name="enemyShooter" parent="." instance=ExtResource("4_bh3ua")]
 
-[connection signal="body_entered" from="shooterEnemyArea" to="." method="_on_shooter_enemy_area_body_entered"]
+[connection signal="body_entered" from="burstShooterEnemyArea" to="." method="_on_shooter_enemy_area_body_entered"]
 [connection signal="timeout" from="PickPoint" to="." method="_on_pick_point_timeout"]

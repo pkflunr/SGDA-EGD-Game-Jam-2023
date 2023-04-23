@@ -32,6 +32,7 @@ var shakeDir : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	if player == null:
 		print("bruh the stinger enemy doesn't have a player skull emoji")
 		player = self
@@ -40,6 +41,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	if player.x > position.x :
+		$Icon.scale.x = -1
+	else :
+		$Icon.scale.x = 1
+	
 	velocity = unscaledVelocity * speed_multiplier
 	move_and_slide()
 	

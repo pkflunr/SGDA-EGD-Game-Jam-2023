@@ -20,4 +20,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$barOutline/hpBar.value -= ($barOutline/hpBar.value - enemy.health) * 0.02
+	$barOutline/hpBar.value -= ($barOutline/hpBar.value - enemy.health)
