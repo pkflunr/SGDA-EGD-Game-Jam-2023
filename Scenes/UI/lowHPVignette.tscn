@@ -5,7 +5,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5c75b"]
 shader = ExtResource("1_h81fm")
 shader_parameter/color = Color(1, 0, 0, 1)
-shader_parameter/multiplier = 0.2
+shader_parameter/multiplier = -0.05
 shader_parameter/softness = 2.0
 
 [node name="lowHPVignette" type="Node"]
