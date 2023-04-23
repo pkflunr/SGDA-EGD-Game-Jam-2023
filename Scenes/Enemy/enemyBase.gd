@@ -115,7 +115,8 @@ func vulnerable(delta):
 	move()
 
 func die():
-	sprite.queue_free()
+	$AnimationPlayer.stop()
+	sprite.modulate.a = 0
 	$enemyHPBar.queue_free()
 	$DeathParticle.emitting = true
 	$DeathLength.start()

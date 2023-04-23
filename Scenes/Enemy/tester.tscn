@@ -19,6 +19,5 @@ player = NodePath("../Player")
 
 [node name="shooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_aaj32")]
 player = NodePath("../Player")
-hp_value = 100
 
 [editable path="Player"]

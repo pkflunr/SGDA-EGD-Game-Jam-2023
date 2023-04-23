@@ -49,7 +49,8 @@ func hover(delta):
 	accelerate_in_dir((picked_point - position) * 2, delta, 25)
 	slow_down(delta, 0.2)
 	unscaledVelocity.x *= pow(0.5, delta)
-	
+	move()
+
 	look_at_player_horizontal()
 	if !$HoverTime.time_left :
 		enter_attack()
@@ -62,6 +63,7 @@ func generate_hover_point():
 
 func attack(delta):
 	shooter.fire(player.position - position)
+	move()
 	enter_hover_mode()
 
 func recover(delta):
@@ -69,6 +71,7 @@ func recover(delta):
 	if abs(cos(sprite.rotation)) > 0.95 :
 		force_horizontal_orientation()
 		enter_hover_mode()
+	move()
 
 func enter_hover_mode() :
 	$HoverTime.start()
