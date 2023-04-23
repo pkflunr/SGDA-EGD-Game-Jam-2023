@@ -13,10 +13,6 @@ room_grid_dimensions = Vector2i(5, 5)
 [node name="Player" parent="." instance=ExtResource("2_4h1qh")]
 position = Vector2(219, 181)
 
-[node name="BeeBall" parent="." node_paths=PackedStringArray("aggro_target") instance=ExtResource("3_0fpns")]
-position = Vector2(1047, 689)
-aggro_target = NodePath("../Player")
-
 [node name="EndGoal" parent="." instance=ExtResource("4_uwgjj")]
 position = Vector2(-100, -100)
 
@@ -31,3 +27,6 @@ texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("5_07x78")
 centered = false
+
+[node name="BeeBall" parent="." instance=ExtResource("3_0fpns")]
+position = Vector2(4000, 1216)
