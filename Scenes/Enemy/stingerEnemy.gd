@@ -79,6 +79,7 @@ func attack(delta):
 	vertical_flip_look_up()
 
 func hit(delta):
+	$enemyHPBar.modulate.a = 0
 	slow_down(delta, charging_friction)
 	idle_float(delta, $DeathAfterSting.time_left, 20 * $DeathAfterSting.time_left / $DeathAfterSting.wait_time )
 	move()
