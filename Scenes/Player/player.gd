@@ -16,22 +16,27 @@ var DEFAULT_DRAIN = 1.0
 # movement
 var direction = 1 # 1 is right, -1 is left
 var player_can_input = true
+var input_x
+var input_y
 
 # player
 var health = 2000
 var drain_rate = DEFAULT_DRAIN
 
 @onready var debug_label = $CanvasLayer/Label
-@onready var camera_2d = $Camera2D
+@onready var camera_2d = $Marker2D/Camera2D
 
 func _physics_process(delta):
 	# Movement stuff
-	var input_x = Input.get_axis("player_left", "player_right")
-	var input_y = Input.get_axis("player_up", "player_down")
+	input_x = Input.get_axis("player_left", "player_right")
+	input_y = Input.get_axis("player_up", "player_down")
 
 	if player_can_input:
 		if input_x != 0: # horizontal movement
 			velocity.x += input_x * ACCELERATION
+#			print(self.position)
+			if sign(velocity.x) != sign(direction):
+				velocity.x = velocity.x * -1
 		else:
 			# taper off speed if there is no input
 			velocity.x = lerpf(velocity.x, 0, AIR_FRICTION) if abs(velocity.x) > 5 else 0
@@ -89,3 +94,6 @@ func _on_drain_timer_timeout():
 
 func _on_dash_timer_timeout():
 	die()
+
+func current_position():
+	return position
