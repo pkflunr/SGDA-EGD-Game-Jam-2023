@@ -10,9 +10,6 @@
 [node name="Player" parent="." instance=ExtResource("2_y8iuh")]
 position = Vector2(458, 186)
 
-[node name="Camera2D" parent="Player" index="6"]
-enabled = false
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="stingerEnemy" parent="." instance=ExtResource("3_ve4sp")]
