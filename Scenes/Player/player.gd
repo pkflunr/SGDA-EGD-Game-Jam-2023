@@ -21,8 +21,13 @@ var player_can_input = true
 var health = 2000
 var drain_rate = DEFAULT_DRAIN
 
+# dash
+
+
 @onready var debug_label = $CanvasLayer/Label
 @onready var camera_2d = $Camera2D
+@onready var dash_hurtbox = $DashHurtbox
+@onready var dash_hurtbox_shape = $DashHurtbox/CollisionShape2D
 
 func _physics_process(delta):
 	# Movement stuff
@@ -48,9 +53,11 @@ func _physics_process(delta):
 		if Input.is_action_pressed("player_left"):
 			direction = -1
 			$Sprite.scale.x = -0.688
+			$DeathParticle.scale.x = -1
 		if Input.is_action_pressed("player_right"):
 			direction = 1
 			$Sprite.scale.x = 0.688
+			$DeathParticle.scale.x = 1
 		
 		if Input.is_action_just_pressed("charge"):
 			initiate_dash()
@@ -69,8 +76,10 @@ func initiate_dash():
 	$AnimationPlayer.play("charge")
 
 func dash():
+	print("dashing")
 	$DashTimer.start()
 	velocity.x = 2000 * direction
+	dash_hurtbox_shape.disabled = false
 
 func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
@@ -78,6 +87,9 @@ func hurt(damage_value : int, hurt_type := "enemy"):
 	if health < 0:
 		health = 0
 	$HUD.hurt_effect(damage_value)
+
+func set_health(health_value:int):
+	health = health_value
 
 func die(): # the bee is dead
 	get_tree().reload_current_scene()
@@ -89,3 +101,19 @@ func _on_drain_timer_timeout():
 
 func _on_dash_timer_timeout():
 	die()
+
+
+func _on_dash_hurtbox_body_entered(body):
+	if body.is_in_group("possessable"):
+		if "is_vulnerable" in body and body.is_vulnerable:
+			player_can_input = true
+			print("woo im a parasite")
+			$DashTimer.stop()
+			dash_hurtbox_shape.set_deferred("disabled", true)
+			$DeathParticle.emitting = true
+			position = body.position
+			body.queue_free()
+			$AnimationPlayer.play("possess")
+			set_health(body.health_when_possessed)
+		else:
+			die()
