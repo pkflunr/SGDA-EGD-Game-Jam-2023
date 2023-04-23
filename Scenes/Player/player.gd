@@ -18,7 +18,7 @@ var direction = 1 # 1 is right, -1 is left
 var player_can_input = true
 
 # player
-var health = 2000
+var health = 50
 var drain_rate = DEFAULT_DRAIN
 
 # dash
@@ -92,7 +92,7 @@ func set_health(health_value:int):
 	health = health_value
 
 func die(): # the bee is dead
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func _on_drain_timer_timeout():
 	# Health drain timer
