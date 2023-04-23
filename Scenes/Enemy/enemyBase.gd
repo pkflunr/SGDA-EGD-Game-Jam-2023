@@ -117,7 +117,8 @@ func vulnerable(delta):
 func die():
 	$AnimationPlayer.stop()
 	sprite.modulate.a = 0
-	$enemyHPBar.queue_free()
+	$enemyHPBar.modulate.a = 0
+	self.set_collision_layer_value(3, false)
 	$DeathParticle.emitting = true
 	$DeathLength.start()
 
