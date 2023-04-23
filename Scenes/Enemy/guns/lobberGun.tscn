@@ -5,6 +5,7 @@
 
 [node name="lobberGun" instance=ExtResource("1_8ct7o")]
 script = ExtResource("2_uvrtk")
+cooldown = 0.12
 
 [node name="Cooldown" parent="." index="0"]
 wait_time = 2.0
