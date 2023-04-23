@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://css57hf8fwxld"]
+[gd_scene load_steps=8 format=3 uid="uid://cs5tj6l1m1lcp"]
 
 [ext_resource type="Script" path="res://Scenes/UI/HUD.gd" id="1_sr3ep"]
 [ext_resource type="Texture2D" uid="uid://bqkouqprnsun1" path="res://Sprites/bee_timer.png" id="1_vqc1i"]
 [ext_resource type="Theme" path="res://Scenes/UI/ui.tres" id="3_cjvpt"]
+[ext_resource type="PackedScene" uid="uid://h2of5abi7bvc" path="res://Scenes/UI/lowHPVignette.tscn" id="4_0ig8q"]
 
 [sub_resource type="Animation" id="Animation_p0hl4"]
 resource_name = "TimerDecrease"
@@ -63,3 +64,5 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_qcmmc")
 }
+
+[node name="lowHPVignette" parent="." instance=ExtResource("4_0ig8q")]

@@ -6,7 +6,6 @@
 [node name="lobberProjectile" instance=ExtResource("1_gxyaf")]
 script = ExtResource("2_btrup")
 projectile_lifetime = 0.75
-damage = 10
 fall_accel = 1800
 bullet = ExtResource("1_gxyaf")
 

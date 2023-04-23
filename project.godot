@@ -18,7 +18,6 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 PauseMenu="*res://Scenes/UI/pause_menu.tscn"
-Globals="*res://Scenes/UI/global_stats.gd"
 
 [display]
 

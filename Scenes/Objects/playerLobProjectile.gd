@@ -30,10 +30,10 @@ func _on_body_entered(body):
 	if "health" in body:
 		if body.has_method("damage"):
 			body.damage(damage)
-			explode(3)
+			explode(6)
 		else :
 			body.health -= damage
-			explode(3)
+			explode(6)
 	else :
 		explode(6)
 

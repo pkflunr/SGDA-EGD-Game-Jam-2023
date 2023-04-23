@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://q5gqc2arjxpq"]
+[gd_scene load_steps=3 format=3 uid="uid://dvhigt2tuls5a"]
 
 [ext_resource type="Script" path="res://Scenes/Player/AfterImages.gd" id="1_lvn5x"]
 [ext_resource type="Texture2D" uid="uid://c58iv0e6k4xex" path="res://Sprites/Zombee.png" id="2_64kg5"]

@@ -10,8 +10,8 @@ func _ready():
 		$barOutline.anchor_right = 0.5
 		$barOutline.anchor_top = 0.5
 		$barOutline.anchor_bottom = 0.5
-		$barOutline.offset_left = -enemy.health / 2
-		$barOutline.offset_right = enemy.health / 2
+		$barOutline.offset_left = -enemy.health / 3 - 20
+		$barOutline.offset_right = enemy.health / 3 + 20
 		$barOutline.offset_top = -30 / 2
 		$barOutline.offset_bottom = 30 / 2
 	else :
