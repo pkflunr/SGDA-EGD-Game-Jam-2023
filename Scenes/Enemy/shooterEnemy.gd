@@ -4,9 +4,6 @@ func _ready():
 	sprite = $Icon
 	shooter = $enemyShooter
 	unscaledVelocity = Vector2.ZERO
-	if player == null:
-		print("bruh the shooter enemy doesn't have a player skull emoji")
-		player = self
 	enter_hover_mode()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

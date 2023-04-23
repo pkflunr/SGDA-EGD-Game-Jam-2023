@@ -22,9 +22,6 @@ var orbit_dir_clockwise : bool
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sprite = $Icon
-	if player == null:
-		print("bruh the stinger enemy doesn't have a player skull emoji")
-		player = self
 	curr_state = StingerEnemyStates.ORBIT
 	generate_orbit_direction()
 
