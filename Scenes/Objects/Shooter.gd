@@ -18,6 +18,7 @@ func fire():
 		var direction = Vector2(get_parent().direction, 0)
 		var b = projectile.instantiate()
 		b.direction = direction
+		b.get_node("Sprite2D").flip_h = true if sign(direction.x) == -1 else false
 		b.position = get_parent().position
 		var b2 = Area2D.new()
 		get_parent().get_parent().add_child(b)

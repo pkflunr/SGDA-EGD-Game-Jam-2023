@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbwjiaok34nqm"]
+[gd_scene load_steps=6 format=3 uid="uid://dbwjiaok34nqm"]
 
 [ext_resource type="Script" path="res://Scenes/UI/main_menu.gd" id="1_hgda0"]
 [ext_resource type="Texture2D" uid="uid://cf2v4vujeax63" path="res://Sprites/title.png" id="2_oeslj"]
+[ext_resource type="Theme" uid="uid://bfw3jfeywv4ow" path="res://Scenes/UI/ui.tres" id="3_gefso"]
 
 [sub_resource type="Animation" id="Animation_b6gwv"]
 resource_name = "title"
@@ -27,6 +28,7 @@ _data = {
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -51,30 +53,35 @@ libraries = {
 [node name="CenterContainer" type="BoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.143
-anchor_right = 0.145
-anchor_bottom = 0.500694
-offset_top = -1.96001
-offset_right = 2.39999
-offset_bottom = 0.5
+anchor_top = 0.236
+anchor_right = 0.177
+anchor_bottom = 0.597
+offset_left = 33.0
+offset_top = -26.92
+offset_right = 32.44
+offset_bottom = -4.84
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_gefso")
 text = "Start"
 
 [node name="HelpButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_gefso")
 text = "Help"
 
 [node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_gefso")
 text = "Exit"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

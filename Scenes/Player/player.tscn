@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bu5bikx8rn1wp" path="res://Scenes/Objects/playerLobShooter.tscn" id="5_b3rjf"]
 [ext_resource type="Texture2D" uid="uid://ltn5483om05x" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
-[ext_resource type="Texture2D" uid="uid://bneqdcnedf7nf" path="res://Sprites/Zombee.png" id="7_pmds4"]
+[ext_resource type="Texture2D" uid="uid://b6fbg2l8hafpj" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_vaerg"]
+[ext_resource type="Texture2D" uid="uid://c58iv0e6k4xex" path="res://Sprites/Zombee.png" id="7_pmds4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 29.0
@@ -139,11 +140,41 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_3ww1v"]
+resource_name = "dash_die"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"die"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o44ht"]
 _data = {
 "charge": SubResource("Animation_fh71p"),
 "charge_up": SubResource("Animation_utjd6"),
 "damage flash": SubResource("Animation_ia7ye"),
+"dash_die": SubResource("Animation_3ww1v"),
 "die": SubResource("Animation_8opp6"),
 "idle": SubResource("Animation_6xa08"),
 "possess": SubResource("Animation_hy4kc")
@@ -250,6 +281,13 @@ process_material = SubResource("ParticleProcessMaterial_cvx45")
 texture = ExtResource("5_lrh3m")
 one_shot = true
 
+[node name="DeathParticle2" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_cvx45")
+texture = ExtResource("6_vaerg")
+one_shot = true
+
 [node name="Marker2D" type="Marker2D" parent="."]
 script = ExtResource("6_4620y")
 
@@ -261,7 +299,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="AfterImageTimer" type="Timer" parent="."]
-wait_time = 0.02
+wait_time = 0.05
 one_shot = true
 
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
