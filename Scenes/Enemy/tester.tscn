@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvppmtfr5nr48"]
+[gd_scene load_steps=5 format=3 uid="uid://cgdy7gddro64t"]
 
-[ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_r350b"]
+[ext_resource type="PackedScene" uid="uid://bgya75270swv3" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_r350b"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_7akml"]
+[ext_resource type="PackedScene" uid="uid://ckhe1wuau18xg" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_fwcdn"]
+[ext_resource type="PackedScene" uid="uid://ckv5vvgfdktp3" path="res://Scenes/Enemy/stingerEnemy.tscn" id="4_43bmg"]
 
 [node name="tester" type="Node2D"]
 
@@ -12,5 +13,10 @@ aggro_target = NodePath("../Player")
 [node name="Player" parent="." instance=ExtResource("2_y8iuh")]
 position = Vector2(632, 477)
 
-[node name="stingerEnemyArea" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_7akml")]
+[node name="stingerEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_43bmg")]
+position = Vector2(381, 403)
+player = NodePath("../Player")
+
+[node name="shooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_fwcdn")]
+position = Vector2(611, 260)
 player = NodePath("../Player")

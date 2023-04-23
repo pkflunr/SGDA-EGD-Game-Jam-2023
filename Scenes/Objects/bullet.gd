@@ -16,12 +16,13 @@ func _on_lifetime_timeout():
 	self.queue_free()
 	
 func _on_body_entered(body):
-	# collision behavior
-	pass # Replace with function body.
+	if "health" in body:
+		print("right")
+		body.health -= damage
+		self.queue_free()
 
 
 func _on_area_entered(area):
-	print(area.health)
 	if "health" in area:
 		print("yeah")
 		area.health -= damage

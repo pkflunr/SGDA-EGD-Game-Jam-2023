@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://coj4n8nbphcla"]
+[gd_scene load_steps=7 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_fnaau"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
@@ -9,7 +9,29 @@
 radius = 37.0
 height = 102.0
 
+[sub_resource type="Animation" id="Animation_8opp6"]
+resource_name = "die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o44ht"]
+_data = {
+"die": SubResource("Animation_8opp6")
+}
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_nx8vt")
 
@@ -45,7 +67,14 @@ autostart = true
 
 [node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
 position = Vector2(44, 16)
-scale = Vector2(1, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+rotation_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o44ht")
+}
 
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]
