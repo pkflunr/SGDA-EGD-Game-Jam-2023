@@ -52,6 +52,7 @@ script = ExtResource("1_vbm42")
 shape = SubResource("CircleShape2D_bqkup")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_3v4sh")
 texture = ExtResource("2_clwl7")
@@ -60,6 +61,7 @@ local_coords = true
 draw_order = 2
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+texture_filter = 1
 rotation = -3.14159
 scale = Vector2(1, -1)
 amount = 15

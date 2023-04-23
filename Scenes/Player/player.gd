@@ -18,10 +18,11 @@ var direction = 1 # 1 is right, -1 is left
 var player_can_input = true
 
 # player
-var health = 50
+var health = 2000
 var drain_rate = DEFAULT_DRAIN
 
 @onready var debug_label = $CanvasLayer/Label
+@onready var camera_2d = $Camera2D
 
 func _physics_process(delta):
 	# Movement stuff
