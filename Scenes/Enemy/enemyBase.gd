@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var attack_power : int = 10 # the amount of damage that this enemy does
 @export var vulnerability_threshold = 20
 @export var is_vulnerable : bool
-@export var health_when_possessed = 50
+@export var health_when_possessed = 90
 
 var rot_velocity : float
 var sprite : Sprite2D

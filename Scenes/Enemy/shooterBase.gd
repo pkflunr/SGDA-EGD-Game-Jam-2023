@@ -64,7 +64,8 @@ func generate_hover_point():
 	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-x_point_range, x_point_range), position.y + offset)
 
 func attack(delta):
-	shooter.fire(player.position - position)
+	if shooter != null:
+		shooter.fire(player.position - position)
 	move()
 	enter_hover_mode()
 

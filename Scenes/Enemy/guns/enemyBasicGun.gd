@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var bullet: PackedScene = load("res://Scenes/Enemy/shooters/enemyBasicBullet.tscn")
+var bullet: PackedScene = preload("res://Scenes/Enemy/guns/enemyBasicBullet.tscn")
 @export var cooldown = 0.12
 @onready var cooldown_timer = $Cooldown
 
