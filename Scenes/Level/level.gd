@@ -108,6 +108,7 @@ func generate_level():
 	placed_room_array[initial_node.x][initial_node.y].marked = true
 	$Player.position = placed_room_array[initial_node.x][initial_node.y].global_position + Vector2(room_size/2,room_size/2)
 	placed_room_array[last_visited_pos.x][last_visited_pos.y].marked = true
+	$EndGoal.position = placed_room_array[last_visited_pos.x][last_visited_pos.y].global_position + Vector2(room_size/2,room_size/2)
 	print(str(placed_walls))
 	print(str(placed_walls.size()))
 	

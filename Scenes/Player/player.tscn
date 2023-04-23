@@ -29,7 +29,7 @@ _data = {
 "die": SubResource("Animation_8opp6")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_nx8vt")

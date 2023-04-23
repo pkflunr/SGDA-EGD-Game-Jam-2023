@@ -16,7 +16,7 @@ var DEFAULT_DRAIN = 1.0
 var direction = 1 # 1 is right, -1 is left
 
 # player
-var health = 50
+var health = 2000
 var drain_rate = DEFAULT_DRAIN
 
 @onready var debug_label = $CanvasLayer/Label
