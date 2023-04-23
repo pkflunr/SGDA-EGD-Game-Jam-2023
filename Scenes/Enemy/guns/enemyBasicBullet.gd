@@ -1,8 +1,8 @@
 extends Area2D
 
-@export var speed = 1000
+@export var speed = 800
 @export var projectile_lifetime = 1.5
-@export var damage = 5
+@export var damage = 10
 var direction = Vector2(1, 0)
 var fading = false
 
