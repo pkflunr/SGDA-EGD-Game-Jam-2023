@@ -1,11 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmowx6kvxh8mt"]
+[gd_scene load_steps=2 format=3 uid="uid://cmowx6kvxh8mt"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/guns/enemyBasicGun.gd" id="1_lwtuk"]
-[ext_resource type="PackedScene" uid="uid://lmk0nd0bi04g" path="res://Scenes/Enemy/guns/enemyBasicBullet.tscn" id="2_i6spy"]
 
 [node name="enemyBasicGun" type="Node2D"]
 script = ExtResource("1_lwtuk")
-bullet = ExtResource("2_i6spy")
+bullet = null
 
 [node name="Cooldown" type="Timer" parent="."]
 one_shot = true

@@ -18,11 +18,12 @@ var direction = 1 # 1 is right, -1 is left
 var player_can_input = true
 
 # player
-var health = 2000
+var health = 90
 var drain_rate = DEFAULT_DRAIN
 var input_x
 var input_y
 var pause_cooldown = false # so fucking tired of htis shit
+var is_dead = false
 
 # dash
 
@@ -104,6 +105,7 @@ func set_health(health_value:int):
 	health = health_value
 
 func die(): # the bee is dead
+	is_dead = true
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func _on_drain_timer_timeout():
@@ -116,6 +118,7 @@ func _on_dash_timer_timeout():
 	velocity = Vector2.ZERO
 	$AfterImageTimer.stop()
 	$DrainTimer.stop()
+	is_dead = true
 	animation_player.play("dash_die")
 	match direction:
 		-1:

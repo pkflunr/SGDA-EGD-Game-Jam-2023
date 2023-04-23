@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
 [ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
 [ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
-[ext_resource type="Texture2D" uid="uid://sq4nrm3agwcl" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
+[ext_resource type="Texture2D" uid="uid://cb0bgpunk17c0" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
 [ext_resource type="Texture2D" uid="uid://b6fbg2l8hafpj" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_vaerg"]
 [ext_resource type="Texture2D" uid="uid://c58iv0e6k4xex" path="res://Sprites/Zombee.png" id="7_pmds4"]
@@ -72,6 +72,35 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_3ww1v"]
+resource_name = "dash_die"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"die"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_8opp6"]
 resource_name = "die"
 length = 0.4
@@ -120,35 +149,6 @@ tracks/0/keys = {
 "args": ["idle", -1, 1.0, false],
 "method": &"play"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_3ww1v"]
-resource_name = "dash_die"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"die"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o44ht"]

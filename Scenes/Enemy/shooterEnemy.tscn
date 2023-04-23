@@ -8,6 +8,7 @@
 script = ExtResource("2_711ux")
 
 [node name="enemyShooter" parent="." index="7" instance=ExtResource("3_ciwcl")]
+bullet = ExtResource("3_ciwcl")
 
 [node name="AnimationPlayer" parent="." index="8"]
 libraries = {}
