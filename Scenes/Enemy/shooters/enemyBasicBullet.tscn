@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dktxx4o3n06xd"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_fsxdh"]
+[ext_resource type="Script" path="res://Scenes/Enemy/shooters/enemyBasicBullet.gd" id="1_7bf7o"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_qo1nf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
@@ -28,8 +28,8 @@ _data = {
 "fade": SubResource("Animation_efpvq")
 }
 
-[node name="Bullet" type="Area2D"]
-script = ExtResource("1_fsxdh")
+[node name="EnemyBasicBullet" type="Area2D"]
+script = ExtResource("1_7bf7o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(8.87843, 1.18039, 0, 0)

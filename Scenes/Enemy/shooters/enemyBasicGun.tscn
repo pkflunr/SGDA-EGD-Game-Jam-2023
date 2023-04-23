@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://rlxb11plpnme"]
 
-[ext_resource type="Script" path="res://Scenes/Enemy/shooters/enemyBasicGun.gd" id="1_uflly"]
+[ext_resource type="Script" path="res://Scenes/Enemy/shooters/enemyBasicGun.gd" id="1_lwtuk"]
 
 [node name="enemyShooter" type="Node2D"]
-script = ExtResource("1_uflly")
+script = ExtResource("1_lwtuk")
 
 [node name="Cooldown" type="Timer" parent="."]
+one_shot = true

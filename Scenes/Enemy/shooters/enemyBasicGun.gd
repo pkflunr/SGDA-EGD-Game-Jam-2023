@@ -17,6 +17,5 @@ func fire(direction : Vector2):
 	if(!cooldown_timer.time_left):
 		var b = bullet.instantiate()
 		b.direction = direction
-		var b2 = Area2D.new()
 		add_child(b)
 		cooldown_timer.start()
