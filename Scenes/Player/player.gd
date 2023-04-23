@@ -154,6 +154,7 @@ func _on_dash_hurtbox_body_entered(body):
 			set_health(body.health_when_possessed)
 			if "take_over_gun" in body:
 				switch_gun(body.take_over_gun)
+			Globals.enemies_captured += 1
 		else:
 			die()
 
