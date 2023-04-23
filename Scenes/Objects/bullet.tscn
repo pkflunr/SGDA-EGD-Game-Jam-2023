@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bm4rf6dfamgsd"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
-[ext_resource type="Texture2D" uid="uid://b8vulaj0w8qp" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
+[ext_resource type="Texture2D" uid="uid://cpicawkky68cq" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
 size = Vector2(35, 17)
