@@ -97,7 +97,7 @@ func dash():
 func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
 	if hurt_type != "timer":
-		$damageFlashAnimation.play("damage flash")
+		$damageAnimationPlayer.play("damage flash")
 	health -= damage_value
 	if health < 0:
 		health = 0
@@ -133,7 +133,7 @@ func _on_dash_hurtbox_body_entered(body):
 			$DeathParticle.emitting = true
 			position = body.position
 			body.queue_free()
-			$AnimationPlayer.play("possess")
+			$dashAnimationPlayer.play("possess")
 			set_health(body.health_when_possessed)
 			if "take_over_gun" in body:
 				switch_gun(body.take_over_gun)
