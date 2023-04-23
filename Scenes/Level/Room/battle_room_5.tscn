@@ -13,5 +13,5 @@ position = Vector2(1152, 896)
 [node name="BeeBall" parent="." index="3" instance=ExtResource("3_5j6h3")]
 position = Vector2(640, 896)
 
-[node name="shooterEnemy" parent="." index="4" instance=ExtResource("4_rfh2t")]
-position = Vector2(899, 1190)
+[node name="shooterEnemy" parent="." index="4" instance=ExtResource("4_8kqjl")]
+position = Vector2(896, 1184)

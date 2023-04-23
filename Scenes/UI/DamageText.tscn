@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://di6un3jgfpr2i"]
+[gd_scene load_steps=3 format=3 uid="uid://c2443oomcn2ru"]
 
 [ext_resource type="Script" path="res://Scenes/UI/DamageText.gd" id="1_tsvuu"]
-[ext_resource type="Theme" uid="uid://bfw3jfeywv4ow" path="res://Scenes/UI/ui.tres" id="2_pig33"]
+[ext_resource type="Theme" path="res://Scenes/UI/ui.tres" id="2_pig33"]
 
 [node name="DamageText" type="Marker2D"]
 script = ExtResource("1_tsvuu")
