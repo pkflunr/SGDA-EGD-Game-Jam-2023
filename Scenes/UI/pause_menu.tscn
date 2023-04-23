@@ -42,6 +42,9 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="Control/BoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_0lwgd")
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 30
 text = "- PAUSE -"
 horizontal_alignment = 1
 

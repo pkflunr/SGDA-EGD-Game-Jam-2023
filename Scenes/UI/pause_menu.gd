@@ -38,7 +38,7 @@ func _on_exit_pressed():
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func _unhandled_input(event):
-	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("pause"):
 		set_paused(false)
 		
 func _on_timer_timeout():
