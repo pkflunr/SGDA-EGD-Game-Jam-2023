@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://coj4n8nbphcla"]
+[gd_scene load_steps=6 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_fnaau"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
 [ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
+[ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 37.0
@@ -28,6 +29,8 @@ polygon = PackedVector2Array(-64, -21, -95, 0, -64, 23)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_nrs8h")
 
+[node name="HUD" parent="." instance=ExtResource("3_t1e74")]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
@@ -44,4 +47,5 @@ autostart = true
 position = Vector2(44, 16)
 scale = Vector2(1, 1)
 
+[connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal player_hurt
 
 # ---CONSTANTS---
 
@@ -55,15 +56,16 @@ func _physics_process(delta):
 	
 	debug_label.set_text("Speed: (%f, %f)\nDirection: %d\nHealth: %d\nDrain Rate: %d/sec" % [velocity.x, velocity.y, direction, health, drain_rate])
 
-func hurt(damage_value : int):
+func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
 	health -= damage_value
 	if health < 0:
 		health = 0
+	$HUD.hurt_effect(damage_value)
 
 func die(): # the bee is dead
 	get_tree().reload_current_scene()
 
 func _on_drain_timer_timeout():
 	# Health drain timer
-	hurt(drain_rate)
+	hurt(drain_rate, "timer")
