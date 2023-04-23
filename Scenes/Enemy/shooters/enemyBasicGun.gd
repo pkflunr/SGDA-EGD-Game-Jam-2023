@@ -1,9 +1,9 @@
 extends Node2D
 
 @export var projectile: PackedScene
-@export var cooldown = 0.1
+@export var cooldown = 0.12
 @onready var cooldown_timer = $Cooldown
-var bullet = load("res://Scenes/Objects/bullet.tscn")
+var bullet = load("res://Scenes/Enemy/shooters/enemyBasicBullet.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,9 +13,13 @@ func _ready():
 func _physics_process(delta):
 	pass
 
-func fire(direction : Vector2):
+func fire(direction : Vector2) -> bool:
 	if(!cooldown_timer.time_left):
-		var b = bullet.instantiate()
-		b.direction = direction
-		add_child(b)
-		cooldown_timer.start()
+		if (!(direction == Vector2.ZERO)):
+			var b = bullet.instantiate()
+			b.direction = direction.normalized()
+			b.position = get_node("..").position
+			get_tree().get_root().add_child(b)
+			cooldown_timer.start()
+		return true
+	return false

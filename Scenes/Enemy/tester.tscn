@@ -18,5 +18,4 @@ position = Vector2(381, 403)
 player = NodePath("../Player")
 
 [node name="shooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_fwcdn")]
-position = Vector2(611, 260)
 player = NodePath("../Player")
