@@ -14,7 +14,7 @@ func _physics_process(delta):
 		fire()
 
 func fire():
-	if(!cooldown_timer.time_left):
+	if(!cooldown_timer.time_left) and get_parent().player_can_input:
 		var direction = Vector2(get_parent().direction, 0)
 		var b = projectile.instantiate()
 		b.direction = direction
