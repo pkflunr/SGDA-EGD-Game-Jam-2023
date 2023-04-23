@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4tnle6jwtnk1"]
+[gd_scene load_steps=4 format=3 uid="uid://c4rexe0nh5yys"]
 
 [ext_resource type="PackedScene" uid="uid://b8orki06k0nqr" path="res://Scenes/Enemy/shooterBase.tscn" id="1_kgos3"]
 [ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="2_711ux"]
-[ext_resource type="PackedScene" uid="uid://rlxb11plpnme" path="res://Scenes/Enemy/shooters/enemyBasicGun.tscn" id="3_ciwcl"]
+[ext_resource type="PackedScene" uid="uid://cmowx6kvxh8mt" path="res://Scenes/Enemy/guns/enemyBasicGun.tscn" id="3_ciwcl"]
 
 [node name="shooterEnemy" instance=ExtResource("1_kgos3")]
 script = ExtResource("2_711ux")

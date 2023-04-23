@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dea3ivn4543jw"]
 
-[ext_resource type="PackedScene" uid="uid://c8i0l1lfcjqxc" path="res://Scenes/Enemy/burstShooterEnemy.tscn" id="2_1uciu"]
+[ext_resource type="PackedScene" uid="uid://djn5lkbik71o2" path="res://Scenes/Enemy/burstShooterEnemy.tscn" id="2_1uciu"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
 
 [node name="tester" type="Node2D"]

@@ -1,40 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhghwow0888v3"]
+[gd_scene load_steps=3 format=3 uid="uid://b5w6ptxwh64b7"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/lobberEnemy.gd" id="1_0kokc"]
-[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_80bvk"]
-[ext_resource type="PackedScene" uid="uid://wagdmwf48urb" path="res://Scenes/Enemy/hpBar/enemyHPBar.tscn" id="3_pkk57"]
-[ext_resource type="PackedScene" uid="uid://rlxb11plpnme" path="res://Scenes/Enemy/shooters/enemyBasicGun.tscn" id="4_3hh6h"]
+[ext_resource type="PackedScene" uid="uid://b8orki06k0nqr" path="res://Scenes/Enemy/shooterBase.tscn" id="1_iol1e"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
-radius = 64.0
-
-[node name="lobberEnemy" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 0
+[node name="lobberEnemy" instance=ExtResource("1_iol1e")]
 script = ExtResource("1_0kokc")
-
-[node name="lobberEnemyArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="lobberEnemyArea"]
-shape = SubResource("CircleShape2D_woftc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_woftc")
-
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("2_80bvk")
-
-[node name="PickPoint" type="Timer" parent="."]
-wait_time = 0.2
-
-[node name="HoverTime" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="enemyHPBar" parent="." instance=ExtResource("3_pkk57")]
-position = Vector2(0, 100)
-
-[node name="enemyShooter" parent="." instance=ExtResource("4_3hh6h")]
-
-[connection signal="body_entered" from="lobberEnemyArea" to="." method="_on_shooter_enemy_area_body_entered"]
-[connection signal="timeout" from="PickPoint" to="." method="_on_pick_point_timeout"]
