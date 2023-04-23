@@ -42,7 +42,7 @@ func _process(delta):
 			StingerEnemyStates.COOLDOWN:
 				cooldown(delta)
 			StingerEnemyStates.HIT:
-				pass
+				hit(delta)
 			StingerEnemyStates.VULNERABLE:
 				vulnerable(delta)
 
@@ -78,6 +78,11 @@ func attack(delta):
 	move()
 	vertical_flip_look_up()
 
+func hit(delta):
+	slow_down(delta, charging_friction)
+	idle_float(delta, $DeathAfterSting.time_left, 20 * $DeathAfterSting.time_left / $DeathAfterSting.wait_time )
+	move()
+
 func cooldown(delta):
 	if $StingCooldown.is_stopped() :
 		$StingCooldown.start()
@@ -93,17 +98,6 @@ func can_sting() -> bool:
 
 func generate_orbit_direction() -> void:
 	orbit_dir_clockwise = rng.randi_range(0, 1) == 1
-
-func _on_stinger_enemy_area_body_entered(body):
-	if body == player :
-		match curr_state:
-			StingerEnemyStates.ATTACK:
-				# TODO Damage the player
-				curr_state = StingerEnemyStates.COOLDOWN
-#			_:
-#				# TODO Damage the player but less
-#				curr_state = StingerEnemyStates.HIT
-#				pass
 
 func _on_sting_cooldown_timeout():
 	if curr_state == StingerEnemyStates.COOLDOWN:
@@ -127,3 +121,27 @@ func _on_sting_targetted_wait_timeout():
 	if (can_sting() and curr_state == StingerEnemyStates.ORBIT):
 		curr_state = StingerEnemyStates.CHARGE_STING
 	$StingTargettedWait.stop()
+
+
+func _on_death_after_sting_timeout():
+	$DeathDmgAnimationDelay.stop()
+	curr_state = dying_state
+	die()
+
+
+func _on_death_dmg_animation_delay_timeout():
+	$AnimationPlayer.play("damage flash")
+
+
+func _on_enemy_area_body_entered(body):
+	print("hi")
+	if body == player :
+		match curr_state:
+			StingerEnemyStates.ATTACK:
+				# TODO Damage the player
+				player.hurt(20)
+				$DeathAfterSting.start()
+				$DeathDmgAnimationDelay.start()
+				curr_state = StingerEnemyStates.HIT
+			_:
+				player.hurt(5)
