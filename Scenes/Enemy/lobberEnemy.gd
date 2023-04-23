@@ -1,7 +1,7 @@
 extends "res://Scenes/Enemy/shooterEnemy.gd"
 
 func _ready():
-	take_over_gun = "lobShooter"
+	take_over_gun = load("res://Scenes/Objects/playerLobShooter.tscn")
 	super._ready()
 	shooter = $lobberGun
 

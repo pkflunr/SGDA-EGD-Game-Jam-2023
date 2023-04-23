@@ -11,10 +11,11 @@ position = Vector2(458, 186)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="lobberEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sigw6")]
+[node name="shooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_jsrwm")]
+position = Vector2(119, 85)
 player = NodePath("../Player")
 
-[node name="shooterEnemy" parent="." instance=ExtResource("3_jsrwm")]
-position = Vector2(119, 85)
+[node name="lobberEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sigw6")]
+player = NodePath("../Player")
 
 [editable path="Player"]

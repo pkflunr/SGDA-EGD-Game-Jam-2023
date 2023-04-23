@@ -20,7 +20,7 @@ var dying_state
 var vulnerable_state
 var normal_state
 
-var take_over_gun : String = "Shooter"
+var take_over_gun : PackedScene = load("res://Scenes/Objects/shooter.tscn")
 
 var rng = RandomNumberGenerator.new()
 

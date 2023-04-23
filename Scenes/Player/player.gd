@@ -34,7 +34,7 @@ var pause_cooldown = false # so fucking tired of htis shit
 @onready var sprite = $Sprite
 @onready var after_images = load("res://Scenes/Player/after_images.tscn")
 
-@onready var curr_gun = $lobShooter
+@onready var curr_gun = $Shooter
 
 func _physics_process(delta):
 	# Movement stuff
@@ -97,7 +97,7 @@ func dash():
 func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
 	if hurt_type != "timer":
-		$AnimationPlayer.play("damage flash")
+		$damageFlashAnimation.play("damage flash")
 	health -= damage_value
 	if health < 0:
 		health = 0
@@ -109,13 +109,10 @@ func set_health(health_value:int):
 func die(): # the bee is dead
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
-func switch_gun(gun : PackedScene) -> bool:
-	if gun.has_method("fire") :
-		curr_gun.queue_free()
-		curr_gun = gun.instantiate()
-		add_child(curr_gun)
-		return true
-	return false
+func switch_gun(gun : PackedScene):
+	curr_gun.queue_free()
+	curr_gun = gun.instantiate()
+	add_child(curr_gun)
 
 func _on_drain_timer_timeout():
 	# Health drain timer

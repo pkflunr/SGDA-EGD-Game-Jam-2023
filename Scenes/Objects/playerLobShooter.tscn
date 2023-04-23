@@ -5,4 +5,4 @@
 
 [node name="lobShooter" instance=ExtResource("1_aeqhk")]
 script = ExtResource("2_wsicq")
-projectile = null
+cooldown = 0.5

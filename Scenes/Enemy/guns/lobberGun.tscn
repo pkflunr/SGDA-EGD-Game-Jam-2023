@@ -1,12 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://baahhpfw25nuf"]
+[gd_scene load_steps=3 format=3 uid="uid://baahhpfw25nuf"]
 
 [ext_resource type="PackedScene" uid="uid://cmowx6kvxh8mt" path="res://Scenes/Enemy/guns/enemyBasicGun.tscn" id="1_8ct7o"]
 [ext_resource type="Script" path="res://Scenes/Enemy/guns/lobberGun.gd" id="2_uvrtk"]
-[ext_resource type="PackedScene" uid="uid://bv4lpevcellkd" path="res://Scenes/Enemy/guns/lobberProjectile.tscn" id="3_au1a0"]
 
 [node name="lobberGun" instance=ExtResource("1_8ct7o")]
 script = ExtResource("2_uvrtk")
-bullet = ExtResource("3_au1a0")
 
 [node name="Cooldown" parent="." index="0"]
 wait_time = 2.0

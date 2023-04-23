@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var bullet: PackedScene = load("res://Scenes/Enemy/shooters/enemyBasicBullet.tscn")
 @export var cooldown = 0.12
 @onready var cooldown_timer = $Cooldown
+var bullet: PackedScene = load("res://Scenes/Enemy/guns/enemyBasicBullet.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

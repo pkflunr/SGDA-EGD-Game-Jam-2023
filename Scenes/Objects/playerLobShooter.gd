@@ -1,7 +1,7 @@
 extends Node2D
 
-@export var projectile: PackedScene = load("res://Scenes/Objects/playerLobProjectile.tscn")
-@export var cooldown = 0.15
+var projectile: PackedScene = load("res://Scenes/Objects/playerLobProjectile.tscn")
+@export var cooldown = 0.5
 @onready var cooldown_timer = $Cooldown
 
 # Called when the node enters the scene tree for the first time.
@@ -18,10 +18,9 @@ func fire():
 		var b = projectile.instantiate()
 		
 		if get_parent().direction == -1:
-			b.direction = Vector2(-1,0).rotated(-PI/4)
+			b.direction = Vector2(-1,0).rotated(PI/4)
 		else :
-			b.direction = Vector2(1,0).rotated(PI/4)
-		
+			b.direction = Vector2(1,0).rotated(-PI/4)
 		b.position = get_parent().position
 		get_parent().get_parent().add_child(b)
 		cooldown_timer.start()

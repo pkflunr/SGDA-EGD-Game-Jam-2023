@@ -1,12 +1,12 @@
 extends Area2D
 
 @export var speed = 2000
-@export var projectile_lifetime = 0.75
+@export var projectile_lifetime = 0.4
 @export var damage = 5
 @export var fall_accel = 1800
 
 var bullet : PackedScene = load("res://Scenes/Objects/bullet.tscn")
-var direction = Vector2(1, 0)
+var direction : Vector2 = Vector2.RIGHT
 var fading = false
 
 func _ready():
@@ -35,12 +35,13 @@ func _on_body_entered(body):
 		else :
 			body.health -= damage
 			explode(3)
-	explode(6)
+	else :
+		explode(6)
 
-func _on_area_entered(area):
-	if "health" in area:
-		area.health -= damage
-		explode(3)
+#func _on_area_entered(area):
+#	if "health" in area:
+#		area.health -= damage
+#		explode(3)
 
 func explode(numberOfShots): # shoots a bunch of bullets in a circl
 	var angle_offset = RandomNumberGenerator.new().randf_range(0, 2 * PI)

@@ -6,4 +6,5 @@
 [node name="lobProjectile" instance=ExtResource("1_c2we7")]
 script = ExtResource("2_ycwba")
 speed = 2000
+projectile_lifetime = 0.4
 fall_accel = 1800

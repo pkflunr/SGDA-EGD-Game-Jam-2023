@@ -1,6 +1,6 @@
 extends "res://Scenes/Enemy/enemyBase.gd"
 
-@export var hover_distance = 600
+@export var hover_distance = 400
 
 enum ShooterEnemyStates {
 	HOVER,
