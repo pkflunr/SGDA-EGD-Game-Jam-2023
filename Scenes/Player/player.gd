@@ -124,6 +124,7 @@ func die(): # the bee is dead
 
 func exit():
 	Globals.end_game()
+	MusicPlayer.play_zombee_birth()
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func switch_gun(gun : PackedScene):
