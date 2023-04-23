@@ -97,8 +97,8 @@ func dash():
 
 func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
-	if hurt_type != "timer":
-		$damageAnimationPlayer.play("damage flash")
+#	if hurt_type != "timer":
+#		$damageAnimationPlayer.play("damage flash")
 	health -= damage_value
 	if health < 0:
 		health = 0
