@@ -10,7 +10,6 @@ var direction : Vector2 = Vector2.RIGHT
 var fading = false
 
 func _ready():
-	print(direction)
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()
 

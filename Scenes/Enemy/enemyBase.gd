@@ -144,9 +144,11 @@ func damage(damage):
 		curr_state = dying_state
 		die()
 
+func enter_idle():
+	idle_pos = position
+
 func _on_death_length_timeout():
 	queue_free()
-
 
 func _on_vulnerable_length_timeout():
 	aggro()

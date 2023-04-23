@@ -30,10 +30,7 @@ var prev_frame_player
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if player == null :
-		prev_frame_player = player
-		idle(delta)
-	else :
+	if player != null :
 		if prev_frame_player != player:
 			prev_frame_player = player
 			enter_hover_mode()

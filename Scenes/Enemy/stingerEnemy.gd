@@ -29,9 +29,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if player == null :
-		idle(delta)
-	else :
+	if player != null:
 		match curr_state:
 			StingerEnemyStates.ORBIT:
 				orbit_player(delta)
