@@ -32,6 +32,7 @@ var pause_cooldown = false # so fucking tired of htis shit
 @onready var dash_hurtbox = $DashHurtbox
 @onready var dash_hurtbox_shape = $DashHurtbox/CollisionShape2D
 @onready var sprite = $Sprite
+@onready var animation_player = $AnimationPlayer
 @onready var after_images = load("res://Scenes/Player/after_images.tscn")
 
 func _physics_process(delta):
@@ -76,7 +77,7 @@ func _physics_process(delta):
 func initiate_dash():
 	player_can_input = false
 	velocity = Vector2.ZERO
-	$AnimationPlayer.play("charge_up")
+	animation_player.play("charge_up")
 
 func dash():
 	print("dashing")
@@ -111,8 +112,16 @@ func _on_drain_timer_timeout():
 
 
 func _on_dash_timer_timeout():
-	die()
-
+	player_can_input = false
+	velocity = Vector2.ZERO
+	$AfterImageTimer.stop()
+	$DrainTimer.stop()
+	animation_player.play("dash_die")
+	match direction:
+		-1:
+			$DeathParticle2.emitting = true
+		1:
+			$DeathParticle.emitting = true
 
 func _on_dash_hurtbox_body_entered(body):
 	if body.is_in_group("possessable"):
@@ -124,7 +133,7 @@ func _on_dash_hurtbox_body_entered(body):
 			$DeathParticle.emitting = true
 			position = body.position
 			body.queue_free()
-			$AnimationPlayer.play("possess")
+			animation_player.play("possess")
 			set_health(body.health_when_possessed)
 		else:
 			die()
