@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8orki06k0nqr"]
+
+[ext_resource type="PackedScene" uid="uid://golqkkh4yjrg" path="res://Scenes/Enemy/enemyBase.tscn" id="1_5nmmk"]
+[ext_resource type="Script" path="res://Scenes/Enemy/shooterBase.gd" id="2_w40i6"]
+
+[node name="shooterBase" instance=ExtResource("1_5nmmk")]
+script = ExtResource("2_w40i6")
+hover_distance = 600
+
+[node name="HoverTime" type="Timer" parent="." index="5"]
+wait_time = 2.0
+one_shot = true
+
+[node name="PickPoint" type="Timer" parent="." index="6"]
+wait_time = 0.2
+
+[connection signal="timeout" from="PickPoint" to="." method="_on_pick_point_timeout"]

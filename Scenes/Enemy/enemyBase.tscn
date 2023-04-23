@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://golqkkh4yjrg"]
+
+[ext_resource type="Script" path="res://Scenes/Enemy/enemyBase.gd" id="1_scnj2"]
+[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_oso5b"]
+[ext_resource type="PackedScene" uid="uid://wagdmwf48urb" path="res://Scenes/Enemy/hpBar/enemyHPBar.tscn" id="3_6e0m0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
+radius = 64.0
+
+[node name="enemyBase" type="CharacterBody2D" groups=["possessable"]]
+collision_layer = 4
+script = ExtResource("1_scnj2")
+
+[node name="enemyArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyArea"]
+shape = SubResource("CircleShape2D_woftc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="enemyArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_woftc")
+
+[node name="ShakeFreq" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2_oso5b")
+
+[node name="enemyHPBar" parent="." instance=ExtResource("3_6e0m0")]
+position = Vector2(0, 100)

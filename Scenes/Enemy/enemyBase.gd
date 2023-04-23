@@ -31,11 +31,11 @@ func rotate_toward(delta, speed = 1, pos : Vector2 = player.position, isDir : bo
 	# wow I hate how I wrote this, if isDir is true, then pos is taken as a direction vector instead of a position to turn toward
 	var angle
 	if isDir :
-		angle = -pos.angle_to( Vector2.from_angle($Icon.rotation) )
+		angle = -pos.angle_to( Vector2.from_angle(sprite.rotation) )
 	else :
-		angle = -(position - pos).angle_to( Vector2.from_angle($Icon.rotation) ) 
+		angle = -(position - pos).angle_to( Vector2.from_angle(sprite.rotation) ) 
 	
-	$Icon.rotate((angle if abs(angle) < PI else angle + (2 * PI * -sign(angle))) * delta * speed)
+	sprite.rotate((angle if abs(angle) < PI else angle + (2 * PI * -sign(angle))) * delta * speed)
 
 func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
 	unscaledVelocity += dir * delta
@@ -44,40 +44,11 @@ func accelerate_in_dir(dir : Vector2, delta, limit : float = speed_limit):
 func get_predicted_player_location(time : float) -> Vector2:
 	return player.position + player.velocity * time
 
-func slow_down(friction : float, delta : float) -> void:
+func slow_down(delta : float, friction : float) -> void:
 	unscaledVelocity *= pow(friction, delta)
 
-func _on_stinger_enemy_area_body_entered(body):
-	if body == player :
-		match curr_state:
-			StingerEnemyStates.ATTACK:
-				# TODO Damage the player
-				curr_state = StingerEnemyStates.COOLDOWN
-#			_:
-#				# TODO Damage the player but less
-#				curr_state = StingerEnemyStates.HIT
-#				pass
-# TODO detect getting damaged by player
-
-func _on_sting_cooldown_timeout():
-	if curr_state == StingerEnemyStates.COOLDOWN:
-		curr_state = StingerEnemyStates.ORBIT
-		generate_orbit_direction()
-	$StingCooldown.stop()
-
-func _on_sting_charge_timeout():
-	if curr_state == StingerEnemyStates.CHARGE_STING :
-		$Icon.position = Vector2.ZERO
-		curr_state = StingerEnemyStates.ATTACK
-		unscaledVelocity = -Vector2.from_angle($Icon.rotation) * attack_move_speed
-	$StingCharge.stop()
-
-func _on_sting_duration_timeout():
-	if curr_state == StingerEnemyStates.ATTACK :
-		curr_state = StingerEnemyStates.COOLDOWN
-	$StingDuration.stop()
-
-func _on_sting_targetted_wait_timeout():
-	if (can_sting() and curr_state == StingerEnemyStates.ORBIT):
-		curr_state = StingerEnemyStates.CHARGE_STING
-	$StingTargettedWait.stop()
+func look_at_player_horizontal():
+	if player.position.x > position.x :
+		$Icon.scale.x = -1
+	else :
+		$Icon.scale.x = 1

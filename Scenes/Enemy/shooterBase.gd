@@ -1,13 +1,25 @@
-extends "res://Scenes/Enemy/shooterBase.gd"
+extends "res://Scenes/Enemy/enemyBase.gd"
 
+@export var hover_distance = 600
+
+enum ShooterEnemyStates {
+	HOVER,
+	ATTACK,
+	DYING,
+	VULNERABLE,
+	DEATH
+}
+
+var shooter : Node2D
+
+var hover_y_band_tolerance = 400 
+var picked_point : Vector2
+var x_point_range = 30
+var y_point_range = 50
+
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	sprite = $Icon
-	shooter = $enemyShooter
-	unscaledVelocity = Vector2.ZERO
-	if player == null:
-		print("bruh the shooter enemy doesn't have a player skull emoji")
-		player = self
-	enter_hover_mode()
+	printerr("the shooter base is not supposed to be instantiated")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
