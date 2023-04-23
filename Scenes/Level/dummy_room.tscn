@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqul07riicr2c"]
+[gd_scene load_steps=4 format=3 uid="uid://bqul07riicr2c"]
 
 [ext_resource type="Script" path="res://Scenes/Level/dummy_room.gd" id="1_dtdmg"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_3f8hf"]
+[ext_resource type="Texture2D" uid="uid://bps2ck8fmtunb" path="res://Sprites/temp_bee_ball.svg" id="3_fgf4o"]
 
 [node name="DummyRoom" type="Node2D"]
 script = ExtResource("1_dtdmg")
@@ -31,3 +32,8 @@ position = Vector2(48, 0)
 rotation = 1.5708
 scale = Vector2(1, 0.25)
 texture = ExtResource("2_3f8hf")
+
+[node name="Marker" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 0, 1)
+texture = ExtResource("3_fgf4o")

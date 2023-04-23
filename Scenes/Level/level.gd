@@ -3,11 +3,16 @@ extends Node2D
 enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export var room_grid_dimensions:Vector2i
-@export var room_size = 128 # assumes rooms are square
+@export var room_size = 1792 # assumes rooms are square
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate_level()
+	$Player.camera_2d.limit_left = 0
+	$Player.camera_2d.limit_top = 0
+	
+	$Player.camera_2d.limit_right = room_size * room_grid_dimensions.x
+	$Player.camera_2d.limit_bottom = room_size * room_grid_dimensions.y
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,14 +23,14 @@ func generate_level():
 	# temp:
 	# for now we're just making a list of 25 dummy rooms
 	# in the future we should make this a randomized rist of actual rooms
-	var room_scene = preload("res://Scenes/Level/dummy_room.tscn")
+	var room_scene = preload("res://Scenes/Level/dummy_room2.tscn")
 	var room_array = []
 	for x in range(room_grid_dimensions.x * room_grid_dimensions.y):
 		room_array.append(room_scene.instantiate())
 	
 	var placed_room_array:Array[Array] = []
 	# place the rooms as needed
-	var place_position = Vector2(128,128)
+	var place_position = Vector2(0,0)
 	for x in range(room_grid_dimensions.x):
 		placed_room_array.append([])
 		for y in range(room_grid_dimensions.y):
@@ -65,8 +70,10 @@ func generate_level():
 	print(str(placed_walls.size()))
 	
 	
-	# initial node is 0,0
-	var initial_node = Vector2i(0,0)
+	# initial node is one of the four corners; 
+	var possible_initial_nodes = [Vector2i(0,0),Vector2i(0,room_grid_dimensions.y - 1),Vector2i(room_grid_dimensions.x - 1,0),Vector2i(room_grid_dimensions.x - 1,room_grid_dimensions.y - 1)]
+	possible_initial_nodes.shuffle()
+	var initial_node = possible_initial_nodes.pop_back()
 	var visited = []
 	visited.append(initial_node)
 	
@@ -77,6 +84,7 @@ func generate_level():
 			wall_list.append(wall)
 	print(str(wall_list))
 	# grab a random wall
+	var last_visited_pos = initial_node
 	while not wall_list.is_empty():
 		var random_wall = wall_list[randi() % wall_list.size()]
 		print("selected random wall " + str(random_wall))
@@ -97,8 +105,15 @@ func generate_level():
 			for wall in placed_walls:
 				if wall.has(neighbor):
 					wall_list.append(wall)
+			# experimental
+			# remember last visited room
+			last_visited_pos = neighbor
 		wall_list.erase(random_wall)
-	
+		
+	placed_room_array[initial_node.x][initial_node.y].marked = true
+	$Player.position = placed_room_array[initial_node.x][initial_node.y].global_position + Vector2(room_size/2,room_size/2)
+	placed_room_array[last_visited_pos.x][last_visited_pos.y].marked = true
+	$EndGoal.position = placed_room_array[last_visited_pos.x][last_visited_pos.y].global_position + Vector2(room_size/2,room_size/2)
 	print(str(placed_walls))
 	print(str(placed_walls.size()))
 	

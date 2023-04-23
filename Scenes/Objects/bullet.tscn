@@ -7,6 +7,8 @@
 size = Vector2(32, 32)
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_nb6cv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,5 +22,6 @@ shape = SubResource("RectangleShape2D_yoe3d")
 [node name="Lifetime" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

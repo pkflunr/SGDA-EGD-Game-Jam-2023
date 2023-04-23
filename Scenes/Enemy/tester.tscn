@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dndtych4d3ktu"]
 
 [ext_resource type="PackedScene" uid="uid://cg0v2rqyouj1e" path="res://Scenes/Enemy/lobberEnemy.tscn" id="2_hcpgq"]
+[ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_r350b"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
 
 [node name="tester" type="Node2D"]
