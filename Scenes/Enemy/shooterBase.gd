@@ -1,6 +1,6 @@
 extends "res://Scenes/Enemy/enemyBase.gd"
 
-@export var hover_distance = 400
+@export var hover_distance = 600
 
 enum ShooterEnemyStates {
 	HOVER,
@@ -64,10 +64,7 @@ func generate_hover_point():
 	picked_point = Vector2(player.position.x + (hover_distance if position.x > player.position.x else -hover_distance) + rng.randi_range(-x_point_range, x_point_range), position.y + offset)
 
 func attack(delta):
-	if is_instance_valid(player) and is_instance_valid(shooter):
-		shooter.fire(player.position - position)
-	else:
-		print("something fucked up")
+	shooter.fire(player.position - position)
 	move()
 	enter_hover_mode()
 

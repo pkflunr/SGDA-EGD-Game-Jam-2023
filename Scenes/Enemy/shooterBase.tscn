@@ -6,7 +6,7 @@
 
 [node name="shooterBase" instance=ExtResource("1_5nmmk")]
 script = ExtResource("2_w40i6")
-hover_distance = 400
+hover_distance = 600
 
 [node name="Icon" parent="." index="3"]
 texture = ExtResource("3_yikph")
