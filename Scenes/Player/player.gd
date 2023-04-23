@@ -37,6 +37,9 @@ var pause_cooldown = false # so fucking tired of htis shit
 
 @onready var curr_gun = $Shooter
 
+func _ready():
+	Globals.start_game()
+
 func _physics_process(delta):
 	# Movement stuff
 	input_x = Input.get_axis("player_left", "player_right")
@@ -108,6 +111,19 @@ func set_health(health_value:int):
 	health = health_value
 
 func die(): # the bee is dead
+	player_can_input = false
+	velocity = Vector2.ZERO
+	$AfterImageTimer.stop()
+	$DrainTimer.stop()
+	animation_player.play("dash_die")
+	match direction:
+		-1:
+			$DeathParticle2.emitting = true
+		1:
+			$DeathParticle.emitting = true
+
+func exit():
+	Globals.end_game()
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func switch_gun(gun : PackedScene):
@@ -121,16 +137,7 @@ func _on_drain_timer_timeout():
 
 
 func _on_dash_timer_timeout():
-	player_can_input = false
-	velocity = Vector2.ZERO
-	$AfterImageTimer.stop()
-	$DrainTimer.stop()
-	animation_player.play("dash_die")
-	match direction:
-		-1:
-			$DeathParticle2.emitting = true
-		1:
-			$DeathParticle.emitting = true
+	die()
 
 func _on_dash_hurtbox_body_entered(body):
 	if body.is_in_group("possessable"):
@@ -146,6 +153,7 @@ func _on_dash_hurtbox_body_entered(body):
 			set_health(body.health_when_possessed)
 			if "take_over_gun" in body:
 				switch_gun(body.take_over_gun)
+			Globals.enemies_captured += 1
 		else:
 			die()
 
