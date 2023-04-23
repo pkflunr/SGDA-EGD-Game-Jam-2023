@@ -28,6 +28,9 @@ var rotation_speed = 7
 var orbit_dir_clockwise : bool
 var rng = RandomNumberGenerator.new()
 
+var is_vulnerable = true
+@export var health_when_possessed = 50
+
 var shakeDir : Vector2
 
 # Called when the node enters the scene tree for the first time.
@@ -81,7 +84,6 @@ func orbit_player(delta):
 
 func shake(delta, range):
 	if(!$ShakeFreq.time_left):
-		print("hi")
 		shakeDir = Vector2( rng.randi_range(-range, range), rng.randi_range(-range, range) )
 		$ShakeFreq.start()
 	accelerate_in_dir(shakeDir, delta)

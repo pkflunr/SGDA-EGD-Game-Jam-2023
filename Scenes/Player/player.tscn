@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://drio8lw7qfdnx"]
+[gd_scene load_steps=17 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_fnaau"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
 [ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
 [ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
-[ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="5_1boar"]
+[ext_resource type="Texture2D" uid="uid://1f1sitfu58eh" path="res://Sprites/temp_takeover_particle.png" id="5_sxngh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 37.0
@@ -43,15 +43,63 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hy4kc"]
+resource_name = "possess"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 0), Color(1, 1, 0, 0), Color(1, 1, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o44ht"]
 _data = {
 "charge": SubResource("Animation_utjd6"),
-"die": SubResource("Animation_8opp6")
+"die": SubResource("Animation_8opp6"),
+"possess": SubResource("Animation_hy4kc")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_c01hy"]
+radius = 48.0
+
+[sub_resource type="Gradient" id="Gradient_sivbe"]
+offsets = PackedFloat32Array(0, 0.237037, 0.725926, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0.290196, 0, 1, 0, 0.290196, 0, 1, 0, 0.290196, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jqdqx"]
+gradient = SubResource("Gradient_sivbe")
+
+[sub_resource type="Curve" id="Curve_wfsmo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0, 0.745455), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_b10a4"]
+curve = SubResource("Curve_wfsmo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvx45"]
+particle_flag_disable_z = true
+direction = Vector3(1, -1, 0)
+spread = 60.0
+gravity = Vector3(0, 300, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_jqdqx")
+turbulence_noise_strength = 8.0
+turbulence_influence_over_life = SubResource("CurveTexture_b10a4")
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
-slide_on_ceiling = false
+motion_mode = 1
 script = ExtResource("1_nx8vt")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -73,6 +121,7 @@ shape = SubResource("CapsuleShape2D_nrs8h")
 [node name="HUD" parent="." instance=ExtResource("3_t1e74")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 817.0
@@ -87,6 +136,11 @@ autostart = true
 [node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
 position = Vector2(44, 16)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+rotation_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_o44ht")
@@ -96,18 +150,23 @@ libraries = {
 wait_time = 0.5
 one_shot = true
 
-[node name="Marker2D" type="Marker2D" parent="."]
-script = ExtResource("5_1boar")
+[node name="DashHurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+monitorable = false
 
-[node name="Camera2D" type="Camera2D" parent="Marker2D"]
-rotation_smoothing_enabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashHurtbox"]
+shape = SubResource("CircleShape2D_c01hy")
+disabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Marker2D"]
-visible = false
-position = Vector2(0, -1)
-scale = Vector2(0.242188, 0.234375)
-texture = ExtResource("1_fnaau")
+[node name="DeathParticle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_cvx45")
+texture = ExtResource("5_sxngh")
+one_shot = true
 
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="body_entered" from="DashHurtbox" to="." method="_on_dash_hurtbox_body_entered"]
