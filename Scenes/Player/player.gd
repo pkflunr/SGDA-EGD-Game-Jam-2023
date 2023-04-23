@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal player_hurt
 
 # ---CONSTANTS---
 
@@ -14,6 +15,7 @@ var DEFAULT_DRAIN = 1.0
 
 # movement
 var direction = 1 # 1 is right, -1 is left
+var player_can_input = true
 
 # player
 var health = 2000
@@ -27,26 +29,31 @@ func _physics_process(delta):
 	var input_x = Input.get_axis("player_left", "player_right")
 	var input_y = Input.get_axis("player_up", "player_down")
 
-	if input_x != 0: # horizontal movement
-		velocity.x += input_x * ACCELERATION
-	else:
-		# taper off speed if there is no input
-		velocity.x = lerpf(velocity.x, 0, AIR_FRICTION) if abs(velocity.x) > 5 else 0
-	if input_y != 0: # vertical movement
-		velocity.y += input_y * ACCELERATION
-	else:
-		velocity.y = lerpf(velocity.y, 0, AIR_FRICTION) if abs(velocity.y) > 5 else 0
-	
-	# Clamp movement to maximum speed
-	velocity = Vector2(clamp(velocity.x, -MAX_SPEED, MAX_SPEED), clamp(velocity.y, -MAX_SPEED, MAX_SPEED))
-	
-	# this is VERY temporary
-	if Input.is_action_pressed("player_left"):
-		direction = -1
-		$Sprite.scale.x = -0.688
-	if Input.is_action_pressed("player_right"):
-		direction = 1
-		$Sprite.scale.x = 0.688
+	if player_can_input:
+		if input_x != 0: # horizontal movement
+			velocity.x += input_x * ACCELERATION
+		else:
+			# taper off speed if there is no input
+			velocity.x = lerpf(velocity.x, 0, AIR_FRICTION) if abs(velocity.x) > 5 else 0
+		if input_y != 0: # vertical movement
+			velocity.y += input_y * ACCELERATION
+		else:
+			velocity.y = lerpf(velocity.y, 0, AIR_FRICTION) if abs(velocity.y) > 5 else 0
+		
+		
+		# Clamp movement to maximum speed
+		velocity = Vector2(clamp(velocity.x, -MAX_SPEED, MAX_SPEED), clamp(velocity.y, -MAX_SPEED, MAX_SPEED))
+		
+		# this is VERY temporary
+		if Input.is_action_pressed("player_left"):
+			direction = -1
+			$Sprite.scale.x = -0.688
+		if Input.is_action_pressed("player_right"):
+			direction = 1
+			$Sprite.scale.x = 0.688
+		
+		if Input.is_action_just_pressed("charge"):
+			initiate_dash()
 	
 	move_and_slide()
 	
@@ -56,15 +63,29 @@ func _physics_process(delta):
 	
 	debug_label.set_text("Speed: (%f, %f)\nDirection: %d\nHealth: %d\nDrain Rate: %d/sec" % [velocity.x, velocity.y, direction, health, drain_rate])
 
-func hurt(damage_value : int):
+func initiate_dash():
+	player_can_input = false
+	velocity = Vector2.ZERO
+	$AnimationPlayer.play("charge")
+
+func dash():
+	$DashTimer.start()
+	velocity.x = 2000 * direction
+
+func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
 	health -= damage_value
 	if health < 0:
 		health = 0
+	$HUD.hurt_effect(damage_value)
 
 func die(): # the bee is dead
 	get_tree().reload_current_scene()
 
 func _on_drain_timer_timeout():
 	# Health drain timer
-	hurt(drain_rate)
+	hurt(drain_rate, "timer")
+
+
+func _on_dash_timer_timeout():
+	die()
