@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dl83g007dk7lh"]
 
-[ext_resource type="Texture2D" uid="uid://hhupjw4rtd5f" path="res://Sprites/player_impact_explosion.png" id="1_ox41s"]
+[ext_resource type="Texture2D" uid="uid://dgna3hnf0ouf1" path="res://Sprites/player_impact_explosion.png" id="1_ox41s"]
 
 [sub_resource type="Animation" id="Animation_cwj2w"]
 resource_name = "splat"

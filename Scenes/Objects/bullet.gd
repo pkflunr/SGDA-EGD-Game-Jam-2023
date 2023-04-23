@@ -1,5 +1,7 @@
 extends Area2D
 
+@onready var bullet_splat = preload("res://Scenes/Objects/bullet_splat.tscn")
+
 @export var speed = 1000
 @export var projectile_lifetime = 1.5
 @export var damage = 5
@@ -25,9 +27,15 @@ func _on_body_entered(body):
 			body.damage(damage)
 		else :
 			body.health -= damage
+	splat()
 	queue_free()
 
 func _on_area_entered(area):
 	if "health" in area:
 		area.health -= damage
 		self.queue_free()
+
+func splat():
+	var b = bullet_splat.instantiate()
+	b.position = self.position
+	get_parent().add_child(b)

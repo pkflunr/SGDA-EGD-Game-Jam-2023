@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm4rf6dfamgsd"]
+[gd_scene load_steps=7 format=3 uid="uid://bm4rf6dfamgsd"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
-[ext_resource type="Texture2D" uid="uid://cpicawkky68cq" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
+[ext_resource type="Texture2D" uid="uid://b8vulaj0w8qp" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
-size = Vector2(32, 32)
+size = Vector2(35, 17)
 
 [sub_resource type="Animation" id="Animation_efpvq"]
 resource_name = "fade"
@@ -23,9 +23,27 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_1n2ca"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_twdyv"]
 _data = {
-"fade": SubResource("Animation_efpvq")
+"fade": SubResource("Animation_efpvq"),
+"idle": SubResource("Animation_1n2ca")
 }
 
 [node name="Bullet" type="Area2D"]
@@ -50,6 +68,7 @@ wait_time = 1.5
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_twdyv")
 }

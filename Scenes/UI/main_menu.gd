@@ -8,3 +8,7 @@ func _on_start_button_pressed():
 
 func _on_exit_button_pressed():
 	get_tree().quit()
+
+
+func _on_speedrun_button_pressed():
+	Globals.speedrun_timer = true
