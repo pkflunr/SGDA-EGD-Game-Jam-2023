@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm4rf6dfamgsd"]
+[gd_scene load_steps=6 format=3 uid="uid://lmk0nd0bi04g"]
 
-[ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
-[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_u8fjq"]
+[ext_resource type="Script" path="res://Scenes/Enemy/guns/enemyBasicBullet.gd" id="1_7bf7o"]
+[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_qo1nf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
 size = Vector2(32, 32)
@@ -28,15 +28,15 @@ _data = {
 "fade": SubResource("Animation_efpvq")
 }
 
-[node name="Bullet" type="Area2D"]
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("1_nb6cv")
+[node name="EnemyBasicBullet" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_7bf7o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(8.88, 1.18, 0, 1)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_u8fjq")
+texture = ExtResource("2_qo1nf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yoe3d")
@@ -50,6 +50,5 @@ libraries = {
 "": SubResource("AnimationLibrary_twdyv")
 }
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

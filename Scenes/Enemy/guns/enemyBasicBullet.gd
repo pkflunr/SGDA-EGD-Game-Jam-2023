@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var speed = 1000
-@export var projectile_lifetime = 0.75
+@export var projectile_lifetime = 1.5
 @export var damage = 5
 var direction = Vector2(1, 0)
 var fading = false
@@ -26,8 +26,3 @@ func _on_body_entered(body):
 		else :
 			body.health -= damage
 	queue_free()
-
-func _on_area_entered(area):
-	if "health" in area:
-		area.health -= damage
-		self.queue_free()

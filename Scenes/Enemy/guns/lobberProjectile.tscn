@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv4lpevcellkd"]
+
+[ext_resource type="PackedScene" uid="uid://lmk0nd0bi04g" path="res://Scenes/Enemy/guns/enemyBasicBullet.tscn" id="1_gxyaf"]
+[ext_resource type="Script" path="res://Scenes/Enemy/guns/lobberProjectile.gd" id="2_btrup"]
+
+[node name="lobberProjectile" instance=ExtResource("1_gxyaf")]
+script = ExtResource("2_btrup")
+projectile_lifetime = 0.75
+max_speed = 2000

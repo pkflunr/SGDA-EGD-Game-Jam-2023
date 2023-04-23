@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5w6ptxwh64b7"]
+
+[ext_resource type="Script" path="res://Scenes/Enemy/lobberEnemy.gd" id="1_0kokc"]
+[ext_resource type="PackedScene" uid="uid://b8orki06k0nqr" path="res://Scenes/Enemy/shooterBase.tscn" id="1_iol1e"]
+
+[node name="lobberEnemy" instance=ExtResource("1_iol1e")]
+script = ExtResource("1_0kokc")
