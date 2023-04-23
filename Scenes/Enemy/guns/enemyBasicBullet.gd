@@ -7,9 +7,11 @@ var direction = Vector2(1, 0)
 var fading = false
 
 func _ready():
+	$"splat sprite".modulate.a = 0
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()
 	$Sprite2D.rotation = direction.angle()
+	$frames.play("flying")
 
 func _physics_process(delta):
 	if !fading and $Lifetime.time_left < 0.25 :
@@ -26,4 +28,15 @@ func _on_body_entered(body):
 			body.hurt(damage)
 		else :
 			body.health -= damage
-	queue_free()
+		splat()
+
+func splat():
+	direction = Vector2.ZERO
+	$"splat sprite".modulate.a = 1
+	$Sprite2D.modulate.a = 0
+	$frames.play("splat")
+
+
+func _on_frames_animation_finished(anim_name):
+	if anim_name == "splat":
+		queue_free()
