@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dl83g007dk7lh"]
 
-[ext_resource type="Texture2D" uid="uid://bs84pud1xx7n7" path="res://Sprites/Honey_impact.png" id="1_7xni7"]
+[ext_resource type="Texture2D" uid="uid://hhupjw4rtd5f" path="res://Sprites/player_impact_explosion.png" id="1_ox41s"]
 
 [sub_resource type="Animation" id="Animation_cwj2w"]
 resource_name = "splat"
@@ -54,7 +54,7 @@ _data = {
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
-texture = ExtResource("1_7xni7")
+texture = ExtResource("1_ox41s")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
