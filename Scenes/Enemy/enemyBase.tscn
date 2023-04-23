@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://golqkkh4yjrg"]
+[gd_scene load_steps=7 format=3 uid="uid://golqkkh4yjrg"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/enemyBase.gd" id="1_scnj2"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_oso5b"]
@@ -6,6 +6,16 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
 radius = 64.0
+
+[sub_resource type="Animation" id="Animation_kmqve"]
+resource_name = "damaged flash"
+length = 0.25
+step = 0.05
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5d0r"]
+_data = {
+"damaged flash": SubResource("Animation_kmqve")
+}
 
 [node name="enemyBase" type="CharacterBody2D" groups=["possessable"]]
 collision_layer = 4
@@ -17,8 +27,6 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemyArea"]
 shape = SubResource("CircleShape2D_woftc")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="enemyArea"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_woftc")
@@ -32,3 +40,9 @@ texture = ExtResource("2_oso5b")
 
 [node name="enemyHPBar" parent="." instance=ExtResource("3_6e0m0")]
 position = Vector2(0, 100)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../enemyArea")
+libraries = {
+"": SubResource("AnimationLibrary_b5d0r")
+}

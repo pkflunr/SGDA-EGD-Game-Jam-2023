@@ -7,4 +7,6 @@
 [node name="shooterEnemy" instance=ExtResource("1_kgos3")]
 script = ExtResource("2_711ux")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="enemyArea" index="1"]
+
 [node name="enemyShooter" parent="." index="7" instance=ExtResource("3_ciwcl")]

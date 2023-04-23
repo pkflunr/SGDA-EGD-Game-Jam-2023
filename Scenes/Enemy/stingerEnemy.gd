@@ -19,8 +19,6 @@ var attack_speed_decay = 0.3
 var rotation_speed = 7
 var orbit_dir_clockwise : bool
 
-@export var health_when_possessed = 50
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sprite = $Icon
@@ -60,6 +58,9 @@ func _process(delta):
 
 # the orbitting is kinda fricked but I'm not going to bother rn
 func orbit_player(delta):
+	if player == null:
+		shake_smooth(delta, 100)
+		return
 	shake_smooth(delta, 100)
 	var target_pos
 	if (orbit_dir_clockwise):
@@ -89,12 +90,9 @@ func cooldown(delta):
 		$StingCooldown.start()
 	
 	slow_down(delta, 0.1)
-	accelerate_in_dir(Vector2.UP * (sin($StingCooldown.time_left * PI)) * 20, delta)
+	idle_float(delta, $StingCooldown.time_left)
 
-	if abs(Vector2.LEFT.angle_to(Vector2.from_angle($Icon.rotation))) < abs(Vector2.RIGHT.angle_to(Vector2.from_angle($Icon.rotation))) :
-		rotate_toward(delta, 1, Vector2.LEFT, true)
-	else:
-		rotate_toward(delta, 1, Vector2.RIGHT, true)
+	orient_self(delta)
 
 func can_sting() -> bool:
 	return position.distance_squared_to(player.position) < 9 * pow(orbit_distance, 2)

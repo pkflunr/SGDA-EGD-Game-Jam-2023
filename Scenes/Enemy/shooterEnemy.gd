@@ -28,6 +28,9 @@ func _process(delta):
 			self.queue_free()
 
 func hover(delta):
+	if player == null:
+		shake_smooth(delta, 100)
+		return
 	accelerate_in_dir((picked_point - position) * 2, delta, 25)
 	slow_down(delta, 0.2)
 	unscaledVelocity.x *= pow(0.5, delta)

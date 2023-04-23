@@ -1,13 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dea3ivn4543jw"]
+[gd_scene load_steps=2 format=3 uid="uid://dea3ivn4543jw"]
 
-[ext_resource type="PackedScene" uid="uid://djn5lkbik71o2" path="res://Scenes/Enemy/burstShooterEnemy.tscn" id="2_1uciu"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
 
 [node name="tester" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("2_y8iuh")]
 position = Vector2(632, 477)
-
-[node name="burstShooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1uciu")]
-position = Vector2(431, 358)
-player = NodePath("../Player")
