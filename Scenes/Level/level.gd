@@ -3,11 +3,16 @@ extends Node2D
 enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export var room_grid_dimensions:Vector2i
-@export var room_size = 1756 # assumes rooms are square
+@export var room_size = 1792 # assumes rooms are square
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	generate_level()
+	$Player.camera_2d.limit_left = 0
+	$Player.camera_2d.limit_top = 0
+	
+	$Player.camera_2d.limit_right = room_size * room_grid_dimensions.x
+	$Player.camera_2d.limit_bottom = room_size * room_grid_dimensions.y
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
