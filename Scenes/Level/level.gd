@@ -23,10 +23,20 @@ func generate_level():
 	# temp:
 	# for now we're just making a list of 25 dummy rooms
 	# in the future we should make this a randomized rist of actual rooms
-	var room_scene = preload("res://Scenes/Level/dummy_room2.tscn")
-	var room_array = []
+	var room_scene = preload("res://Scenes/Level/room_layout_2.tscn")
+	var room_array2 = []
 	for x in range(room_grid_dimensions.x * room_grid_dimensions.y):
-		room_array.append(room_scene.instantiate())
+		room_array2.append(room_scene.instantiate())
+	
+	var room_array = []
+	for x in range(5):
+		room_array.append(preload("res://Scenes/Level/room_layout_1.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/room_layout_2.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/room_layout_3.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/room_layout_4.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/battle_room_layout.tscn").instantiate())
+	
+	room_array.shuffle()
 	
 	var placed_room_array:Array[Array] = []
 	# place the rooms as needed
