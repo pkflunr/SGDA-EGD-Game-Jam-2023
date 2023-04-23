@@ -24,6 +24,7 @@ func _physics_process(delta):
 func _process(delta):
 	if(health <= 0):
 		# this might be too extra LMAO feel free to just make it queue free instaed
+		$enemyHPBar.modulate.a = 0
 		aggro_target = null
 		$DieTimer.start
 		$CollisionShape2D.disabled = true
@@ -32,11 +33,10 @@ func _process(delta):
 		gpu_particles_2d.emitting = false
 		gpu_particles_2d2.emitting = false
 
-
 func _on_contact_damage_timer_timeout():
 	for body in contact_damage_area.get_overlapping_bodies():
 		if body.has_method("hurt") and not body.is_in_group("enemy"):
-			body.hurt(1)
+			body.hurt(5)
 
 
 func _on_die_timer_timeout():
