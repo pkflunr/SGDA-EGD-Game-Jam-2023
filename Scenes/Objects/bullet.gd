@@ -18,16 +18,16 @@ func _physics_process(delta):
 
 func _on_lifetime_timeout():
 	self.queue_free()
-	
+
 func _on_body_entered(body):
 	if "health" in body:
-		print("right")
 		body.health -= damage
-		self.queue_free()
-
+		if body.has_method("damage"):
+			body.damage(damage)
+	body.get_collision_layer_bit(1)
 
 func _on_area_entered(area):
 	if "health" in area:
-		print("yeah")
+		
 		area.health -= damage
 		self.queue_free()

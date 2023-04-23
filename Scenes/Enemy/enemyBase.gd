@@ -26,6 +26,10 @@ func shake_smooth(delta, range):
 		$ShakeFreq.start()
 	accelerate_in_dir(shakeDir, delta)
 
+func move():
+	velocity = unscaledVelocity * speed_multiplier
+	move_and_slide()
+
 func shake_violent(max_offset):
 	sprite.position = Vector2(rng.randi_range(-max_offset, max_offset), rng.randi_range(-max_offset, max_offset))
 
@@ -83,3 +87,4 @@ func force_horizontal_orientation():
 
 func damage(damage):
 	health -= damage
+	$AnimationPlayer.play("damage flash")
