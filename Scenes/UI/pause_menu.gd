@@ -34,7 +34,6 @@ func _on_restart_pressed():
 	get_tree().reload_current_scene()
 
 func _on_exit_pressed():
-	Globals.end_game()
 	set_paused(false)
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
