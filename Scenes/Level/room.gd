@@ -20,10 +20,18 @@ const UPPER_LEFT_ID = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if room_area != null:
-		for body in room_area.get_overlapping_bodies():
-			if body.is_in_group("enemies"):
-				enemies_in_room.append(body)
+	if not Engine.is_editor_hint():
+		for child in get_children():
+			if child.is_in_group("enemy"):
+				print("reparenting")
+				var new_pos = child.global_position
+				remove_child(child)
+				child.position = new_pos
+				get_parent().add_child(child)
+		if room_area != null:
+			for body in room_area.get_overlapping_bodies():
+				if body.is_in_group("enemy"):
+					enemies_in_room.append(body)
 
 func _process(delta):
 	if (active_walls & (1 << TOP)):
