@@ -22,6 +22,7 @@ var health = 2000
 var drain_rate = DEFAULT_DRAIN
 var input_x
 var input_y
+var pause_cooldown = false # so fucking tired of htis shit
 
 # dash
 
@@ -119,3 +120,13 @@ func _on_dash_hurtbox_body_entered(body):
 			set_health(body.health_when_possessed)
 		else:
 			die()
+
+func _unhandled_input(event):
+	if Input.is_action_just_released("pause") and !pause_cooldown:
+		$PauseCooldown.start()
+		pause_cooldown = true
+		PauseMenu.set_paused(true)
+
+
+func _on_pause_cooldown_timeout():
+	pause_cooldown = false

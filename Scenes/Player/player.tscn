@@ -168,7 +168,12 @@ script = ExtResource("6_4620y")
 [node name="Camera2D" type="Camera2D" parent="Marker2D"]
 rotation_smoothing_enabled = true
 
+[node name="PauseCooldown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="body_entered" from="DashHurtbox" to="." method="_on_dash_hurtbox_body_entered"]
+[connection signal="timeout" from="PauseCooldown" to="." method="_on_pause_cooldown_timeout"]
