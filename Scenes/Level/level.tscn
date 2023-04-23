@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://didlftgnrhin0"]
 
 [ext_resource type="Script" path="res://Scenes/Level/level.gd" id="1_fo0ho"]
-[ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_4h1qh"]
+[ext_resource type="PackedScene" uid="uid://drio8lw7qfdnx" path="res://Scenes/Player/player.tscn" id="2_4h1qh"]
 [ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="3_0fpns"]
-[ext_resource type="PackedScene" uid="uid://dry5jnluo4sva" path="res://Scenes/Level/end_goal.tscn" id="4_uwgjj"]
+[ext_resource type="PackedScene" path="res://Scenes/Level/end_goal.tscn" id="4_uwgjj"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_fo0ho")

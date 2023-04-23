@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dri70h5driqod"]
+[gd_scene load_steps=5 format=3 uid="uid://ce5bkw0kx6vxd"]
 
 [ext_resource type="Texture2D" uid="uid://d11ak4510okfp" path="res://Sprites/black_square_64x64.png" id="1_5s74q"]
 [ext_resource type="Script" path="res://Scenes/Level/dummy_room2.gd" id="1_hhpg5"]

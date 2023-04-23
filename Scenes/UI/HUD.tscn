@@ -18,6 +18,9 @@ _data = {
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_sr3ep")
 
+[node name="Emitter" type="Node2D" parent="."]
+position = Vector2(1244, 62)
+
 [node name="TimeNode" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -56,6 +59,3 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_qcmmc")
 }
-
-[node name="Emitter" type="Node2D" parent="."]
-position = Vector2(1244, 62)
