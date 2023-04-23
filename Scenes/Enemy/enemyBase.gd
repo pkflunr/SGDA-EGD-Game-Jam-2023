@@ -20,6 +20,8 @@ var dying_state
 var vulnerable_state
 var normal_state
 
+var take_over_gun : String = "Shooter"
+
 var rng = RandomNumberGenerator.new()
 
 var shakeDir : Vector2

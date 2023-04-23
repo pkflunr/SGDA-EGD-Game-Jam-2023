@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var projectile: PackedScene = load("res://Scenes/Objects/bullet.tscn")
+@export var projectile: PackedScene = load("res://Scenes/Objects/playerLobProjectile.tscn")
 @export var cooldown = 0.15
 @onready var cooldown_timer = $Cooldown
 
@@ -15,10 +15,13 @@ func _physics_process(delta):
 
 func fire():
 	if(!cooldown_timer.time_left) and get_parent().player_can_input:
-		var direction = Vector2(get_parent().direction, 0)
 		var b = projectile.instantiate()
-		b.direction = direction
+		
+		if get_parent().direction == -1:
+			b.direction = Vector2(-1,0).rotated(-PI/4)
+		else :
+			b.direction = Vector2(1,0).rotated(PI/4)
+		
 		b.position = get_parent().position
-		var b2 = Area2D.new()
 		get_parent().get_parent().add_child(b)
 		cooldown_timer.start()

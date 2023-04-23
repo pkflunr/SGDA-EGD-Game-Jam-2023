@@ -34,6 +34,8 @@ var pause_cooldown = false # so fucking tired of htis shit
 @onready var sprite = $Sprite
 @onready var after_images = load("res://Scenes/Player/after_images.tscn")
 
+@onready var curr_gun = $lobShooter
+
 func _physics_process(delta):
 	# Movement stuff
 	input_x = Input.get_axis("player_left", "player_right")
@@ -107,6 +109,14 @@ func set_health(health_value:int):
 func die(): # the bee is dead
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
+func switch_gun(gun : PackedScene) -> bool:
+	if gun.has_method("fire") :
+		curr_gun.queue_free()
+		curr_gun = gun.instantiate()
+		add_child(curr_gun)
+		return true
+	return false
+
 func _on_drain_timer_timeout():
 	# Health drain timer
 	hurt(drain_rate, "timer")
@@ -128,6 +138,8 @@ func _on_dash_hurtbox_body_entered(body):
 			body.queue_free()
 			$AnimationPlayer.play("possess")
 			set_health(body.health_when_possessed)
+			if "take_over_gun" in body:
+				switch_gun(body.take_over_gun)
 		else:
 			die()
 

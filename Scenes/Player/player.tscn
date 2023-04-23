@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://coj4n8nbphcla"]
+[gd_scene load_steps=23 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
 [ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
 [ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
-[ext_resource type="Texture2D" uid="uid://cb0bgpunk17c0" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
+[ext_resource type="PackedScene" uid="uid://bu5bikx8rn1wp" path="res://Scenes/Objects/playerLobShooter.tscn" id="5_b3rjf"]
+[ext_resource type="Texture2D" uid="uid://ltn5483om05x" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
-[ext_resource type="Texture2D" uid="uid://c58iv0e6k4xex" path="res://Sprites/Zombee.png" id="7_pmds4"]
+[ext_resource type="PackedScene" uid="uid://mtpk7i74jbxh" path="res://Scenes/Objects/playerLobProjectile.tscn" id="6_kl0mg"]
+[ext_resource type="Texture2D" uid="uid://bneqdcnedf7nf" path="res://Sprites/Zombee.png" id="7_pmds4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 29.0
@@ -140,9 +142,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o44ht"]
 _data = {
-"damage flash": SubResource("Animation_ia7ye"),
 "charge": SubResource("Animation_fh71p"),
 "charge_up": SubResource("Animation_utjd6"),
+"damage flash": SubResource("Animation_ia7ye"),
 "die": SubResource("Animation_8opp6"),
 "idle": SubResource("Animation_6xa08"),
 "possess": SubResource("Animation_hy4kc")
@@ -212,7 +214,11 @@ horizontal_alignment = 2
 autostart = true
 
 [node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
+visible = false
 position = Vector2(44, 16)
+
+[node name="lobShooter" parent="." instance=ExtResource("5_b3rjf")]
+projectile = ExtResource("6_kl0mg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
