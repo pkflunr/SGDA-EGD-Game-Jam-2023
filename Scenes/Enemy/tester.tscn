@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bvppmtfr5nr48"]
 
 [ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_r350b"]
-[ext_resource type="PackedScene" uid="uid://drio8lw7qfdnx" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
+[ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
 [ext_resource type="PackedScene" uid="uid://ckhe1wuau18xg" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_fwcdn"]
 [ext_resource type="PackedScene" uid="uid://dfoe2sfxfwkbs" path="res://Scenes/Enemy/stingerEnemy.tscn" id="4_43bmg"]
 

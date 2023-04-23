@@ -20,19 +20,21 @@ var player_can_input = true
 # player
 var health = 2000
 var drain_rate = DEFAULT_DRAIN
+var input_x
+var input_y
 
 # dash
 
 
 @onready var debug_label = $CanvasLayer/Label
-@onready var camera_2d = $Camera2D
+@onready var camera_2d = $Marker2D/Camera2D
 @onready var dash_hurtbox = $DashHurtbox
 @onready var dash_hurtbox_shape = $DashHurtbox/CollisionShape2D
 
 func _physics_process(delta):
 	# Movement stuff
-	var input_x = Input.get_axis("player_left", "player_right")
-	var input_y = Input.get_axis("player_up", "player_down")
+	input_x = Input.get_axis("player_left", "player_right")
+	input_y = Input.get_axis("player_up", "player_down")
 
 	if player_can_input:
 		if input_x != 0: # horizontal movement

@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://coj4n8nbphcla"]
+[gd_scene load_steps=18 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_fnaau"]
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
 [ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
 [ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
 [ext_resource type="Texture2D" uid="uid://1f1sitfu58eh" path="res://Sprites/temp_takeover_particle.png" id="5_sxngh"]
+[ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 37.0
@@ -99,7 +100,7 @@ turbulence_influence_over_life = SubResource("CurveTexture_b10a4")
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
-motion_mode = 1
+slide_on_ceiling = false
 script = ExtResource("1_nx8vt")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -136,11 +137,6 @@ autostart = true
 [node name="Shooter" parent="." instance=ExtResource("3_fkdis")]
 position = Vector2(44, 16)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-rotation_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_o44ht")
@@ -165,6 +161,12 @@ amount = 1
 process_material = SubResource("ParticleProcessMaterial_cvx45")
 texture = ExtResource("5_sxngh")
 one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+script = ExtResource("6_4620y")
+
+[node name="Camera2D" type="Camera2D" parent="Marker2D"]
+rotation_smoothing_enabled = true
 
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]
