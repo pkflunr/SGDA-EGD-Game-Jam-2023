@@ -72,14 +72,14 @@ radius = 48.0
 offsets = PackedFloat32Array(0, 0.237037, 0.725926, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0.290196, 0, 1, 0, 0.290196, 0, 1, 0, 0.290196, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_jqdqx"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r0xgw"]
 gradient = SubResource("Gradient_sivbe")
 
 [sub_resource type="Curve" id="Curve_wfsmo"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0, 0.745455), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_b10a4"]
+[sub_resource type="CurveTexture" id="CurveTexture_6xkj5"]
 curve = SubResource("Curve_wfsmo")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cvx45"]
@@ -93,9 +93,9 @@ angular_velocity_min = -90.0
 angular_velocity_max = 90.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-color_ramp = SubResource("GradientTexture1D_jqdqx")
+color_ramp = SubResource("GradientTexture1D_r0xgw")
 turbulence_noise_strength = 8.0
-turbulence_influence_over_life = SubResource("CurveTexture_b10a4")
+turbulence_influence_over_life = SubResource("CurveTexture_6xkj5")
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2

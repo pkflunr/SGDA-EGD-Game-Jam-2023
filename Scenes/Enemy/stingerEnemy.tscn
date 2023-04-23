@@ -24,6 +24,12 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="DeathParticle" parent="." index="10"]
+lifetime = 3.0
+
+[node name="DeathLength" parent="." index="11"]
+wait_time = 3.0
+
 [connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]
 [connection signal="timeout" from="StingCharge" to="." method="_on_sting_charge_timeout"]
 [connection signal="timeout" from="StingDuration" to="." method="_on_sting_duration_timeout"]

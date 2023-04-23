@@ -14,20 +14,20 @@ func _physics_process(delta):
 	if !fading and $Lifetime.time_left < 0.25 :
 		fading = true
 		$AnimationPlayer.play("fade")
-	position = position + speed * direction * delta	
+	position = position + speed * direction * delta
 
 func _on_lifetime_timeout():
 	self.queue_free()
 
 func _on_body_entered(body):
 	if "health" in body:
-		body.health -= damage
 		if body.has_method("damage"):
 			body.damage(damage)
-	body.get_collision_layer_bit(1)
+		else :
+			body.health -= damage
+	queue_free()
 
 func _on_area_entered(area):
 	if "health" in area:
-		
 		area.health -= damage
 		self.queue_free()

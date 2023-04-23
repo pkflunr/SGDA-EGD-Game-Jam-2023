@@ -3,10 +3,12 @@ extends "res://Scenes/Enemy/enemyBase.gd"
 @export var hover_distance = 600
 
 enum ShooterEnemyStates {
+	IDLE,
 	HOVER,
 	ATTACK,
 	DYING,
 	VULNERABLE,
+	RECOVER,
 	DEATH
 }
 
@@ -19,30 +21,36 @@ var y_point_range = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	printerr("the shooter base is not supposed to be instantiated")
+	super._ready()
+	
+	dying_state = ShooterEnemyStates.DYING
+	vulnerable_state = ShooterEnemyStates.VULNERABLE
+	normal_state = ShooterEnemyStates.RECOVER
+	
+#	curr_state = ShooterEnemyStates.IDLE
+	enter_hover_mode()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	velocity = speed_multiplier * unscaledVelocity
-	move_and_slide()
-	look_at_player_horizontal()
 	
 	match curr_state:
+		ShooterEnemyStates.IDLE:
+			idle(delta)
 		ShooterEnemyStates.HOVER:
 			hover(delta)
 		ShooterEnemyStates.ATTACK:
 			attack(delta)
-		ShooterEnemyStates.DYING:
-			pass
 		ShooterEnemyStates.VULNERABLE:
-			pass
-		ShooterEnemyStates.DEATH:
-			self.queue_free()
+			vulnerable(delta)
+		ShooterEnemyStates.RECOVER:
+			recover(delta)
 
 func hover(delta):
 	accelerate_in_dir((picked_point - position) * 2, delta, 25)
 	slow_down(delta, 0.2)
 	unscaledVelocity.x *= pow(0.5, delta)
+	
+	look_at_player_horizontal()
 	if !$HoverTime.time_left :
 		enter_attack()
 
@@ -55,6 +63,12 @@ func generate_hover_point():
 func attack(delta):
 	shooter.fire(player.position - position)
 	enter_hover_mode()
+
+func recover(delta):
+	orient_self_gradual(delta)
+	if abs(cos(sprite.rotation)) > 0.95 :
+		force_horizontal_orientation()
+		enter_hover_mode()
 
 func enter_hover_mode() :
 	$HoverTime.start()

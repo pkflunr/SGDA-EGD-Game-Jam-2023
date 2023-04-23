@@ -5,20 +5,34 @@ extends CharacterBody2D
 @export var speed_limit : int = 25
 @export var speed_multiplier : float = 30
 @export var attack_power : int = 10 # the amount of damage that this enemy does
-
-@export var hp_value : int
+@export var vulnerability_threshold = 20
 @export var is_vulnerable : bool
 @export var health_when_possessed = 50
 
-var rot_velocity : int
+var rot_velocity : float
 var sprite : Sprite2D
+var idle_pos : Vector2
 
 var unscaledVelocity : Vector2
 var curr_state
 
+var dying_state
+var vulnerable_state
+var normal_state
+
 var rng = RandomNumberGenerator.new()
 
 var shakeDir : Vector2
+
+func _ready():
+	sprite = $Icon
+	idle_pos = position
+
+func idle(delta):
+	accelerate_in_dir(idle_pos - position, delta * 2)
+	shake_smooth(delta, 10)
+	slow_down(delta, 0.3)
+	move()
 
 func shake_smooth(delta, range):
 	if(!$ShakeFreq.time_left):
@@ -53,6 +67,9 @@ func get_predicted_player_location(time : float) -> Vector2:
 func idle_float(delta, time : float):
 	accelerate_in_dir(Vector2.UP * (sin(time * PI)) * 20, delta)
 
+func aggro():
+	curr_state = normal_state
+
 func knockback(kb_vector : Vector2, rot : int):
 	unscaledVelocity = kb_vector
 	rot_velocity = rot
@@ -73,7 +90,13 @@ func look_at_player_horizontal():
 	else :
 		sprite.scale.x = 1
 
-func orient_self(delta):
+func vertical_flip_look_up():
+	if (cos(sprite.rotation) < 0) :
+		sprite.scale.y = -1
+	else:
+		sprite.scale.y = 1
+
+func orient_self_gradual(delta):
 	if abs(Vector2.LEFT.angle_to(Vector2.from_angle(sprite.rotation))) < abs(Vector2.RIGHT.angle_to(Vector2.from_angle(sprite.rotation))) :
 		rotate_toward(delta, 1, Vector2.LEFT, true)
 	else:
@@ -85,6 +108,36 @@ func force_horizontal_orientation():
 	else:
 		sprite.rotation = 0
 
+func vulnerable(delta):
+	rotate_with_rot_vel(delta)
+	slow_rot(delta, 0.2)
+	slow_down(delta, 0.2)
+	move()
+
+func die():
+	sprite.queue_free()
+	$enemyHPBar.queue_free()
+	$DeathParticle.emitting = true
+	$DeathLength.start()
+
 func damage(damage):
 	health -= damage
-	$AnimationPlayer.play("damage flash")
+	if !is_vulnerable:
+		if health < vulnerability_threshold:
+			$AnimationPlayer.play("vulnerability flashing")
+			$VulnerableLength.start()
+			is_vulnerable = true
+			curr_state = vulnerable_state
+			knockback((position - player.position).normalized() * 10, 20)
+		else:
+			$AnimationPlayer.play("damage flash")
+	elif health <= 0 and curr_state != dying_state:
+		curr_state = dying_state
+		die()
+
+func _on_death_length_timeout():
+	queue_free()
+
+
+func _on_vulnerable_length_timeout():
+	aggro()

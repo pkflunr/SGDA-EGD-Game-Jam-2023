@@ -1,27 +1,20 @@
 extends "res://Scenes/Enemy/shooterBase.gd"
 
 func _ready():
-	print(get_collision_layer_value(0))
-	sprite = $Icon
+	super._ready()
 	shooter = $enemyShooter
-	unscaledVelocity = Vector2.ZERO
-	enter_hover_mode()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-
-	move()
-	match curr_state:
-		ShooterEnemyStates.HOVER:
-			hover(delta)
-		ShooterEnemyStates.ATTACK:
-			attack(delta)
-		ShooterEnemyStates.DYING:
-			pass
-		ShooterEnemyStates.VULNERABLE:
-			pass
-		ShooterEnemyStates.DEATH:
-			self.queue_free()
+#func _process(delta):
+#
+#	move()
+#	match curr_state:
+#		ShooterEnemyStates.HOVER:
+#			hover(delta)
+#		ShooterEnemyStates.ATTACK:
+#			attack(delta)
+#		ShooterEnemyStates.VULNERABLE:
+#			vulnerable(delta)
 
 func hover(delta):
 	if player == null:

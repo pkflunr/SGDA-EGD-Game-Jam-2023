@@ -5,14 +5,14 @@ extends "res://Scenes/Enemy/enemyBase.gd"
 @export var attack_move_speed : int = 80
 
 enum StingerEnemyStates {
+	IDLE,
 	ORBIT,
 	CHARGE_STING,
 	ATTACK,
 	COOLDOWN,
 	HIT,
 	DYING,
-	VULNERABLE,
-	DEATH
+	VULNERABLE
 }
 
 var attack_speed_decay = 0.3
@@ -21,21 +21,17 @@ var orbit_dir_clockwise : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sprite = $Icon
-	curr_state = StingerEnemyStates.ORBIT
-	generate_orbit_direction()
+	super._ready()
+	dying_state = StingerEnemyStates.DYING
+	vulnerable_state = StingerEnemyStates.VULNERABLE
+	curr_state = StingerEnemyStates.IDLE
+	normal_state = StingerEnemyStates.ORBIT
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	velocity = unscaledVelocity * speed_multiplier
-	move_and_slide()
-	
-	if (cos($Icon.rotation) < 0) :
-		$Icon.scale.y = -1
-	else:
-		$Icon.scale.y = 1
-
 	match curr_state:
+		StingerEnemyStates.IDLE:
+			idle(delta)
 		StingerEnemyStates.ORBIT:
 			orbit_player(delta)
 		StingerEnemyStates.CHARGE_STING:
@@ -47,17 +43,10 @@ func _process(delta):
 		StingerEnemyStates.HIT:
 			pass
 		StingerEnemyStates.VULNERABLE:
-			pass
-		StingerEnemyStates.DYING:
-			pass
-		StingerEnemyStates.DEATH:
-			self.queue_free()
+			vulnerable(delta)
 
 # the orbitting is kinda fricked but I'm not going to bother rn
 func orbit_player(delta):
-	if player == null:
-		shake_smooth(delta, 100)
-		return
 	shake_smooth(delta, 100)
 	var target_pos
 	if (orbit_dir_clockwise):
@@ -68,6 +57,8 @@ func orbit_player(delta):
 	if ($StingTargettedWait.is_stopped() and can_sting()):
 		$StingTargettedWait.start()
 	rotate_toward(delta, rotation_speed)
+	move()
+	vertical_flip_look_up()
 
 func charge_sting(delta):
 	shake_violent(($StingCharge.wait_time - $StingCharge.time_left) * 8 / $StingCharge.wait_time)
@@ -76,11 +67,15 @@ func charge_sting(delta):
 	slow_down(delta, charging_friction)
 	
 	rotate_toward(delta, rotation_speed * max(3 * pow($StingCharge.time_left / $StingCharge.wait_time, 0.5) / 2 - 0.5, 0), get_predicted_player_location($StingCharge.time_left))
+	move()
+	vertical_flip_look_up()
 
 func attack(delta):
 	if $StingDuration.is_stopped() :
 		$StingDuration.start()
 	slow_down(delta, attack_speed_decay)
+	move()
+	vertical_flip_look_up()
 
 func cooldown(delta):
 	if $StingCooldown.is_stopped() :
@@ -89,7 +84,8 @@ func cooldown(delta):
 	slow_down(delta, 0.1)
 	idle_float(delta, $StingCooldown.time_left)
 
-	orient_self(delta)
+	orient_self_gradual(delta)
+	move()
 
 func can_sting() -> bool:
 	return position.distance_squared_to(player.position) < 9 * pow(orbit_distance, 2)
@@ -107,7 +103,6 @@ func _on_stinger_enemy_area_body_entered(body):
 #				# TODO Damage the player but less
 #				curr_state = StingerEnemyStates.HIT
 #				pass
-# TODO detect getting damaged by player
 
 func _on_sting_cooldown_timeout():
 	if curr_state == StingerEnemyStates.COOLDOWN:

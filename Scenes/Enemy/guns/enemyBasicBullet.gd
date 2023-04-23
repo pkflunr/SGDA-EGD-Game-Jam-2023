@@ -20,5 +20,9 @@ func _on_lifetime_timeout():
 	self.queue_free()
 
 func _on_body_entered(body):
-	# collision behavior
-	pass # Replace with function body.
+	if "health" in body:
+		if body.has_method("damage"):
+			body.damage(damage)
+		else :
+			body.health -= damage
+	queue_free()
