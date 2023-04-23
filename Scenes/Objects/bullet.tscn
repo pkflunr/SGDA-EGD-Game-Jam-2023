@@ -1,10 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm4rf6dfamgsd"]
+[gd_scene load_steps=6 format=3 uid="uid://bm4rf6dfamgsd"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
 [ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_u8fjq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_efpvq"]
+resource_name = "fade"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(8.88, 1.18, 0, 1), Color(8.87843, 1.18039, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_twdyv"]
+_data = {
+"fade": SubResource("Animation_efpvq")
+}
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 2
@@ -20,7 +42,13 @@ texture = ExtResource("2_u8fjq")
 shape = SubResource("RectangleShape2D_yoe3d")
 
 [node name="Lifetime" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_twdyv")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
