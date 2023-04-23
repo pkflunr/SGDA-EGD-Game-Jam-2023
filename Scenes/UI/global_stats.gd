@@ -4,6 +4,7 @@ var enemies_killed = 0
 var enemies_captured = 0
 var global_timer = 0
 
+var speedrun_timer = false
 var timer_running = false
 
 # Called when the node enters the scene tree for the first time.

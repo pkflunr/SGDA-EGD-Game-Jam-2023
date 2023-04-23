@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/main_menu.gd" id="1_hgda0"]
 [ext_resource type="Texture2D" uid="uid://cf2v4vujeax63" path="res://Sprites/title.png" id="2_oeslj"]
-[ext_resource type="Theme" uid="uid://bfw3jfeywv4ow" path="res://Scenes/UI/ui.tres" id="3_gefso"]
+[ext_resource type="Theme" path="res://Scenes/UI/ui.tres" id="3_gefso"]
 
 [sub_resource type="Animation" id="Animation_b6gwv"]
 resource_name = "title"
@@ -56,10 +56,10 @@ anchors_preset = -1
 anchor_top = 0.236
 anchor_right = 0.177
 anchor_bottom = 0.597
-offset_left = 33.0
-offset_top = -26.92
-offset_right = 32.44
-offset_bottom = -4.84
+offset_left = 19.0
+offset_top = -33.92
+offset_right = 185.44
+offset_bottom = 2.16
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -73,16 +73,28 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("3_gefso")
 text = "Start"
+alignment = 0
+
+[node name="SpeedrunButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_gefso")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Enable Speedrun Timer"
+alignment = 0
 
 [node name="HelpButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_gefso")
 text = "Help"
+alignment = 0
 
 [node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_gefso")
 text = "Exit"
+alignment = 0
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/SpeedrunButton" to="." method="_on_speedrun_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
