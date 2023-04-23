@@ -22,21 +22,25 @@ func _process(delta):
 
 
 func generate_level():
-	# temp:
-	# for now we're just making a list of 25 dummy rooms
-	# in the future we should make this a randomized rist of actual rooms
-	var room_scene = preload("res://Scenes/Level/room_layout_2.tscn")
-	var room_array2 = []
-	for x in range(room_grid_dimensions.x * room_grid_dimensions.y):
-		room_array2.append(room_scene.instantiate())
-	
 	var room_array = []
+	room_array.append(preload("res://Scenes/Level/Room/room1-1.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room1-2.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room1-3.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room1-4.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room1-5.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room 3-1.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room 3-2.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room 3-3.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room 3-4.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/room 3-5.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/battle_room_1.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/battle_room_2.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/battle_room_3.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/battle_room_4.tscn").instantiate())
+	room_array.append(preload("res://Scenes/Level/Room/battle_room_5.tscn").instantiate())
 	for x in range(5):
-		room_array.append(preload("res://Scenes/Level/room_layout_1.tscn").instantiate())
-		room_array.append(preload("res://Scenes/Level/room_layout_2.tscn").instantiate())
-		room_array.append(preload("res://Scenes/Level/room_layout_3.tscn").instantiate())
-		room_array.append(preload("res://Scenes/Level/room_layout_4.tscn").instantiate())
-		room_array.append(preload("res://Scenes/Level/battle_room_layout.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/Room/room_layout_2.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/Room/room_layout_4.tscn").instantiate())
 	
 	room_array.shuffle()
 	
@@ -127,7 +131,7 @@ func generate_level():
 	# remove old room
 	placed_room_array[initial_node.x][initial_node.y].queue_free()
 	# replace with new room
-	var spawn_room = preload("res://Scenes/Level/spawn_room.tscn").instantiate()
+	var spawn_room = preload("res://Scenes/Level/Room/spawn_room.tscn").instantiate()
 	spawn_room.position = Vector2(room_size * initial_node.y,room_size * initial_node.x)
 	add_child(spawn_room)
 	placed_room_array[initial_node.x][initial_node.y] = spawn_room
@@ -139,7 +143,7 @@ func generate_level():
 	# remove old room
 	placed_room_array[last_visited_pos.x][last_visited_pos.y].queue_free()
 	# replace with new room
-	var queen_room = preload("res://Scenes/Level/queen_room.tscn").instantiate()
+	var queen_room = preload("res://Scenes/Level/Room/queen_room.tscn").instantiate()
 	queen_room.position = Vector2(room_size * last_visited_pos.y,room_size * last_visited_pos.x)
 	add_child(queen_room)
 	placed_room_array[last_visited_pos.x][last_visited_pos.y] = queen_room

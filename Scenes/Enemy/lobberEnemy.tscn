@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b8orki06k0nqr" path="res://Scenes/Enemy/shooterBase.tscn" id="1_iol1e"]
 [ext_resource type="PackedScene" uid="uid://baahhpfw25nuf" path="res://Scenes/Enemy/guns/lobberGun.tscn" id="3_fvnfo"]
 
-[node name="lobberEnemy" instance=ExtResource("1_iol1e")]
+[node name="lobberEnemy" groups=["enemy"] instance=ExtResource("1_iol1e")]
 script = ExtResource("1_0kokc")
 
 [node name="lobberGun" parent="." index="11" instance=ExtResource("3_fvnfo")]
