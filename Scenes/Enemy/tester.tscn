@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dea3ivn4543jw"]
 
-[ext_resource type="PackedScene" uid="uid://b5w6ptxwh64b7" path="res://Scenes/Enemy/lobberEnemy.tscn" id="2_sigw6"]
+[ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_3xae8"]
+[ext_resource type="PackedScene" uid="uid://djn5lkbik71o2" path="res://Scenes/Enemy/burstShooterEnemy.tscn" id="2_448gj"]
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
-[ext_resource type="PackedScene" uid="uid://c4rexe0nh5yys" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_jsrwm"]
 
 [node name="tester" type="Node2D"]
 
@@ -11,11 +11,10 @@ position = Vector2(458, 186)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="shooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_jsrwm")]
-position = Vector2(119, 85)
-player = NodePath("../Player")
+[node name="BeeBall" parent="." node_paths=PackedStringArray("aggro_target") instance=ExtResource("2_3xae8")]
+aggro_target = NodePath("../Player")
 
-[node name="lobberEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_sigw6")]
+[node name="burstShooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_448gj")]
 player = NodePath("../Player")
 
 [editable path="Player"]
