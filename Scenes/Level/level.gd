@@ -129,7 +129,7 @@ func generate_level():
 	# place player and spawn room
 	placed_room_array[initial_node.x][initial_node.y].marked = true
 	# remove old room
-	placed_room_array[initial_node.x][initial_node.y].queue_free()
+	placed_room_array[initial_node.x][initial_node.y].remove()
 	# replace with new room
 	var spawn_room = preload("res://Scenes/Level/Room/spawn_room.tscn").instantiate()
 	spawn_room.position = Vector2(room_size * initial_node.y,room_size * initial_node.x)
@@ -141,7 +141,7 @@ func generate_level():
 	# place end goal and end goal room
 	placed_room_array[last_visited_pos.x][last_visited_pos.y].marked = true
 	# remove old room
-	placed_room_array[last_visited_pos.x][last_visited_pos.y].queue_free()
+	placed_room_array[last_visited_pos.x][last_visited_pos.y].remove()
 	# replace with new room
 	var queen_room = preload("res://Scenes/Level/Room/queen_room.tscn").instantiate()
 	queen_room.position = Vector2(room_size * last_visited_pos.y,room_size * last_visited_pos.x)
