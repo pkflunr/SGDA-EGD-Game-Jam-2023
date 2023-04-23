@@ -1,11 +1,19 @@
 @tool
 extends Node2D
+class_name Room
 # room size is 28 * 28 tiles
 enum {TOP,BOTTOM,LEFT,RIGHT}
 @onready var tile_map = $TileMap
 
 @export_flags("TOP","BOTTOM","LEFT","RIGHT") var active_walls = 0
 @export var marked = false
+
+const TILE_ID = 1
+const SLOPE_ID = 0
+const BOTTOM_LEFT_ID = 0
+const BOTTOM_RIGHT_ID = 1
+const UPPER_RIGHT_ID = 3
+const UPPER_LEFT_ID = 4
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
