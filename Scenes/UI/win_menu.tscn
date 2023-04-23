@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca3pdcb0c3vvb"]
+[gd_scene load_steps=3 format=3 uid="uid://ca3pdcb0c3vvb"]
 
 [ext_resource type="Script" path="res://Scenes/UI/win_menu.gd" id="1_ruxek"]
+[ext_resource type="Theme" uid="uid://bfw3jfeywv4ow" path="res://Scenes/UI/ui.tres" id="2_i8gp7"]
 
 [node name="WinMenu" type="Control"]
 layout_mode = 3
@@ -14,19 +15,80 @@ grow_vertical = 2
 script = ExtResource("1_ruxek")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-use_top_left = true
+layout_mode = 0
+offset_left = -640.0
+offset_top = -362.0
+offset_right = 637.0
+offset_bottom = 360.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+theme = ExtResource("2_i8gp7")
 
 [node name="WinLabel" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "You win!"
+horizontal_alignment = 1
+
+[node name="BeesContainer" type="HSplitContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 1.69
+dragger_visibility = 1
+
+[node name="BeesLabel" type="Label" parent="CenterContainer/VBoxContainer/BeesContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "Bees Captured:"
+vertical_alignment = 1
+
+[node name="Bees" type="Label" parent="CenterContainer/VBoxContainer/BeesContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "00"
+horizontal_alignment = 2
+
+[node name="DefeatContainer" type="HSplitContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DefeatLabel" type="Label" parent="CenterContainer/VBoxContainer/DefeatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Enemies Defeated:"
+horizontal_alignment = 1
+
+[node name="Defeat" type="Label" parent="CenterContainer/VBoxContainer/DefeatContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "00"
+horizontal_alignment = 1
+
+[node name="TimeContainer" type="HSplitContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DefeatLabel" type="Label" parent="CenterContainer/VBoxContainer/TimeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Time Taken:"
+horizontal_alignment = 1
+
+[node name="Defeat" type="Label" parent="CenterContainer/VBoxContainer/TimeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0'00'00"
+horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Return"
+text = "Restart"
+
+[node name="Button2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to Title"
+
+[node name="VSplitContainer" type="VSplitContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button2" to="." method="_on_button_pressed"]

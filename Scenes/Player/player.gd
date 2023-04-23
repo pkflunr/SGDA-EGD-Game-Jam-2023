@@ -35,6 +35,9 @@ var pause_cooldown = false # so fucking tired of htis shit
 @onready var animation_player = $AnimationPlayer
 @onready var after_images = load("res://Scenes/Player/after_images.tscn")
 
+func _ready():
+	Globals.start_game()
+
 func _physics_process(delta):
 	# Movement stuff
 	input_x = Input.get_axis("player_left", "player_right")
@@ -116,6 +119,7 @@ func die(): # the bee is dead
 			$DeathParticle.emitting = true
 
 func exit():
+	Globals.end_game()
 	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func _on_drain_timer_timeout():
