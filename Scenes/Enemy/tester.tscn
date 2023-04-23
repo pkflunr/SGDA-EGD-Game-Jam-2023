@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dea3ivn4543jw"]
+[gd_scene load_steps=5 format=3 uid="uid://dea3ivn4543jw"]
 
 [ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_y8iuh"]
 [ext_resource type="PackedScene" uid="uid://c4rexe0nh5yys" path="res://Scenes/Enemy/shooterEnemy.tscn" id="3_aaj32"]
 [ext_resource type="PackedScene" uid="uid://clj4a2gycqotp" path="res://Scenes/Enemy/stingerEnemy.tscn" id="3_ve4sp"]
+[ext_resource type="PackedScene" uid="uid://djn5lkbik71o2" path="res://Scenes/Enemy/burstShooterEnemy.tscn" id="4_d8jox"]
 
 [node name="tester" type="Node2D"]
 
@@ -14,10 +15,10 @@ enabled = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="stingerEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_ve4sp")]
-player = NodePath("../Player")
+[node name="stingerEnemy" parent="." instance=ExtResource("3_ve4sp")]
 
-[node name="shooterEnemy" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_aaj32")]
-player = NodePath("../Player")
+[node name="shooterEnemy" parent="." instance=ExtResource("3_aaj32")]
+
+[node name="burstShooterEnemy" parent="." instance=ExtResource("4_d8jox")]
 
 [editable path="Player"]

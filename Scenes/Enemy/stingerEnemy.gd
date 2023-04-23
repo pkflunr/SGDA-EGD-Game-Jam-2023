@@ -5,7 +5,6 @@ extends "res://Scenes/Enemy/enemyBase.gd"
 @export var attack_move_speed : int = 80
 
 enum StingerEnemyStates {
-	IDLE,
 	ORBIT,
 	CHARGE_STING,
 	ATTACK,
@@ -24,26 +23,28 @@ func _ready():
 	super._ready()
 	dying_state = StingerEnemyStates.DYING
 	vulnerable_state = StingerEnemyStates.VULNERABLE
-	curr_state = StingerEnemyStates.IDLE
 	normal_state = StingerEnemyStates.ORBIT
+	
+	curr_state = normal_state
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	match curr_state:
-		StingerEnemyStates.IDLE:
-			idle(delta)
-		StingerEnemyStates.ORBIT:
-			orbit_player(delta)
-		StingerEnemyStates.CHARGE_STING:
-			charge_sting(delta)
-		StingerEnemyStates.ATTACK:
-			attack(delta)
-		StingerEnemyStates.COOLDOWN:
-			cooldown(delta)
-		StingerEnemyStates.HIT:
-			pass
-		StingerEnemyStates.VULNERABLE:
-			vulnerable(delta)
+	if player == null :
+		idle(delta)
+	else :
+		match curr_state:
+			StingerEnemyStates.ORBIT:
+				orbit_player(delta)
+			StingerEnemyStates.CHARGE_STING:
+				charge_sting(delta)
+			StingerEnemyStates.ATTACK:
+				attack(delta)
+			StingerEnemyStates.COOLDOWN:
+				cooldown(delta)
+			StingerEnemyStates.HIT:
+				pass
+			StingerEnemyStates.VULNERABLE:
+				vulnerable(delta)
 
 # the orbitting is kinda fricked but I'm not going to bother rn
 func orbit_player(delta):

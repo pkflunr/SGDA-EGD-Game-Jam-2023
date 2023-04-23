@@ -129,7 +129,12 @@ func damage(damage):
 			$VulnerableLength.start()
 			is_vulnerable = true
 			curr_state = vulnerable_state
-			knockback((position - player.position).normalized() * 10, 20)
+			var knockback_vector
+			if player == null:
+				knockback_vector = Vector2.from_angle(randf_range(0, 2 * PI))
+			else:
+				knockback_vector = (position - player.position).normalized()
+			knockback(knockback_vector * 10, 20)
 		else:
 			$AnimationPlayer.play("damage flash")
 	elif health <= 0 and curr_state != dying_state:

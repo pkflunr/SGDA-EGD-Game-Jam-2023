@@ -3,7 +3,6 @@ extends "res://Scenes/Enemy/enemyBase.gd"
 @export var hover_distance = 600
 
 enum ShooterEnemyStates {
-	IDLE,
 	HOVER,
 	ATTACK,
 	DYING,
@@ -26,24 +25,27 @@ func _ready():
 	dying_state = ShooterEnemyStates.DYING
 	vulnerable_state = ShooterEnemyStates.VULNERABLE
 	normal_state = ShooterEnemyStates.RECOVER
-	
-#	curr_state = ShooterEnemyStates.IDLE
-	enter_hover_mode()
+
+var prev_frame_player
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
-	match curr_state:
-		ShooterEnemyStates.IDLE:
-			idle(delta)
-		ShooterEnemyStates.HOVER:
-			hover(delta)
-		ShooterEnemyStates.ATTACK:
-			attack(delta)
-		ShooterEnemyStates.VULNERABLE:
-			vulnerable(delta)
-		ShooterEnemyStates.RECOVER:
-			recover(delta)
+	if player == null :
+		prev_frame_player = player
+		idle(delta)
+	else :
+		if prev_frame_player != player:
+			prev_frame_player = player
+			enter_hover_mode()
+		match curr_state:
+			ShooterEnemyStates.HOVER:
+				hover(delta)
+			ShooterEnemyStates.ATTACK:
+				attack(delta)
+			ShooterEnemyStates.VULNERABLE:
+				vulnerable(delta)
+			ShooterEnemyStates.RECOVER:
+				recover(delta)
 
 func hover(delta):
 	accelerate_in_dir((picked_point - position) * 2, delta, 25)
