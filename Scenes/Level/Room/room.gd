@@ -62,10 +62,11 @@ func _process(delta):
 func _on_room_area_body_entered(body):
 	if body.is_in_group("player"):
 		for enemy in enemies_in_room:
-			if "aggro_target" in enemy:
-				enemy.aggro_target = body
-			if "player" in enemy:
-				enemy.player = body
+			if enemy != null:
+				if "aggro_target" in enemy:
+					enemy.aggro_target = body
+				if "player" in enemy:
+					enemy.player = body
 	elif body.is_in_group("enemy"):
 		if not enemies_in_room.has(body):
 			print("room made a friend")

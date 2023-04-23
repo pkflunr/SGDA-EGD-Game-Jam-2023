@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhlj2ns8glrns"]
+
+[ext_resource type="PackedScene" uid="uid://dkd2axcsqnhlx" path="res://Scenes/Level/Room/room_layout_3.tscn" id="1_uooft"]
+[ext_resource type="PackedScene" uid="uid://c4rexe0nh5yys" path="res://Scenes/Enemy/shooterEnemy.tscn" id="2_vkygy"]
+
+[node name="Room" instance=ExtResource("1_uooft")]
+
+[node name="shooterEnemy" parent="." index="2" instance=ExtResource("2_vkygy")]
+position = Vector2(640, 896)
+
+[node name="shooterEnemy2" parent="." index="3" instance=ExtResource("2_vkygy")]
+position = Vector2(1120, 896)

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="2_711ux"]
 [ext_resource type="PackedScene" uid="uid://cmowx6kvxh8mt" path="res://Scenes/Enemy/guns/enemyBasicGun.tscn" id="3_ciwcl"]
 
-[node name="shooterEnemy" instance=ExtResource("1_kgos3")]
+[node name="shooterEnemy" groups=["enemy"] instance=ExtResource("1_kgos3")]
 script = ExtResource("2_711ux")
 
 [node name="enemyShooter" parent="." index="7" instance=ExtResource("3_ciwcl")]
