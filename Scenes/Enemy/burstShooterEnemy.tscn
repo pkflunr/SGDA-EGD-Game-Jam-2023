@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://djn5lkbik71o2"]
+
+[ext_resource type="PackedScene" uid="uid://c4rexe0nh5yys" path="res://Scenes/Enemy/shooterEnemy.tscn" id="1_40d3k"]
+[ext_resource type="Script" path="res://Scenes/Enemy/burstShooterEnemy.gd" id="1_orte7"]
+
+[node name="burstShooterEnemy" instance=ExtResource("1_40d3k")]
+script = ExtResource("1_orte7")

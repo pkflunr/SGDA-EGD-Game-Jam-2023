@@ -1,14 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5ch12exhgrj1"]
+[gd_scene load_steps=3 format=3 uid="uid://clj4a2gycqotp"]
 
-[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="1_cs701"]
+[ext_resource type="Script" path="res://Scenes/Enemy/stingerEnemy.gd" id="1_0q7ta"]
+[ext_resource type="PackedScene" uid="uid://golqkkh4yjrg" path="res://Scenes/Enemy/enemyBase.tscn" id="1_n261b"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_woftc"]
-radius = 64.0
+[node name="stingerEnemy" groups=["enemy"] instance=ExtResource("1_n261b")]
+script = ExtResource("1_0q7ta")
+orbit_distance = 200
+charging_friction = 0.003
+attack_move_speed = 80
 
-[node name="Node2D" type="CharacterBody2D"]
+[node name="StingTargettedWait" type="Timer" parent="." index="5"]
+wait_time = 3.0
+one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_woftc")
+[node name="StingCharge" type="Timer" parent="." index="6"]
+one_shot = true
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_cs701")
+[node name="StingDuration" type="Timer" parent="." index="7"]
+wait_time = 0.2
+one_shot = true
+
+[node name="StingCooldown" type="Timer" parent="." index="8"]
+wait_time = 2.0
+one_shot = true
+
+[node name="DeathParticle" parent="." index="10"]
+lifetime = 3.0
+
+[node name="DeathLength" parent="." index="11"]
+wait_time = 3.0
+
+[node name="DeathAfterSting" type="Timer" parent="." index="13"]
+wait_time = 4.0
+
+[node name="DeathDmgAnimationDelay" type="Timer" parent="." index="14"]
+wait_time = 0.75
+
+[connection signal="body_entered" from="enemyArea" to="." method="_on_enemy_area_body_entered"]
+[connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]
+[connection signal="timeout" from="StingCharge" to="." method="_on_sting_charge_timeout"]
+[connection signal="timeout" from="StingDuration" to="." method="_on_sting_duration_timeout"]
+[connection signal="timeout" from="StingCooldown" to="." method="_on_sting_cooldown_timeout"]
+[connection signal="timeout" from="DeathAfterSting" to="." method="_on_death_after_sting_timeout"]
+[connection signal="timeout" from="DeathDmgAnimationDelay" to="." method="_on_death_dmg_animation_delay_timeout"]

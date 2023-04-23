@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmwgla8ljvh0u"]
+
+[ext_resource type="PackedScene" uid="uid://dkd2axcsqnhlx" path="res://Scenes/Level/Room/room_layout_3.tscn" id="1_3hhj3"]
+[ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="2_3sqjj"]
+[ext_resource type="PackedScene" uid="uid://clj4a2gycqotp" path="res://Scenes/Enemy/stingerEnemy.tscn" id="3_mhbkd"]
+
+[node name="Room" instance=ExtResource("1_3hhj3")]
+
+[node name="BeeBall" parent="." index="2" instance=ExtResource("2_3sqjj")]
+position = Vector2(1056, 896)
+
+[node name="stingerEnemy" parent="." index="3" instance=ExtResource("3_mhbkd")]
+position = Vector2(736, 928)

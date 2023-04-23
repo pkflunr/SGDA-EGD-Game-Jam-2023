@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu5bikx8rn1wp"]
+
+[ext_resource type="PackedScene" uid="uid://fxrv27sj8s4i" path="res://Scenes/Objects/shooter.tscn" id="1_aeqhk"]
+[ext_resource type="Script" path="res://Scenes/Objects/playerLobShooter.gd" id="2_wsicq"]
+
+[node name="lobShooter" instance=ExtResource("1_aeqhk")]
+script = ExtResource("2_wsicq")
+cooldown = 0.5

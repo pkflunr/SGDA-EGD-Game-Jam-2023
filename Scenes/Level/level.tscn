@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://didlftgnrhin0"]
+
+[ext_resource type="Script" path="res://Scenes/Level/level.gd" id="1_fo0ho"]
+[ext_resource type="PackedScene" uid="uid://coj4n8nbphcla" path="res://Scenes/Player/player.tscn" id="2_4h1qh"]
+[ext_resource type="PackedScene" uid="uid://y8qtdlafb0m1" path="res://Scenes/Enemy/enemy_bee_ball.tscn" id="3_0fpns"]
+[ext_resource type="PackedScene" path="res://Scenes/Level/end_goal.tscn" id="4_uwgjj"]
+[ext_resource type="Texture2D" uid="uid://d27tajd16lg34" path="res://Sprites/Jam_BG.png" id="5_07x78"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_fo0ho")
+room_grid_dimensions = Vector2i(5, 5)
+
+[node name="Player" parent="." instance=ExtResource("2_4h1qh")]
+position = Vector2(219, 181)
+
+[node name="EndGoal" parent="." instance=ExtResource("4_uwgjj")]
+position = Vector2(-100, -100)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.107, 0.17)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("5_07x78")
+centered = false
+
+[node name="BeeBall" parent="." instance=ExtResource("3_0fpns")]
+position = Vector2(4000, 1216)

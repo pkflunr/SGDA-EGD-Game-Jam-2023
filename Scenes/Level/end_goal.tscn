@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dry5jnluo4sva"]
+
+[ext_resource type="Script" path="res://Scenes/Level/end_goal.gd" id="1_grps4"]
+[ext_resource type="Texture2D" uid="uid://ctx2arrk0qyk8" path="res://Sprites/Queen_1.png" id="2_pumq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hf0so"]
+size = Vector2(160, 160)
+
+[node name="EndGoal" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_grps4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hf0so")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_pumq5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
