@@ -9,6 +9,7 @@ var fading = false
 func _ready():
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()
+	$Sprite2D.rotation = direction.angle()
 
 func _physics_process(delta):
 	if !fading and $Lifetime.time_left < 0.25 :

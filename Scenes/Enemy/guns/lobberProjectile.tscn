@@ -6,4 +6,8 @@
 [node name="lobberProjectile" instance=ExtResource("1_gxyaf")]
 script = ExtResource("2_btrup")
 projectile_lifetime = 0.75
-max_speed = 2000
+damage = 10
+fall_accel = 1800
+bullet = ExtResource("1_gxyaf")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

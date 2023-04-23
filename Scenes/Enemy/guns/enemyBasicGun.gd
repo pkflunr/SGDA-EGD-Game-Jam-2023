@@ -12,10 +12,11 @@ func _ready():
 func _physics_process(delta):
 	pass
 
-func fire(directionTarget : Vector2) -> bool:
+func fire(targetVector : Vector2) -> bool:
+	#too lazy to quadratic equation my life away so woo I have some dumb approximations here
 	if(!cooldown_timer.time_left):
 		var b = bullet.instantiate()
-		b.direction = directionTarget.normalized()
+		b.direction = targetVector.normalized()
 		b.position = get_node("..").position
 		get_tree().get_root().add_child(b)
 		cooldown_timer.start()

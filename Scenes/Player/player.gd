@@ -117,3 +117,7 @@ func _on_dash_hurtbox_body_entered(body):
 			set_health(body.health_when_possessed)
 		else:
 			die()
+
+func damage(damage) :
+	health -= damage
+	$AnimationPlayer.play("damage flash")
