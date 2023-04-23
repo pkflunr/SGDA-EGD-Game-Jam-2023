@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgv3gi17ssm2c"]
+
+[ext_resource type="PackedScene" uid="uid://dkd2axcsqnhlx" path="res://Scenes/Level/Room/room_layout_3.tscn" id="1_81w7c"]
+[ext_resource type="PackedScene" uid="uid://djn5lkbik71o2" path="res://Scenes/Enemy/burstShooterEnemy.tscn" id="2_s8wfv"]
+
+[node name="Room" instance=ExtResource("1_81w7c")]
+
+[node name="burstShooterEnemy" parent="." index="2" instance=ExtResource("2_s8wfv")]
+position = Vector2(896, 896)
