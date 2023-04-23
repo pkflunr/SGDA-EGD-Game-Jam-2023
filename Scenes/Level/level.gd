@@ -4,6 +4,7 @@ enum {TOP,BOTTOM,LEFT,RIGHT}
 
 @export var room_grid_dimensions:Vector2i
 @export var room_size = 1792 # assumes rooms are square
+@onready var parallax_background = $ParallaxBackground
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,20 +14,31 @@ func _ready():
 	
 	$Player.camera_2d.limit_right = room_size * room_grid_dimensions.x
 	$Player.camera_2d.limit_bottom = room_size * room_grid_dimensions.y
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	parallax_background.scroll_offset = -$Player.position
+
 
 func generate_level():
 	# temp:
 	# for now we're just making a list of 25 dummy rooms
 	# in the future we should make this a randomized rist of actual rooms
-	var room_scene = preload("res://Scenes/Level/dummy_room2.tscn")
-	var room_array = []
+	var room_scene = preload("res://Scenes/Level/room_layout_2.tscn")
+	var room_array2 = []
 	for x in range(room_grid_dimensions.x * room_grid_dimensions.y):
-		room_array.append(room_scene.instantiate())
+		room_array2.append(room_scene.instantiate())
+	
+	var room_array = []
+	for x in range(5):
+		room_array.append(preload("res://Scenes/Level/room_layout_1.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/room_layout_2.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/room_layout_3.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/room_layout_4.tscn").instantiate())
+		room_array.append(preload("res://Scenes/Level/battle_room_layout.tscn").instantiate())
+	
+	room_array.shuffle()
 	
 	var placed_room_array:Array[Array] = []
 	# place the rooms as needed
@@ -110,9 +122,27 @@ func generate_level():
 			last_visited_pos = neighbor
 		wall_list.erase(random_wall)
 		
+	# place player and spawn room
 	placed_room_array[initial_node.x][initial_node.y].marked = true
+	# remove old room
+	placed_room_array[initial_node.x][initial_node.y].queue_free()
+	# replace with new room
+	var spawn_room = preload("res://Scenes/Level/spawn_room.tscn").instantiate()
+	spawn_room.position = Vector2(room_size * initial_node.y,room_size * initial_node.x)
+	add_child(spawn_room)
+	placed_room_array[initial_node.x][initial_node.y] = spawn_room
 	$Player.position = placed_room_array[initial_node.x][initial_node.y].global_position + Vector2(room_size/2,room_size/2)
+	
+	
+	# place end goal and end goal room
 	placed_room_array[last_visited_pos.x][last_visited_pos.y].marked = true
+	# remove old room
+	placed_room_array[last_visited_pos.x][last_visited_pos.y].queue_free()
+	# replace with new room
+	var queen_room = preload("res://Scenes/Level/queen_room.tscn").instantiate()
+	queen_room.position = Vector2(room_size * last_visited_pos.y,room_size * last_visited_pos.x)
+	add_child(queen_room)
+	placed_room_array[last_visited_pos.x][last_visited_pos.y] = queen_room
 	$EndGoal.position = placed_room_array[last_visited_pos.x][last_visited_pos.y].global_position + Vector2(room_size/2,room_size/2)
 	print(str(placed_walls))
 	print(str(placed_walls.size()))
@@ -142,4 +172,3 @@ func generate_level():
 	for x in range(room_grid_dimensions.x):
 		placed_room_array[x][0].active_walls = placed_room_array[x][0].active_walls | (1 << LEFT)
 		placed_room_array[x][room_grid_dimensions.y-1].active_walls = placed_room_array[x][room_grid_dimensions.y-1].active_walls | (1 << RIGHT)
-

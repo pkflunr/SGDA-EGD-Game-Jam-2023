@@ -20,19 +20,24 @@ var player_can_input = true
 # player
 var health = 2000
 var drain_rate = DEFAULT_DRAIN
+var input_x
+var input_y
+var pause_cooldown = false # so fucking tired of htis shit
 
 # dash
 
 
 @onready var debug_label = $CanvasLayer/Label
-@onready var camera_2d = $Camera2D
+@onready var camera_2d = $Marker2D/Camera2D
 @onready var dash_hurtbox = $DashHurtbox
 @onready var dash_hurtbox_shape = $DashHurtbox/CollisionShape2D
+@onready var sprite = $Sprite
+@onready var after_images = load("res://Scenes/Player/after_images.tscn")
 
 func _physics_process(delta):
 	# Movement stuff
-	var input_x = Input.get_axis("player_left", "player_right")
-	var input_y = Input.get_axis("player_up", "player_down")
+	input_x = Input.get_axis("player_left", "player_right")
+	input_y = Input.get_axis("player_up", "player_down")
 
 	if player_can_input:
 		if input_x != 0: # horizontal movement
@@ -52,12 +57,10 @@ func _physics_process(delta):
 		# this is VERY temporary
 		if Input.is_action_pressed("player_left"):
 			direction = -1
-			$Sprite.scale.x = -0.688
-			$DeathParticle.scale.x = -1
+			sprite.flip_h = true
 		if Input.is_action_pressed("player_right"):
 			direction = 1
-			$Sprite.scale.x = 0.688
-			$DeathParticle.scale.x = 1
+			sprite.flip_h = false
 		
 		if Input.is_action_just_pressed("charge"):
 			initiate_dash()
@@ -73,13 +76,21 @@ func _physics_process(delta):
 func initiate_dash():
 	player_can_input = false
 	velocity = Vector2.ZERO
-	$AnimationPlayer.play("charge")
+	$AnimationPlayer.play("charge_up")
 
 func dash():
 	print("dashing")
 	$DashTimer.start()
 	velocity.x = 2000 * direction
 	dash_hurtbox_shape.disabled = false
+	
+	var aft = after_images.instantiate()
+	aft.position = self.position
+	aft.get_node("Sprite").frame = sprite.frame
+	aft.get_node("Sprite").flip_h = sprite.flip_h
+	get_parent().add_child(aft)
+	$AfterImageTimer.start()
+	
 
 func hurt(damage_value : int, hurt_type := "enemy"):
 	# take a set amount of damage
@@ -94,7 +105,7 @@ func set_health(health_value:int):
 	health = health_value
 
 func die(): # the bee is dead
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/UI/main_menu.tscn")
 
 func _on_drain_timer_timeout():
 	# Health drain timer
@@ -119,3 +130,23 @@ func _on_dash_hurtbox_body_entered(body):
 			set_health(body.health_when_possessed)
 		else:
 			die()
+
+func _unhandled_input(event):
+	if Input.is_action_just_released("pause") and !pause_cooldown:
+		$PauseCooldown.start()
+		pause_cooldown = true
+		PauseMenu.set_paused(true)
+
+
+func _on_pause_cooldown_timeout():
+	pause_cooldown = false
+
+
+func _on_after_image_timer_timeout():
+	var aft = after_images.instantiate()
+	aft.position = self.position
+	aft.get_node("Sprite").frame = sprite.frame
+	aft.get_node("Sprite").flip_h = sprite.flip_h
+	get_parent().add_child(aft)
+	if !player_can_input:
+		$AfterImageTimer.start()
