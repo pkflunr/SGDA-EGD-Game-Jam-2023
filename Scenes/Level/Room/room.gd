@@ -28,9 +28,11 @@ func _ready():
 				remove_child(child)
 				child.position = new_pos
 				get_parent().add_child(child)
+				
+				enemies_in_room.append(child)
 		if room_area != null:
 			for body in room_area.get_overlapping_bodies():
-				if body.is_in_group("enemy"):
+				if body.is_in_group("enemy") and not enemies_in_room.has(body):
 					enemies_in_room.append(body)
 
 func _process(delta):
@@ -71,3 +73,8 @@ func _on_room_area_body_entered(body):
 		if not enemies_in_room.has(body):
 			print("room made a friend")
 			enemies_in_room.append(body)
+
+func remove():
+	for enemy in enemies_in_room:
+		enemy.queue_free()
+	queue_free()
