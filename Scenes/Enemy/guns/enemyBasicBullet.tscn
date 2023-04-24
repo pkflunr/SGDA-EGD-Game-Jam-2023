@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://lmk0nd0bi04g"]
+[gd_scene load_steps=11 format=3 uid="uid://lmk0nd0bi04g"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/guns/enemyBasicBullet.gd" id="1_7bf7o"]
-[ext_resource type="Texture2D" uid="uid://cqd2f3faoh4il" path="res://Sprites/Honey_shot.png" id="2_gmtke"]
-[ext_resource type="Texture2D" uid="uid://cco73cjgw6dtj" path="res://Sprites/Honey_impact.png" id="3_qh8ri"]
+[ext_resource type="Texture2D" uid="uid://cfxd3dqakmi7s" path="res://Sprites/Honey_shot.png" id="2_gmtke"]
+[ext_resource type="Texture2D" uid="uid://cdjx2eq5xdq6w" path="res://Sprites/Honey_impact.png" id="3_qh8ri"]
+[ext_resource type="AudioStream" uid="uid://dy610hqha2cc7" path="res://Sound/SFX/Enemy Shot.wav" id="4_p6un1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
 size = Vector2(32, 14)
@@ -103,6 +104,12 @@ root_node = NodePath("../AnimationPlayer")
 libraries = {
 "": SubResource("AnimationLibrary_f4nn6")
 }
+
+[node name="Shot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_p6un1")
+
+[node name="Shot2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_p6un1")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

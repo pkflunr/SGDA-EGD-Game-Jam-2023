@@ -80,11 +80,13 @@ func _physics_process(delta):
 	debug_label.set_text("Speed: (%f, %f)\nDirection: %d\nHealth: %d\nDrain Rate: %d/sec" % [velocity.x, velocity.y, direction, health, drain_rate])
 
 func initiate_dash():
+	$Sounds/ChargeFX.play()
 	player_can_input = false
 	velocity = Vector2.ZERO
 	animation_player.play("charge_up")
 
 func dash():
+	$Sounds/DashFX.play()
 	print("dashing")
 	$DashTimer.start()
 	velocity.x = 2000 * direction
@@ -155,6 +157,7 @@ func _on_dash_hurtbox_body_entered(body):
 			if "take_over_gun" in body:
 				switch_gun(body.take_over_gun)
 			Globals.enemies_captured += 1
+			$Sounds/TakeoverFX.play()
 		else:
 			die()
 

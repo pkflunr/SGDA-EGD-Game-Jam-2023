@@ -7,6 +7,7 @@ var direction = Vector2(1, 0)
 var fading = false
 
 func _ready():
+	$Shot.play()
 	$"splat sprite".modulate.a = 0
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()

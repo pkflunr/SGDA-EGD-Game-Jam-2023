@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://coj4n8nbphcla"]
+[gd_scene load_steps=28 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
 [ext_resource type="Texture2D" uid="uid://d3wnsls16oswt" path="res://Sprites/transform.png" id="3_d74t0"]
@@ -7,7 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://da3t8mtkbuquc" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
 [ext_resource type="Texture2D" uid="uid://cnv6fufnjwlt3" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_jhcpn"]
+[ext_resource type="AudioStream" uid="uid://b26s8v7bb8xci" path="res://Sound/SFX/Dash.wav" id="6_y7f7a"]
 [ext_resource type="Texture2D" uid="uid://cslks5yh0td3l" path="res://Sprites/Zombee.png" id="7_pmds4"]
+[ext_resource type="AudioStream" uid="uid://d6ye6ltsg3ga" path="res://Sound/SFX/Charge up.wav" id="10_185n1"]
+[ext_resource type="AudioStream" uid="uid://bmcv1ax6hc5g4" path="res://Sound/SFX/Takeover.wav" id="11_phiby"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 29.0
@@ -16,7 +19,6 @@ height = 68.0
 [sub_resource type="Animation" id="Animation_fh71p"]
 resource_name = "charge"
 length = 0.4
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -270,7 +272,6 @@ visible = false
 scale = Vector2(2, 2)
 texture = ExtResource("3_d74t0")
 hframes = 5
-frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
@@ -351,6 +352,17 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_g6kf8")
 }
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="DashFX" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_y7f7a")
+
+[node name="ChargeFX" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("10_185n1")
+
+[node name="TakeoverFX" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("11_phiby")
 
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]

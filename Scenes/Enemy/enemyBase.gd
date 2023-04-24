@@ -127,6 +127,7 @@ func die():
 
 func damage(damage):
 	health -= damage
+	$HurtSound.play()
 	if !is_vulnerable:
 		if health < vulnerability_threshold:
 			$AnimationPlayer.play("vulnerability flashing")

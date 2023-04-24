@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var bullet_splat = preload("res://Scenes/Objects/bullet_splat.tscn")
+@onready var splat_sound = load("res://Sound/SFX/BulletExp.wav")
 
 @export var speed = 1000
 @export var projectile_lifetime = 1.5
@@ -9,6 +10,7 @@ var direction = Vector2(1, 0)
 var fading = false
 
 func _ready():
+	$AudioStreamPlayer2D.play()
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()
 
@@ -27,6 +29,11 @@ func _on_body_entered(body):
 			body.damage(damage)
 		else :
 			body.health -= damage
+	else:
+		var splat = AudioStreamPlayer.new()
+		splat.set_stream(splat_sound)
+		get_parent().add_child(splat)
+		splat.play()
 	splat()
 	queue_free()
 

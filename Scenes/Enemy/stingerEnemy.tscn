@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://clj4a2gycqotp"]
+[gd_scene load_steps=5 format=3 uid="uid://clj4a2gycqotp"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/stingerEnemy.gd" id="1_0q7ta"]
 [ext_resource type="PackedScene" uid="uid://golqkkh4yjrg" path="res://Scenes/Enemy/enemyBase.tscn" id="1_n261b"]
+[ext_resource type="AudioStream" uid="uid://bmbdhp1vdjyn7" path="res://Sound/SFX/Enemy charge.wav" id="3_uq20q"]
+[ext_resource type="AudioStream" uid="uid://dsqu4h3rxytsx" path="res://Sound/SFX/Enemy Dash.wav" id="4_gwcdp"]
 
 [node name="stingerEnemy" groups=["enemy"] instance=ExtResource("1_n261b")]
 script = ExtResource("1_0q7ta")
@@ -40,6 +42,14 @@ wait_time = 4.0
 wait_time = 0.75
 
 [node name="stinging sprite" type="Sprite2D" parent="." index="16"]
+
+[node name="Sounds" type="Node" parent="." index="17"]
+
+[node name="Charge" type="AudioStreamPlayer" parent="Sounds" index="0"]
+stream = ExtResource("3_uq20q")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Sounds" index="1"]
+stream = ExtResource("4_gwcdp")
 
 [connection signal="body_entered" from="enemyArea" to="." method="_on_enemy_area_body_entered"]
 [connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]

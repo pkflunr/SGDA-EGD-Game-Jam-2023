@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm4rf6dfamgsd"]
+[gd_scene load_steps=8 format=3 uid="uid://bm4rf6dfamgsd"]
 
 [ext_resource type="Script" path="res://Scenes/Objects/bullet.gd" id="1_nb6cv"]
-[ext_resource type="Texture2D" uid="uid://cpicawkky68cq" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
+[ext_resource type="Texture2D" uid="uid://dqsjoywmiec1n" path="res://Sprites/Zombee_shot.png" id="2_6oq22"]
+[ext_resource type="AudioStream" uid="uid://jmwvhoyb1a1e" path="res://Sound/SFX/Player Shot.wav" id="3_xgdjk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
 size = Vector2(35, 17)
@@ -72,6 +73,9 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_twdyv")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_xgdjk")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

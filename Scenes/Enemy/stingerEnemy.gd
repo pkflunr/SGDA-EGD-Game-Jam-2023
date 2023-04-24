@@ -62,6 +62,7 @@ func orbit_player(delta):
 func charge_sting(delta):
 	shake_violent(($StingCharge.wait_time - $StingCharge.time_left) * 8 / $StingCharge.wait_time)
 	if ($StingCharge.is_stopped()):
+		$Sounds/Charge.play()
 		$StingCharge.start()
 	slow_down(delta, charging_friction)
 	
@@ -71,6 +72,7 @@ func charge_sting(delta):
 
 func attack(delta):
 	if $StingDuration.is_stopped() :
+		$Sounds/Dash.play()
 		$StingDuration.start()
 	slow_down(delta, attack_speed_decay)
 	move()
