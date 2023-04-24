@@ -13,7 +13,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$TimeNode/TimeContainer/TimeLabelBox/TimerLabel.set_text("%d" % player.health)
-	$lowHPVignette/CanvasLayer/ColorRect.modulate.a = clamp(-(player.health - 25) / 15, 0, 1)
+	$lowHPVignette/CanvasLayer/ColorRect.modulate.a = clampf(-(player.health - 30) / 15.0, 0, 1)
 	if Globals.speedrun_timer:
 		$SpeedrunTimer.set_text("%s" % Globals.convert_time(Globals.global_timer))
 #		print("update global timer to " + Globals.convert_time(Globals.global_timer))

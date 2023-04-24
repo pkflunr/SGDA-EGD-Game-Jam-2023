@@ -9,6 +9,9 @@ orbit_distance = 200
 charging_friction = 0.003
 attack_move_speed = 80
 
+[node name="Icon" parent="." index="3"]
+frame = 6
+
 [node name="StingTargettedWait" type="Timer" parent="." index="5"]
 wait_time = 3.0
 one_shot = true
@@ -36,6 +39,8 @@ wait_time = 4.0
 [node name="DeathDmgAnimationDelay" type="Timer" parent="." index="14"]
 wait_time = 0.75
 
+[node name="stinging sprite" type="Sprite2D" parent="." index="16"]
+
 [connection signal="body_entered" from="enemyArea" to="." method="_on_enemy_area_body_entered"]
 [connection signal="timeout" from="StingTargettedWait" to="." method="_on_sting_targetted_wait_timeout"]
 [connection signal="timeout" from="StingCharge" to="." method="_on_sting_charge_timeout"]
@@ -43,3 +48,4 @@ wait_time = 0.75
 [connection signal="timeout" from="StingCooldown" to="." method="_on_sting_cooldown_timeout"]
 [connection signal="timeout" from="DeathAfterSting" to="." method="_on_death_after_sting_timeout"]
 [connection signal="timeout" from="DeathDmgAnimationDelay" to="." method="_on_death_dmg_animation_delay_timeout"]
+[connection signal="animation_finished" from="frames" to="." method="_on_frames_animation_finished"]

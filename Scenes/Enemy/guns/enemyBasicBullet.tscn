@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://lmk0nd0bi04g"]
+[gd_scene load_steps=10 format=3 uid="uid://lmk0nd0bi04g"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/guns/enemyBasicBullet.gd" id="1_7bf7o"]
-[ext_resource type="Texture2D" uid="uid://cwjcqt5okg18t" path="res://Sprites/icon.svg" id="2_qo1nf"]
+[ext_resource type="Texture2D" uid="uid://cqd2f3faoh4il" path="res://Sprites/Honey_shot.png" id="2_gmtke"]
+[ext_resource type="Texture2D" uid="uid://cco73cjgw6dtj" path="res://Sprites/Honey_impact.png" id="3_qh8ri"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yoe3d"]
-size = Vector2(32, 32)
+size = Vector2(32, 14)
 
 [sub_resource type="Animation" id="Animation_efpvq"]
 resource_name = "fade"
@@ -28,17 +29,64 @@ _data = {
 "fade": SubResource("Animation_efpvq")
 }
 
+[sub_resource type="Animation" id="Animation_544y6"]
+resource_name = "flying"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_dbwvg"]
+resource_name = "splat"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../splat sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f4nn6"]
+_data = {
+"flying": SubResource("Animation_544y6"),
+"splat": SubResource("Animation_dbwvg")
+}
+
 [node name="EnemyBasicBullet" type="Area2D"]
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_7bf7o")
 
+[node name="splat sprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("3_qh8ri")
+hframes = 4
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(8.88, 1.18, 0, 1)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_qo1nf")
+scale = Vector2(2, 2)
+texture = ExtResource("2_gmtke")
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 1)
 shape = SubResource("RectangleShape2D_yoe3d")
 
 [node name="Lifetime" type="Timer" parent="."]
@@ -50,5 +98,12 @@ libraries = {
 "": SubResource("AnimationLibrary_twdyv")
 }
 
+[node name="frames" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationPlayer")
+libraries = {
+"": SubResource("AnimationLibrary_f4nn6")
+}
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
+[connection signal="animation_finished" from="frames" to="." method="_on_frames_animation_finished"]

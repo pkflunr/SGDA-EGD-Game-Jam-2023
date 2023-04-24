@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4rexe0nh5yys"]
+[gd_scene load_steps=5 format=3 uid="uid://c4rexe0nh5yys"]
 
 [ext_resource type="PackedScene" uid="uid://b8orki06k0nqr" path="res://Scenes/Enemy/shooterBase.tscn" id="1_kgos3"]
 [ext_resource type="Script" path="res://Scenes/Enemy/shooterEnemy.gd" id="2_711ux"]
 [ext_resource type="PackedScene" uid="uid://cmowx6kvxh8mt" path="res://Scenes/Enemy/guns/enemyBasicGun.tscn" id="3_ciwcl"]
+[ext_resource type="Texture2D" uid="uid://1f1sitfu58eh" path="res://Sprites/temp_takeover_particle.png" id="4_7l542"]
 
 [node name="shooterEnemy" groups=["enemy"] instance=ExtResource("1_kgos3")]
 script = ExtResource("2_711ux")
@@ -11,3 +12,6 @@ script = ExtResource("2_711ux")
 
 [node name="AnimationPlayer" parent="." index="8"]
 libraries = {}
+
+[node name="DeathParticle" parent="." index="9"]
+texture = ExtResource("4_7l542")

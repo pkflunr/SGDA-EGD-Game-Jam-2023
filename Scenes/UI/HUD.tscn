@@ -21,6 +21,8 @@ _data = {
 layer = 0
 script = ExtResource("1_sr3ep")
 
+[node name="lowHPVignette" parent="." instance=ExtResource("4_0ig8q")]
+
 [node name="Emitter" type="Node2D" parent="."]
 z_index = 1
 position = Vector2(1244, 62)
