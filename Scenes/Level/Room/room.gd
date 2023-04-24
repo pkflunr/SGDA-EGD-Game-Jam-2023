@@ -10,12 +10,12 @@ var enemies_in_room:Array = []
 @export_flags("TOP","BOTTOM","LEFT","RIGHT") var active_walls = 0
 @export var marked = false
 
-const TILE_ID = 1
-const SLOPE_ID = 0
-const BOTTOM_LEFT_ID = 0
-const BOTTOM_RIGHT_ID = 1
+const TILE_ID = 2
+const SLOPE_ID = 3
+const BOTTOM_LEFT_ID = 1
+const BOTTOM_RIGHT_ID = 0
 const UPPER_RIGHT_ID = 3
-const UPPER_LEFT_ID = 4
+const UPPER_LEFT_ID = 2
 @onready var room_area = $RoomArea
 
 # Called when the node enters the scene tree for the first time.
@@ -38,25 +38,25 @@ func _ready():
 func _process(delta):
 	if (active_walls & (1 << TOP)):
 		for i in range(12,16):
-			tile_map.set_cell(0,Vector2i(i,0),1,Vector2i(0,0))
+			tile_map.set_cell(0,Vector2i(i,0),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			tile_map.set_cell(0,Vector2i(i,0))
 	if (active_walls & (1 << BOTTOM)):
 		for i in range(12,16):
-			tile_map.set_cell(0,Vector2i(i,27),1,Vector2i(0,0))
+			tile_map.set_cell(0,Vector2i(i,27),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			tile_map.set_cell(0,Vector2i(i,27))
 	if (active_walls & (1 << LEFT)):
 		for i in range(12,16):
-			tile_map.set_cell(0,Vector2i(0,i),1,Vector2i(0,0))
+			tile_map.set_cell(0,Vector2i(0,i),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			tile_map.set_cell(0,Vector2i(0,i))
 	if (active_walls & (1 << RIGHT)):
 		for i in range(12,16):
-			tile_map.set_cell(0,Vector2i(27,i),1,Vector2i(0,0))
+			tile_map.set_cell(0,Vector2i(27,i),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			tile_map.set_cell(0,Vector2i(27,i))
