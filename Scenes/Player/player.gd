@@ -150,7 +150,7 @@ func _on_dash_hurtbox_body_entered(body):
 			$DeathParticle.emitting = true
 			position = body.position
 			body.queue_free()
-			animation_player.play("possess")
+			$AnimationPlayer2.play("takeover")
 			set_health(body.health_when_possessed)
 			if "take_over_gun" in body:
 				switch_gun(body.take_over_gun)

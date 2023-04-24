@@ -1,12 +1,13 @@
-[gd_scene load_steps=22 format=3 uid="uid://coj4n8nbphcla"]
+[gd_scene load_steps=25 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
+[ext_resource type="Texture2D" uid="uid://ciij1debtigx7" path="res://Sprites/transform.png" id="3_d74t0"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
 [ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
-[ext_resource type="Texture2D" uid="uid://g7qjc1dyi0y6" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
+[ext_resource type="Texture2D" uid="uid://clfd7k8mj5aa1" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
-[ext_resource type="Texture2D" uid="uid://uxns74ph4b3d" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_jhcpn"]
-[ext_resource type="Texture2D" uid="uid://6rljtap7mxxe" path="res://Sprites/Zombee.png" id="7_pmds4"]
+[ext_resource type="Texture2D" uid="uid://bsm13q2bre22s" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_jhcpn"]
+[ext_resource type="Texture2D" uid="uid://ds6cgn3rnuo6u" path="res://Sprites/Zombee.png" id="7_pmds4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 29.0
@@ -194,6 +195,65 @@ color_ramp = SubResource("GradientTexture1D_r0xgw")
 turbulence_noise_strength = 8.0
 turbulence_influence_over_life = SubResource("CurveTexture_6xkj5")
 
+[sub_resource type="Animation" id="Animation_3f61i"]
+resource_name = "takeover"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TakeoverSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TakeoverSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 4, 3, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["idle", -1, 1.0, false],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g6kf8"]
+_data = {
+"takeover": SubResource("Animation_3f61i")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 slide_on_ceiling = false
@@ -203,7 +263,14 @@ script = ExtResource("1_nx8vt")
 scale = Vector2(2, 2)
 texture = ExtResource("7_pmds4")
 hframes = 13
-frame = 7
+frame = 9
+
+[node name="TakeoverSprite" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("3_d74t0")
+hframes = 5
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
@@ -277,8 +344,13 @@ wait_time = 0.2
 one_shot = true
 
 [node name="AfterImageTimer" type="Timer" parent="."]
-wait_time = 0.02
+wait_time = 0.05
 one_shot = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g6kf8")
+}
 
 [connection signal="player_hurt" from="." to="." method="_on_player_hurt"]
 [connection signal="timeout" from="DrainTimer" to="." method="_on_drain_timer_timeout"]
