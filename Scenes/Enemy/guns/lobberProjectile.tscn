@@ -1,12 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bv4lpevcellkd"]
+[gd_scene load_steps=4 format=3 uid="uid://bv4lpevcellkd"]
 
 [ext_resource type="PackedScene" uid="uid://lmk0nd0bi04g" path="res://Scenes/Enemy/guns/enemyBasicBullet.tscn" id="1_gxyaf"]
 [ext_resource type="Script" path="res://Scenes/Enemy/guns/lobberProjectile.gd" id="2_btrup"]
+[ext_resource type="Texture2D" uid="uid://dktd3aantsjvo" path="res://Sprites/Lobber_bullet.png" id="3_057sq"]
 
 [node name="lobberProjectile" instance=ExtResource("1_gxyaf")]
 script = ExtResource("2_btrup")
 projectile_lifetime = 0.75
 fall_accel = 1800
 bullet = ExtResource("1_gxyaf")
+
+[node name="Sprite2D" parent="." index="1"]
+modulate = Color(8.87843, 1.18039, 0, 0)
+texture = ExtResource("3_057sq")
+hframes = 8
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

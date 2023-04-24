@@ -11,6 +11,7 @@ var fading = false
 func _ready():
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()
+	$frame.play("flying")
 
 func _physics_process(delta):
 	if !fading and $Lifetime.time_left < 0.25 :

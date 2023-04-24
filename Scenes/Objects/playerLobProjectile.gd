@@ -10,6 +10,7 @@ var direction : Vector2 = Vector2.RIGHT
 var fading = false
 
 func _ready():
+	$scuff.play("flying")
 	$Lifetime.wait_time = projectile_lifetime
 	$Lifetime.start()
 
@@ -51,7 +52,7 @@ func explode(numberOfShots): # shoots a bunch of bullets in a circl
 		# this angle will be used to rotate a number of things. it'll make a pretty circle
 		var rotationAngle = Vector2.from_angle(PI * 2 / numberOfShots * n + angle_offset)
 		# rotate the bullet's travel direction
-		
+		newBullet.rotation = rotationAngle.angle()
 		newBullet.position = position + rotationAngle * 20 # prevents you from eating up all of the bullets
 		
 		newBullet.direction = rotationAngle

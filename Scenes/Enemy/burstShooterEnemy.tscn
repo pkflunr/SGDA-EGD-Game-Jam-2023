@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://djn5lkbik71o2"]
+[gd_scene load_steps=3 format=3 uid="uid://djn5lkbik71o2"]
 
 [ext_resource type="PackedScene" uid="uid://c4rexe0nh5yys" path="res://Scenes/Enemy/shooterEnemy.tscn" id="1_40d3k"]
 [ext_resource type="Script" path="res://Scenes/Enemy/burstShooterEnemy.gd" id="1_orte7"]
-[ext_resource type="Texture2D" uid="uid://1f1sitfu58eh" path="res://Sprites/temp_takeover_particle.png" id="3_vp02j"]
 
 [node name="burstShooterEnemy" instance=ExtResource("1_40d3k")]
 script = ExtResource("1_orte7")
-
-[node name="DeathParticle" parent="." index="9"]
-texture = ExtResource("3_vp02j")
