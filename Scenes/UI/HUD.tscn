@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/HUD.gd" id="1_sr3ep"]
 [ext_resource type="Texture2D" uid="uid://bqkouqprnsun1" path="res://Sprites/bee_timer.png" id="1_vqc1i"]
-[ext_resource type="Theme" path="res://Scenes/UI/ui.tres" id="3_cjvpt"]
+[ext_resource type="Theme" uid="uid://dgghhrl4uo34l" path="res://Scenes/UI/ui.tres" id="3_cjvpt"]
 [ext_resource type="PackedScene" uid="uid://h2of5abi7bvc" path="res://Scenes/UI/lowHPVignette.tscn" id="4_0ig8q"]
 
 [sub_resource type="Animation" id="Animation_p0hl4"]
@@ -66,3 +66,17 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_qcmmc")
 }
+
+[node name="lowHPVignette" parent="." instance=ExtResource("4_0ig8q")]
+
+[node name="SpeedrunTimer" type="Label" parent="."]
+visible = false
+offset_left = 1093.0
+offset_top = 95.0
+offset_right = 1244.0
+offset_bottom = 157.0
+theme = ExtResource("3_cjvpt")
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 25
+text = "00'00\"000"
+vertical_alignment = 1

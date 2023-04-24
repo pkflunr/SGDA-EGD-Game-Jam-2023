@@ -12,7 +12,7 @@ func _process(delta):
 	if (active_walls & (1 << TOP)):
 		for i in range(12,16):
 			for j in range(0,12):
-				tile_map.set_cell(0,Vector2i(i,j),1,Vector2i(0,0))
+				tile_map.set_cell(0,Vector2i(i,j),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			for j in range(0,12):
@@ -20,7 +20,7 @@ func _process(delta):
 	if (active_walls & (1 << BOTTOM)):
 		for i in range(12,16):
 			for j in range(16,28):
-				tile_map.set_cell(0,Vector2i(i,j),1,Vector2i(0,0))
+				tile_map.set_cell(0,Vector2i(i,j),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			for j in range(16,28):
@@ -28,7 +28,7 @@ func _process(delta):
 	if (active_walls & (1 << LEFT)):
 		for i in range(12,16):
 			for j in range(0,12):
-				tile_map.set_cell(0,Vector2i(j,i),1,Vector2i(0,0))
+				tile_map.set_cell(0,Vector2i(j,i),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			for j in range(0,12):
@@ -36,7 +36,7 @@ func _process(delta):
 	if (active_walls & (1 << RIGHT)):
 		for i in range(12,16):
 			for j in range(16,28):
-				tile_map.set_cell(0,Vector2i(j,i),1,Vector2i(0,0))
+				tile_map.set_cell(0,Vector2i(j,i),TILE_ID,Vector2i(0,0))
 	else:
 		for i in range(12,16):
 			for j in range(16,28):
