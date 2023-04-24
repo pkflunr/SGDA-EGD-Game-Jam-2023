@@ -5,6 +5,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	if Globals.speedrun_timer:
 		$SpeedrunTimer.visible = true
 	pass # Replace with function body.
@@ -13,6 +14,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$TimeNode/TimeContainer/TimeLabelBox/TimerLabel.set_text("%d" % player.health)
+	print(clampf(-(player.health - 30) / 15.0, 0, 1))
 	$lowHPVignette/CanvasLayer/ColorRect.modulate.a = clampf(-(player.health - 30) / 15.0, 0, 1)
 	if Globals.speedrun_timer:
 		$SpeedrunTimer.set_text("%s" % Globals.convert_time(Globals.global_timer))
