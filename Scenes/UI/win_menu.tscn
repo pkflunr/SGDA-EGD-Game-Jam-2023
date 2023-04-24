@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ca3pdcb0c3vvb"]
+[gd_scene load_steps=4 format=3 uid="uid://ca3pdcb0c3vvb"]
 
 [ext_resource type="Script" path="res://Scenes/UI/win_menu.gd" id="1_ruxek"]
-[ext_resource type="Theme" uid="uid://dgghhrl4uo34l" path="res://Scenes/UI/ui.tres" id="2_i8gp7"]
+[ext_resource type="Texture2D" uid="uid://lfygegkrt5wi" path="res://Sprites/win.png" id="2_f0tt1"]
+[ext_resource type="Theme" uid="uid://bfw3jfeywv4ow" path="res://Scenes/UI/ui.tres" id="2_i8gp7"]
 
 [node name="WinMenu" type="Control"]
 layout_mode = 3
@@ -13,6 +14,9 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ruxek")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_f0tt1")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
@@ -75,5 +79,5 @@ text = "Back to Title"
 [node name="VSplitContainer" type="VSplitContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed_2"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://qbrp6ba4phcn"]
 
 [ext_resource type="Script" path="res://Scenes/Autoload/music_player.gd" id="1_4lpsj"]
-[ext_resource type="AudioStream" uid="uid://bcn7xajruk7bg" path="res://Sound/Bee Battle.ogg" id="1_r8xtk"]
-[ext_resource type="AudioStream" uid="uid://m2hqu6ox3fsf" path="res://Sound/Birth of a Zombee.ogg" id="2_lq8xq"]
+[ext_resource type="AudioStream" uid="uid://dgbgi70df0qca" path="res://Sound/Bee Battle.ogg" id="1_r8xtk"]
+[ext_resource type="AudioStream" uid="uid://cqxntywk1qlaj" path="res://Sound/Birth of a Zombee.ogg" id="2_lq8xq"]
 
 [node name="MusicPlayer" type="Node"]
 process_mode = 3

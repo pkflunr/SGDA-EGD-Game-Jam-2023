@@ -1,13 +1,13 @@
 [gd_scene load_steps=25 format=3 uid="uid://coj4n8nbphcla"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_nx8vt"]
-[ext_resource type="Texture2D" uid="uid://ciij1debtigx7" path="res://Sprites/transform.png" id="3_d74t0"]
+[ext_resource type="Texture2D" uid="uid://d3wnsls16oswt" path="res://Sprites/transform.png" id="3_d74t0"]
 [ext_resource type="PackedScene" path="res://Scenes/Objects/shooter.tscn" id="3_fkdis"]
 [ext_resource type="PackedScene" uid="uid://cs5tj6l1m1lcp" path="res://Scenes/UI/HUD.tscn" id="3_t1e74"]
-[ext_resource type="Texture2D" uid="uid://clfd7k8mj5aa1" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
+[ext_resource type="Texture2D" uid="uid://da3t8mtkbuquc" path="res://Sprites/less_temp_takeover_particle.png" id="5_lrh3m"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraFollower.gd" id="6_4620y"]
-[ext_resource type="Texture2D" uid="uid://bsm13q2bre22s" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_jhcpn"]
-[ext_resource type="Texture2D" uid="uid://ds6cgn3rnuo6u" path="res://Sprites/Zombee.png" id="7_pmds4"]
+[ext_resource type="Texture2D" uid="uid://cnv6fufnjwlt3" path="res://Sprites/less_temp_takeover_particle_but_flipped_the_other_way.png" id="6_jhcpn"]
+[ext_resource type="Texture2D" uid="uid://cslks5yh0td3l" path="res://Sprites/Zombee.png" id="7_pmds4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nrs8h"]
 radius = 29.0
