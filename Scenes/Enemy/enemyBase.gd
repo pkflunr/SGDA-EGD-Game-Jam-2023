@@ -29,6 +29,7 @@ var shakeDir : Vector2
 func _ready():
 	sprite = $Icon
 	idle_pos = position
+	$frames.play("idle")
 
 func idle(delta):
 	accelerate_in_dir(idle_pos - position, delta * 2)
@@ -88,15 +89,15 @@ func rotate_with_rot_vel(delta) :
 
 func look_at_player_horizontal():
 	if player.position.x > position.x :
-		sprite.scale.x = -1
+		sprite.scale.x = -2
 	else :
-		sprite.scale.x = 1
+		sprite.scale.x = 2
 
 func vertical_flip_look_up():
 	if (cos(sprite.rotation) < 0) :
-		sprite.scale.y = -1
+		sprite.scale.y = -2
 	else:
-		sprite.scale.y = 1
+		sprite.scale.y = 2
 
 func orient_self_gradual(delta):
 	if abs(Vector2.LEFT.angle_to(Vector2.from_angle(sprite.rotation))) < abs(Vector2.RIGHT.angle_to(Vector2.from_angle(sprite.rotation))) :

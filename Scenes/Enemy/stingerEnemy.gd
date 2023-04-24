@@ -113,11 +113,13 @@ func _on_sting_charge_timeout():
 
 func _on_sting_duration_timeout():
 	if curr_state == StingerEnemyStates.ATTACK :
+		$frames.play("flip back")
 		curr_state = StingerEnemyStates.COOLDOWN
 	$StingDuration.stop()
 
 func _on_sting_targetted_wait_timeout():
 	if (can_sting() and curr_state == StingerEnemyStates.ORBIT):
+		$frames.play("flip over")
 		curr_state = StingerEnemyStates.CHARGE_STING
 	$StingTargettedWait.stop()
 
@@ -142,5 +144,13 @@ func _on_enemy_area_body_entered(body):
 				$DeathAfterSting.start()
 				$DeathDmgAnimationDelay.start()
 				curr_state = StingerEnemyStates.HIT
+				$frames.play("flip back")
 			_:
 				player.hurt(5)
+
+
+func _on_frames_animation_finished(anim_name):
+	if anim_name == "flip over":
+		$frames.play("charge_sting_idle")
+	if anim_name == "flip back":
+		$frames.play("idle")
